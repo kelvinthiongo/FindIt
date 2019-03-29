@@ -1,0 +1,62 @@
+@extends('layouts.admin')
+@section('content')
+<body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        <a href="/"> <img src="{{asset('/img/logo.png')}}" alt=""> </a>
+      </div>
+      <!-- /.login-logo -->
+      <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="form-group has-feedback">
+                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required >
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+
+                        @if ($errors->has('email'))
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            {{ $errors->first('email') }}
+                            </div>
+
+                        @endif
+                    
+                </div>
+
+                <div class="form-group has-feedback">
+                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+
+                        @if ($errors->has('password'))
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            {{ $errors->first('password') }}
+                            </div>
+                        @endif
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div>
+                        <label>
+                            <input type="checkbox" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}>  Remember me
+                        </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+            </form>
+            <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a><br>
+      </div>
+                <!-- /.login-box-body -->
+             
+@endsection

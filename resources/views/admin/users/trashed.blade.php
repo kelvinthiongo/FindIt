@@ -46,7 +46,7 @@
                     
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->name }} @if(Auth::user()->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
+                            <td>{{ $user->name }} @if($user->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 {!! Form::open(['action' => ['UsersController@restore', $user->slug], 'method' => 'POST']) !!}

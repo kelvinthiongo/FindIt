@@ -46,7 +46,7 @@
                     
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->name }} @if(Auth::user()->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
+                            <td>{{ $user->name }} @if($user->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a href="{{ route('users.show', ['slug' => $user->slug]) }}" class="btn btn-xs btn-primary">View</a>

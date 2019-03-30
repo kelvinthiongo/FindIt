@@ -38,6 +38,22 @@
     </li>
     <!-- List End -->
 
+    <!-- List Start -->
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-list-ul"></i>
+        <span>Categories</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{ route('categories.create') }}"><i class="fa fa-user-plus"></i> Add Category</a></li>
+        <li><a href="/admin/categories"><i class="fa fa-eye"></i>View Categories</a></li>
+      </ul>
+    </li>
+    <!-- List End -->
+
 
     <!-- List Start -->
     <li class="treeview">

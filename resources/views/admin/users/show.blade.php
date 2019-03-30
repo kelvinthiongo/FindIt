@@ -11,10 +11,20 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                   <h1>
-                    {{ $user->name }}'s Profile
+                    {{ $user->name }}'s Profile 
+                    <div style="display:inline">
+                      @if($user->deleted_at != null) <small style="color:red">trashed! 
+                        {!! Form::open(['action' => ['UsersController@restore', $user->slug], 'method' => 'POST']) !!}
+                          @csrf
+                          <button class="btn btn-success @if(Auth::user()->type == 'supper' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif"><i class = "fa fa-undo"></i> Restore</button>
+                        {!! Form::close() !!}
+                      @endif  </small>
+                    </div>
+                   
                   </h1>
                   <ol class="breadcrumb">
-                    <li><a href="{{ route('users.index') }}"><i class="fa fa-dashboard"></i> Users</a></li>
+                  <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> Users</a></li>
                     <li><a href="{{ route('users.index') }}">Admins</a></li>
                     <li class="active">User profile</li>
                   </ol>

@@ -10,12 +10,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            {{ $user_type }}s
-            <small>List of available @if($user_type == 'Admin')admins @else users @endif</small>
+            {{ $status }} Items
+            <small>List of {{ $status }} Items</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">{{ $user_type }}s Details</li>
+            <li class="active">Items Details</li>
         </ol>
         </section>
 
@@ -28,7 +28,7 @@
 
             <div class="box">
                 <div class="box-header">
-                <h3 class="box-title">View all {{ $user_type }}s</h3>
+                <h3 class="box-title">View all {{ $status }} Items</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -36,25 +36,20 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>id/reg_no etc</th>
+                            <th>Category</th>
                             <th>View</th>
-                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
                     
-                    @foreach($users as $user)
+                    @foreach($items as $item)
                         <tr>
-                            <td>{{ $user->name }} @if($user->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $item->f_name . $item->s_name . $item->l_name }} @if($item->resolved != null) (<a href="{{ route('show_by_id', ['slug' => $item->resolved]) }}" style="color: blue">found</a>) @endif</td>
+                            <td>{{ $item->number }}</td>
+                            <td>{{ $item->category }}</td>
                             <td>
-                                <a href="{{ route('users.show', ['slug' => $user->slug]) }}" class="btn btn-xs btn-primary">View</a>
-                            </td>
-                            <td>
-                                <a href="{{ route('users.edit', ['slug' => $user->slug]) }}" class="btn btn-xs  btn-success @if(Auth::user()->type == 'supper' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif">
-                                    <i class = "fa fa-pencil"></i> 
-                                    Edit
-                                </a>
+                                <a href="{{ route('items.show', ['slug' => $item->slug]) }}" class="btn btn-xs btn-primary">View</a>
                             </td>
                         </tr>
                     @endforeach
@@ -64,9 +59,9 @@
                     <tfoot>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th>id/reg_no etc</th>
+                        <th>Category</th>
                         <th>View</th>
-                        <th>Edit</th>
                     </tr>
                     </tfoot>
                 </table>

@@ -20,16 +20,17 @@ class CreateItemsTable extends Migration
             $table->string('f_name');
             $table->string('s_name')->nullable();
             $table->string('l_name');
+            $table->string('slug')->default(str_slug(date('Y-m-d H:i:s')));
             $table->string('number');
-            $table->string('image');
+            $table->string('image')->default('uploads/items/image.png');
             $table->integer('user_id');
             $table->string('description')->nullable();
-            $table->string('status');
+            $table->string('status')->default('found');
             $table->string('place_found')->nullable();
             $table->string('place_to_get');
-            $table->date('lf_date'); //date lost or found
+            $table->date('lf_date')->default(date('Y-m-d H:i:s')); //date lost or found
             $table->integer('approved')->nullable(); // id for the admin who approved
-            $table->integer('found')->nullable();//id for the user who marked it as found
+            $table->integer('resolved')->nullable();//id for the user who marked it as found
             
             $table->timestamps();
         });

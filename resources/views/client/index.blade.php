@@ -1,6 +1,6 @@
 @extends('client.layouts.app')
 @section('content')
-<section class="subheader simple-search">
+  <section class="subheader simple-search">
     <div class="container">
       <h1>Lost a Personal Document? </h1>
       <p>Search here with the (national ID, Student ID, NHIF Card, etc) details.</p>
@@ -46,14 +46,12 @@
       </div><!-- end row -->
     </div><!-- end container -->
   </section>
-    
   <section class="module testimonials">
-  
     <div class="container">
       <div class="module-header">
-        <h2>Our <strong>Testimonials</strong></h2>
+        <h2>Our <strong>Success Stories</strong></h2>
         <img src="images/divider-white.png" alt="" />
-        <p>Morbi accumsan ipsum velit nam nec tellus a odiose tincidunt auctor a ornare odio sed non mauris vitae erat consequat auctor</p>
+        <p>Get to hear from those who have found help from FindIt</p>
       </div>
     </div>
   
@@ -65,25 +63,25 @@
     <div class="container">
       <div class="slider slider-testimonials">
         <div class="testimonial slide">
-          <h3>"Homely helped us sell our house with minimal effort. Their team was efficient and always there to help!"</h3>
+          <h3>"I Recently lost my National Id and upon searching for it here in FindIt, I was connected to my Guardian Angel who had found it for me and decided to keep it safe for me."</h3>
           <div class="testimonial-details">
             <img class="testimonial-img" src="images/testimonial-img.png" alt="" />
             <p class="testimonial-name"><strong>John Doe</strong></p>
-            <span class="testiomnial-title"><em>CEO at <a href="#">Rype Creative</a></em></span>
+            <span class="testiomnial-title"><em>Student at <a href="">JKUAT</a></em></span>
           </div>
         </div>
         <div class="testimonial slide">
-          <h3>"Homely helped us sell our house with minimal effort. Their team was efficient and always there to help! Homely helped us sell our house with minimal effort. Their team was efficient and always there to help!"</h3>
-          <div class="testimonial-details">
-            <img class="testimonial-img" src="images/testimonial-img.png" alt="" />
-            <p class="testimonial-name"><strong>John Doe</strong></p>
-            <span class="testiomnial-title"><em>CEO at <a href="#">Rype Creative</a></em></span>
-          </div>
+            <h3>"I Recently lost my National Id and upon searching for it here in FindIt, I was connected to my Guardian Angel who had found it for me and decided to keep it safe for me."</h3>
+            <div class="testimonial-details">
+              <img class="testimonial-img" src="images/testimonial-img.png" alt="" />
+              <p class="testimonial-name"><strong>John Doe</strong></p>
+              <span class="testiomnial-title"><em>Student at <a href="">JKUAT</a></em></span>
+            </div>
         </div>
       </div><!-- end slider -->
     </div><!-- end container -->
   </section>
-  <section class="module cta newsletter">
+  {{-- <section class="module cta newsletter">
     <div class="container">
       <div class="row">
           <div class="col-lg-7 col-md-7">
@@ -98,5 +96,5 @@
           </div>
       </div><!-- end row -->
     </div><!-- end container -->
-  </section>
+  </section> --}}
 @endsection

@@ -6,8 +6,8 @@
       <p>Search here with the (national ID, Student ID, NHIF Card, etc) details.</p>
       <p>Search based on the name, Numebr, where you lost the document or the date lost</p>
       <div>
-        <form class="simple-search-form">
-          <input type="text" placeholder="Name/Number/place lost/date lost(eg 30thJune)" />
+        <form action="{{ route('search_item') }}" method="get" class="simple-search-form">
+          <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" />
           <input type="submit" value="GO" />
         </form>
       </div>

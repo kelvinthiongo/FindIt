@@ -14,16 +14,11 @@
 Route::get('/welcome', function () {
     return view('welcome');
 });
-
-Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
-Route::get('/reviews', 'PagesController@reviews');
-Route::get('/portfolio','PagesController@port');
-Route::get('/contact','PagesController@contact');
-Route::get('/services','PagesController@services');
-Route::get('/web-design','PagesController@web_design');
-Route::get('/digital-marketing','PagesController@digital_marketing');
-Route::get('/graphics-design','PagesController@graphics_design');
+//client page Routes
+Route::get('/', 'PagesController@index')->name('landing');
+Route::get('/faq', 'PagesController@faq')->name('faq');
+Route::get('/terms', 'PagesController@terms')->name('terms');
+Route::get('/submit-query','PagesController@contact')->name('contact');
 
 //contact us
 Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@store']);

@@ -40,8 +40,8 @@
           <div class="clear"></div>
         </div>
         <div class="top-bar-right right">
-          <a href="login.html" class="top-bar-item"><i class="fa fa-sign-in icon"></i>Login</a>
-          <a href="register.html" class="top-bar-item"><i class="fa fa-user-plus icon"></i>Register</a>
+          <a href="/login" class="top-bar-item"><i class="fa fa-sign-in icon"></i>Login</a>
+          <a href="/register" class="top-bar-item"><i class="fa fa-user-plus icon"></i>Register</a>
           <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -54,26 +54,13 @@
     <div class="navbar-header">
 
       <div class="header-details">
-        <div class="header-item header-search left">
-          <table>
-              <tr>
-              <td><i class="fa fa-search"></i></td>
-              <td class="header-item-text">
-                <form class="search-form">
-                  <input type="text" placeholder="Search..." />
-                  <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-              </td>
-            </tr>
-          </table>
-        </div>
         <div class="header-item header-phone left">
           <table>
             <tr>
               <td><i class="fa fa-phone"></i></td>
               <td class="header-item-text">
-                Call us anytime<br/>
-                <span>(+200) 123 456 5665</span>
+                <a href="tel:">Call Support</a><br/>
+                <span>+254700 000 000</span>
               </td>
             </tr>
           </table>
@@ -83,8 +70,8 @@
             <tr>
               <td><i class="fa fa-envelope"></i></td>
               <td class="header-item-text">
-                Drop us a line<br/>
-                <span>hello@homely.com</span>
+                <a href="mailto:findit@24seven.co.ke">Email Support</a><br/>
+                <span>findit@24seven.co.ke</span>
               </td>
             </tr>
           </table>
@@ -92,7 +79,8 @@
         <div class="clear"></div>
       </div>
 
-      <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Homely" /></a>
+      <a class="navbar-brand" href="/"><h4><b>FindIt</b> </h4></a>
+      {{-- <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Homely" /></a> --}}
 
       <!-- nav toggle -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -109,85 +97,14 @@
         <div class="container-fixed">
 
         <div class="member-actions right">
-          <a href="user-submit-property.html" class="button small alt button-icon"><i class="fa fa-plus"></i>Submit Property</a>
+          <a href="user-submit-property.html" class="button small alt button-icon"><i class="fa fa-upload"></i>Upload Found Document</a>
         </div>
         <ul class="nav navbar-nav right">
-          <li class="menu-item-has-children current-menu-item">
-            <a href="index.html">Home</a>
-            <ul class="sub-menu">
-              <li><a href="index.html">Simple Search</a></li>
-              <li><a href="index-slider-1.html">Slider Style 1</a></li>
-              <li><a href="index-slider-2.html">Slider Style 2</a></li>
-			  <li><a href="index-slider-3.html">Slider Style 3</a></li>
-              <li><a href="index-map.html">Google Maps Style 1</a></li>
-              <li><a href="index-map-horizontal.html">Google Maps Style 2</a></li>
-              <li class="menu-item-has-children">
-                <a href="index.html">Headers</a>
-                <ul class="sub-menu">
-                  <li><a href="index.html">Header Default</a></li>
-                  <li><a href="index-header-classic.html">Header Classic</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class="menu-item-has-children">
-            <a href="property-listing-grid.html">Properties</a>
-            <ul class="sub-menu">
-              <li><a href="property-listing-grid.html">Listing Grid</a></li>
-              <li><a href="property-listing-grid-sidebar.html">Listing Grid Sidebar</a></li>
-              <li><a href="property-listing-row.html">Listing Row</a></li>
-              <li><a href="property-listing-row-sidebar.html">Listing Row Sidebar</a></li>
-              <li><a href="property-listing-map.html">Listing Map</a></li>
-              <li class="menu-item-has-children">
-                <a href="property-single.html">Property Single</a>
-                <ul class="sub-menu">
-                  <li><a href="property-single.html">Property Single Classic</a></li>
-                  <li><a href="property-single-full.html">Property Single Full Width</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class="menu-item-has-children">
-            <a href="agent-listing-grid.html">Agents</a>
-            <ul class="sub-menu">
-              <li><a href="agent-listing-grid.html">Agent Listing Grid</a></li>
-              <li><a href="agent-listing-grid-sidebar.html">Agent Listing Grid Sidebar</a></li>
-              <li><a href="agent-listing-row.html">Agent Listing Row</a></li>
-              <li><a href="agent-listing-row-sidebar.html">Agent Listing Row Sidebar</a></li>
-              <li><a href="agent-single.html">Agent Single</a></li>
-            </ul>
-          </li>
-          <li class="menu-item-has-children">
-            <a href="blog-right-sidebar.html">Blog</a>
-            <ul class="sub-menu">
-              <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-              <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-              <li><a href="blog-full-width.html">Blog Full Width</a></li>
-              <li><a href="blog-creative.html">Blog Creative</a></li>
-              <li><a href="blog-single.html">Blog Single</a></li>
-            </ul>
-          </li>
-          <li class="menu-item-has-children">
-            <a href="#">Pages</a>
-            <ul class="sub-menu">
-              <li><a href="about.html">About</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-              <li><a href="404.html">404 Error</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="register.html">Register</a></li>
-			  <li class="menu-item-has-children">
-                <a href="user-my-properties.html">User Pages</a>
-                <ul class="sub-menu">
-				  <li><a href="user-profile.html">User Profile</a></li>
-                  <li><a href="user-my-properties.html">My Properties</a></li>
-				  <li><a href="user-favorite-properties.html">Favorited Properties</a></li>
-                  <li><a href="user-submit-property.html">Submit Property</a></li>
-                </ul>
-              </li>
-              <li><a href="elements.html">Elements</a></li>
-            </ul>
-          </li>
-          <li><a href="contact.html">Contact</a></li>
+          <li class="{{ isActiveRoute('landing') }}"><a href="/">Home</a></li>
+          <li class="{{ isActiveRoute('faq') }}"><a href="/faq">FAQ</a></li>
+          <li class="{{ isActiveRoute('terms') }}"><a href="/terms-and-policy">Terms & policy</a></li>
+          <li class="{{ isActiveRoute('contact') }}"><a href="/submit-query">Submit Query</a></li>
+         
         </ul>
         <div class="clear"></div>
 
@@ -201,27 +118,21 @@
 
 @yield('content')
 
-<footer id="footer">
+{{-- <footer id="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-4 widget footer-widget">
                 <a class="footer-logo" href="index.html"><img src="images/logo-white.png" alt="Homely" /></a>
-                <p>Lorem ipsum dolor amet, consectetur adipiscing elit. Sed ut 
-                purus eget nunc ut dignissim cursus at a nisl. Mauris vitae 
-                turpis quis eros egestas tempor sit amet a arcu. Duis egestas 
-                hendrerit diam.</p>
+                <p>FindIt helps connect owners to their lost documents. Have you lost any of your important documents? Search for it here. If you want to be part of the good deed, all you need to do is create and account with FindfIt and upload that misplaced Id, Driver's License, Passport etc, to our database and connect it to its rightful owner. Help a friend for tomorrow, it could be you.</p>
                 <div class="divider"></div>
                 <ul class="social-icons circle">
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-4 widget footer-widget from-the-blog">
-                <h4><span>From the Blog</span> <img src="images/divider-half.png" alt="" /></h4>
+                <h4><span>From the Blog</span> <img src="{{ asset('client/images/divider-half.png') }}" alt="" /></h4>
                 <ul>
                     <li>
                       <a href="#"><h3>Open House at 123 Smith Drive</h3></a>
@@ -236,30 +147,23 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-4 widget footer-widget">
-                <h4><span>Get In Touch</span> <img src="images/divider-half.png" alt="" /></h4>
-                <p>123 Smith Drive<br/>
-                Annapolis, MD 21012<br/>
-                United States
-                </p>
-                <p>
-                <b class="open-hours">Open Hours</b><br/>
-                Mondy - Friday: 9 am - 5 pm<br/>
-                Saturday: 9 am - 1pm<br/>
-                Sunday: Closed
-                </p>
-                <p class="footer-phone"><i class="fa fa-phone icon"></i> (123) 456-7890</p>
+                <h4><span>Support</span> <img src="images/divider-half.png" alt="" /></h4>
+                <p class="footer-phone"><i class="fa fa-phone icon"></i> +2547 00 000 000</p>
+                <p class="footer-phone"><i class="fa fa-envelope icon"></i> findit@24seven.co.ke</p>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 widget footer-widget newsletter">
-                <h4><span>Newsletter</span> <img src="images/divider-half.png" alt="" /></h4>
-                <p><b>Subscribe to our newsletter!</b> Vel lorem ipsum. Lorem molestie odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
-                <form class="subscribe-form" method="post" action="#">
-                    <input type="text" name="email" value="Your email" />
-                    <input type="submit" name="submit" value="SEND" class="button small alt" />
-                </form>
+                <h4><span>Navigate</span> <img src="images/divider-half.png" alt="" /></h4>
+                <ul>
+                    <a href="/"><li>Home</li></a>
+                    <a href="/faq"><li>Faq</li></a>
+                    <a href="/privacy"><li>privacy</li></a>
+                    <a href="/contact-us"><li>Send Query</li></a>
+                    <a href=""><li>Logout</li></a>
+                </ul>
             </div>
         </div><!-- end row -->
     </div><!-- end footer container -->
-</footer>
+</footer> --}}
 
 <div class="bottom-bar">
     <div class="container">

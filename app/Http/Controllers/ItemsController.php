@@ -26,6 +26,17 @@ class ItemsController extends Controller
         return view('admin.items.index')->with('items', $items)->with('status', 'Lost');
     }
 
+    public function search_item(Request $request){
+        $query = $request->all();
+        $items = Item::search($query['content'], null, true) // $items = Item::search('Nairobi);
+                    ->paginate(20);
+        $pagination = $items->appends($query);
+        return view('admin.items.index')->with('items', $items)
+                                        ->with('status', 'Lost')
+                                        ->withQuery ($query)
+                                        ;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

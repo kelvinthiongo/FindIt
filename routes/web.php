@@ -26,6 +26,7 @@ Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@
 //Post Routes
 Route::post('/', 'PagesController@subscriber_store');
 
+Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -45,7 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::delete('/trash/users/{slug}/p_destroy', 'UsersController@p_destroy')->name('users.p_destroy');
 
     Route::resource('categories', 'CategoriesController');
-
+    Route::resource('items', 'ItemsController');
 
     Route::resource('clients', 'ClientsController');
     Route::resource('sliders', 'SlidersController');

@@ -32,6 +32,30 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+
+
+                <!-- To be deleted -->
+                <div>
+                    <form action="{{ route('search_item') }}" method="get" class="simple-search-form">
+                    <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" />
+                    <input type="submit" value="GO" />
+                    </form>
+                </div>
+
+
+                <ol>
+                @foreach($items as $item)
+                 
+                        <li>{{ $item->f_name . ' ' . $item->s_name . ' ' . $item->l_name }} @if($item->resolved != null) (<a href="{{ route('show_by_id', ['slug' => $item->resolved]) }}" style="color: blue">found</a>) @endif | {{ $item->number }} | {{ $item->place_found }} | {{ $item->lf_date }}</li>
+                   
+                @endforeach
+                </ol>
+
+                {{-- {{ $items->links() }} --}}
+                <br>
+                <br>
+                <br>
+                <!-- To be deleted -->
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -45,9 +69,15 @@
                     
                     @foreach($items as $item)
                         <tr>
-                            <td>{{ $item->f_name . $item->s_name . $item->l_name }} @if($item->resolved != null) (<a href="{{ route('show_by_id', ['slug' => $item->resolved]) }}" style="color: blue">found</a>) @endif</td>
+                            <td>{{ $item->f_name . ' ' . $item->s_name . ' ' . $item->l_name }} @if($item->resolved != null) (<a href="{{ route('show_by_id', ['slug' => $item->resolved]) }}" style="color: blue">found</a>) @endif</td>
                             <td>{{ $item->number }}</td>
-                            <td>{{ $item->category }}</td>
+                            <td>
+                                @if($item->category()->count()==0)
+                                    No Associated Agent
+                                @else
+                                    {{ $item->category->name }}
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('items.show', ['slug' => $item->slug]) }}" class="btn btn-xs btn-primary">View</a>
                             </td>

@@ -51,7 +51,7 @@
                 @endforeach
                 </ol>
 
-                {{-- {{ $items->links() }} --}}
+                {{ $items->links() }}
                 <br>
                 <br>
                 <br>

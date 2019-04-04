@@ -27,12 +27,15 @@ class ItemsController extends Controller
     }
 
     public function search_item(Request $request){
+        $this->validate($request, [
+            'content' => 'required | max:50'
+        ]);
         $query = $request->all();
-        $items = Item::search($query['content'], null, true) // $items = Item::search('Nairobi);
+        $items = Item::search($query['content'], null, true) // $items = Item::search('Nairobi, null, );
                     ->paginate(20);
         $pagination = $items->appends($query);
         return view('admin.items.index')->with('items', $items)
-                                        ->with('status', 'Lost')
+                                        ->with('status', 'Found')
                                         ->withQuery ($query)
                                         ;
     }

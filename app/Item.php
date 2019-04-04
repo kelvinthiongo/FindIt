@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Nicolaslopezj\Searchable\SearchableTrait; //From github: https://github.com/nicolaslopezj/searchable
 
@@ -10,6 +11,7 @@ class Item extends Model
 {
 
     use SearchableTrait;
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -22,7 +24,7 @@ class Item extends Model
          * @var array
          */
         'columns' => [
-            'items.number' => 10,
+            'items.number' => 15,
             'items.f_name' => 7,
             'items.s_name' => 7,
             'items.l_name' => 7,

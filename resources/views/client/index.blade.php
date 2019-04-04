@@ -4,7 +4,7 @@
     <div class="container">
       <h1>Lost a Personal Document? </h1>
       <p>Search here with the (national ID, Student ID, NHIF Card, etc) details.</p>
-      <p>Search based on the name, Numebr, where you lost the document or the date lost</p>
+      <p>Search based on the name, Number, where you lost the document or the date lost</p>
       <div>
         <form action="{{ route('search_item') }}" method="get" class="simple-search-form">
           <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" />

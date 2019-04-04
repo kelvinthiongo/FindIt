@@ -31,6 +31,7 @@ class CreateItemsTable extends Migration
             $table->date('lf_date')->default(date('Y-m-d H:i:s')); //date lost or found
             $table->integer('approved')->nullable(); // id for the admin who approved
             $table->integer('resolved')->nullable();//id for the user who marked it as found
+            $table->softDeletes();
             
             $table->timestamps();
         });

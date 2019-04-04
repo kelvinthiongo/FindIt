@@ -15,4 +15,13 @@ class PagesController extends Controller
     public function contact(){
         return view('client.query');
     }
+    public function profile(){
+        return view('client.profile');
+    }
+    public function my_uploads(){
+        return view('client.my_uploads');
+    }
+    public function upload(){
+        return view('client.upload_item');
+    }
 }

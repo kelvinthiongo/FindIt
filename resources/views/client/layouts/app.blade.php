@@ -19,6 +19,9 @@
   <link href="{{ asset('client/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
 
+  {{-- favicon --}}
+  <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
+
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
@@ -79,8 +82,7 @@
         <div class="clear"></div>
       </div>
 
-      <a class="navbar-brand" href="/"><h4><b>FindIt</b> </h4></a>
-      {{-- <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Homely" /></a> --}}
+      <a class="navbar-brand" href="/"><img src="logo.png" alt="Findit" /></a>
 
       <!-- nav toggle -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

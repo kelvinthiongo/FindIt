@@ -19,6 +19,21 @@ Route::get('/', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/terms', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');
+Route::get('/profile','PagesController@profile')->name('profile');
+Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
+Route::get('/upload-item','PagesController@upload')->name('upload_item');
+Route::get('/items', function () {
+    return view('client.items');
+});
+Route::get('/show_item', function () {
+    return view('client.show_item');
+});
+Route::get('/login-page', function () {
+    return view('client.login');
+});
+Route::get('/register-page', function () {
+    return view('client.register');
+});
 
 //contact us
 Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@store']);

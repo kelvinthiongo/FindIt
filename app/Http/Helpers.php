@@ -9,8 +9,15 @@
 | Very useful for navigation, marking if the link is active.
 |
 */
-function isActiveRoute($route, $output = "current-menu-item")
-{
+function isActiveRoute($route)
+{ 
+    $output = "current-menu-item";
+    if (Route::currentRouteName() == $route) return $output;
+}
+
+function isUserActiveRoute($route)
+{ 
+    $output = "active";
     if (Route::currentRouteName() == $route) return $output;
 }
 

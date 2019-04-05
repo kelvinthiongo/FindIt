@@ -18,6 +18,8 @@
   <link href="{{ asset('client/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
   <link href="{{ asset('client/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+  <!--Toaster Popup message CSS -->
+  <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
 
   {{-- favicon --}}
   <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
@@ -183,5 +185,7 @@
 <script src="{{ asset('client/js/wNumb.js') }}"></script> <!-- price formatting -->
 <script src="{{ asset('client/js/nouislider.min.js') }}"></script> <!-- price slider -->
 <script src="{{ asset('client/js/global.js') }}"></script>
+{{-- toastr js --}}
+<script src="{{ asset('js/toastr.min.js') }}"></script>
 </body>
 </html>

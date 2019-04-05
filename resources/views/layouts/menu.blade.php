@@ -140,5 +140,18 @@
         <li><a href="/admin/subscribers"><i class="fa fa-eye"></i>View Subscribers</a></li>
       </ul>
     </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-group"></i>
+        <span>FAQs</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="/admin/faqs/create"><i class="fa fa-plus"></i> Add FAQ</a></li>
+        <li><a href="/admin/faqs"><i class="fa fa-eye"></i>View FAQs</a></li>
+      </ul>
+    </li>
 
   </ul>

@@ -42,6 +42,8 @@ Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@
 Route::post('/', 'PagesController@subscriber_store');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
+
+//Auth Routes
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -62,6 +64,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 
     Route::resource('categories', 'CategoriesController');
     Route::resource('items', 'ItemsController');
+    Route::resource('faqs', 'FaqController');
 
     Route::resource('clients', 'ClientsController');
     Route::resource('sliders', 'SlidersController');

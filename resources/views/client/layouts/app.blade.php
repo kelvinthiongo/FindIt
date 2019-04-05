@@ -16,6 +16,7 @@
   <link href="{{ asset('client/assets/chosen-1.6.2/chosen.min.css') }}" rel="stylesheet">
   <link href="{{ asset('client/css/nouislider.min.css') }}" rel="stylesheet">
   <link href="{{ asset('client/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <link href="{{ asset('client/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
   <!--Toaster Popup message CSS -->
@@ -101,7 +102,7 @@
         <div class="container-fixed">
 
         <div class="member-actions right">
-          <a href="user-submit-property.html" class="button small alt button-icon"><i class="fa fa-upload"></i>Upload Found Document</a>
+          <a href="/upload-item" class="button small alt button-icon"><i class="fa fa-upload"></i>Upload Found Document</a>
         </div>
         <ul class="nav navbar-nav right">
           <li class="{{ isActiveRoute('landing') }}"><a href="/">Home</a></li>
@@ -126,7 +127,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-4 widget footer-widget">
-                <a class="footer-logo" href="index.html"><img src="images/logo-white.png" alt="Homely" /></a>
+                <a class="footer-logo" href="index.html"><img src="{{ asset('images/logo-white.png')}}" alt="Homely" /></a>
                 <p>FindIt helps connect owners to their lost documents. Have you lost any of your important documents? Search for it here. If you want to be part of the good deed, all you need to do is create and account with FindfIt and upload that misplaced Id, Driver's License, Passport etc, to our database and connect it to its rightful owner. Help a friend for tomorrow, it could be you.</p>
                 <div class="divider"></div>
                 <ul class="social-icons circle">
@@ -185,7 +186,8 @@
 <script src="{{ asset('client/js/wNumb.js') }}"></script> <!-- price formatting -->
 <script src="{{ asset('client/js/nouislider.min.js') }}"></script> <!-- price slider -->
 <script src="{{ asset('client/js/global.js') }}"></script>
-{{-- toastr js --}}
-<script src="{{ asset('js/toastr.min.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </body>
 </html>

@@ -76,6 +76,7 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'is_verified' => $request->is_verified,
             'slug' => $slug,
         ]);
         if($check > 0){
@@ -225,7 +226,7 @@ class UsersController extends Controller
                 }
                 $avatar_name = time() . $avatar->getClientOriginalName();
                 $avatar_new_name = 'uploads/users/' . $avatar_name;
-                $new_avatar = Image::make($avatar->getRealPath())->resize(500, 500);
+                $new_avatar = Image::make($avatar->getRealPath())->resize(172, 50);
                 $new_avatar->save(public_path($avatar_new_name));
                 $avatar = $avatar_new_name;
                 $user->avatar = $avatar;

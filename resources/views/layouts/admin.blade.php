@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css')}}">
+
   {{-- toastr --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
@@ -124,7 +125,7 @@
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 @include('layouts.messages')
+<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 </body>
 </html>

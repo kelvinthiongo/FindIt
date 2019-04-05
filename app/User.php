@@ -18,6 +18,11 @@ class User extends Authenticatable
      * @var array
      */
 
+    public function items(){
+        return $this->hasMany('App\Item');
+    }
+
+
     public function todos(){
         return $this->hasMany('App\Todo');
     }

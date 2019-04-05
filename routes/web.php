@@ -22,15 +22,12 @@ Route::get('/submit-query','PagesController@contact')->name('contact');
 Route::get('/profile','PagesController@profile')->name('profile');
 Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
 Route::get('/upload-item','PagesController@upload')->name('upload_item');
-Route::get('/items', function () {
-    return view('client.items');
-});
-Route::get('/show_item', function () {
-    return view('client.show_item');
-});
-Route::get('/login-page', function () {
-    return view('client.login');
-});
+// Route::get('/items', function () {
+//     return view('client.items');
+// });
+// Route::get('/show_item', function () {
+//     return view('client.show_item');
+// });
 Route::get('/register-page', function () {
     return view('client.register');
 });
@@ -42,6 +39,11 @@ Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@
 Route::post('/', 'PagesController@subscriber_store');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
+Route::post('/items/store', 'ItemsController@store')->name('store_item');
+Route::get('/items/show/{slug}', 'ItemsController@show')->name('show_item');
+Route::get('/items/report/{slug}', 'ItemsController@report')->name('report');
+
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -40,6 +40,11 @@
                             {{ Form::text('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Enter Email of the User Here']) }} <br>
                             {{ Form::label('phone', 'Enter Phone Number') }} <span style = "color: red">*</span>
                             {{ Form::text('phone', '', ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Enter Phone Number of the User Here']) }} <br>
+                            <div class="form-group ">
+                                <input type="checkbox" name='is_verified'>
+                                <label>Mark as Verified</label>
+                            </div>
+                            <br>
                         </div>
                       <div class="box-footer">
                         {{ Form::submit('Add User', ['class' => 'btn btn-primary']) }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use Image;
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -31,12 +32,14 @@ class ItemsController extends Controller
             'content' => 'required | max:50'
         ]);
         $query = $request->all();
-        $items = Item::search($query['content'], null, true) // $items = Item::search('Nairobi, null, );
-                    ->paginate(20);
+        $items = Item::search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
+        $count = $items->count();
+        $items = $items->paginate(10);
         $pagination = $items->appends($query);
-        return view('admin.items.index')->with('items', $items)
+        return view('client.items')->with('items', $items)
                                         ->with('status', 'Found')
-                                        ->withQuery ($query)
+                                        ->with('count', $count)
+                                        ->withQuery($query)
                                         ;
     }
 
@@ -47,7 +50,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        return view('client.items.create');
+        //
     }
 
     /**
@@ -57,19 +60,37 @@ class ItemsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         if(!$request->hasFile('image') && $request->has('image')){
             return redirect()->back()->with('error','Image not supported');
         }
 
-        $this->validate($request, [
-            'f_name' => 'required',
-            'l_name' => 'required',
-            'image' => 'required',
-            'number' => 'required',
-            'place_to_get' => 'required',
-        ]);
+        if(Auth::user()->is_verified){
+            $this->validate($request, [
+                'number' => 'required',
+                'type' => 'required',
 
+            ]);
+            if(!$request->has('place_to_get'))
+                $place_to_get = Auth::user()->name;
+            else
+                $place_to_get = $request->place_to_get;
+        
+        }
+        else{
+            $this->validate($request, [
+                'f_name' => 'required',
+                'l_name' => 'required',
+                'image' => 'required',
+                'number' => 'required',
+                'type' => 'required',
+                'place_to_get' => 'required',
+            ]);
+            $place_to_get = $request->place_to_get;
+    
+        }
+
+        
         if($request->has('image')){
             $old_image = $item->image;
             $image = $request->image;
@@ -78,7 +99,7 @@ class ItemsController extends Controller
             }
             $image_name = time() . $image->getClientOriginalName();
             $image_new_name = 'uploads/items/' . $image_name;
-            $new_image = Image::make($image->getRealPath())->resize(500, 500);
+            $new_image = Image::make($image->getRealPath())->resize(1837, 1206);
             $new_image->save(public_path($image_new_name));
             $image = $image_new_name;
             $item->image = $image;
@@ -94,14 +115,17 @@ class ItemsController extends Controller
             'description'=> $request->description,
             'status'=> $request->status,
             'place_found'=> $request->place_found,
-            'place_to_get'=> $request->place_to_get,
+            'place_to_get'=> $place_to_get,
             'lf_date'=> $request->lf_date,
         ]);
 
-        $item->slug = $item->id . $item->f_name . $item->s_name . $item->l_name;
+        $item->slug = $item->id . $item->f_name . $item->s_name . $item->l_name . $item->number;
         $item->save();
 
-        return redirect()->back()->with('success', 'You successfully uploaded the item'); //to be changed
+        if(Auth::user()->is_verified){
+            return redirect()->back()->with('success', 'You successfully uploaded the item.');
+        }
+        return redirect()->back()->with('success', 'You successfully uploaded the item.');
     }
 
     /**
@@ -112,8 +136,14 @@ class ItemsController extends Controller
      */
     public function show(Item $item)
     {
-        //
-        
+        return view('client.show_item')->with('item', $item);
+    }
+    
+    
+    public function report(Item $item)
+    {
+        $item->reports = $item->reports + 1;
+        return redirect()->route('landing')->with('success', 'Item reported to the management. We will do something about it. Thanks!');
     }
 
     /**
@@ -124,7 +154,7 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        
     }
 
     /**
@@ -146,12 +176,28 @@ class ItemsController extends Controller
             return redirect()->back()->with('error', 'You don\'t have the privileges to edit this item');
         }        
 
-        $this->validate($request, [
-            'f_name' => 'required',
-            'l_name' => 'required',
-            'number' => 'required',
-            'place_to_get' => 'required',
-        ]);
+        if(Auth::user()->is_verified){
+            $this->validate($request, [
+                'number' => 'required',
+                'type' => 'required',
+            ]);
+            if(!$request->has('place_to_get'))
+                $place_to_get = Auth::user()->name;
+            else
+                $place_to_get = $request->place_to_get;
+        
+        }
+        else{
+            $this->validate($request, [
+                'f_name' => 'required',
+                'l_name' => 'required',
+                'number' => 'required',
+                'type' => 'required',
+                'place_to_get' => 'required',
+            ]);
+            $place_to_get = $request->place_to_get;
+    
+        }
 
         if($request->has('image')){
             $old_image = $item->image;
@@ -178,7 +224,7 @@ class ItemsController extends Controller
             'description'=> $request->description,
             'status'=> $request->status,
             'place_found'=> $request->place_found,
-            'place_to_get'=> $request->place_to_get,
+            'place_to_get'=> $place_to_get,
             'lf_date'=> $request->lf_date,
         ]);
 

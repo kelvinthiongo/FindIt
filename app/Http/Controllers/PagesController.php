@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Category;
+
 class PagesController extends Controller
 {
     public function index(){
@@ -22,6 +24,7 @@ class PagesController extends Controller
         return view('client.my_uploads');
     }
     public function upload(){
-        return view('client.upload_item');
+        $categories = Category::all();
+        return view('client.upload_item')->with('categories', $categories);
     }
 }

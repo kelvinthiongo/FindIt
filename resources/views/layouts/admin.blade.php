@@ -30,7 +30,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css')}}">
 
-  <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -122,18 +122,8 @@
 
 </script>
 
-<script src="{{ asset('js/toastr.min.js') }}"></script>
-<!-- <script>
-    @if(Session::has('success'))
-        toastr.success(" {{ Session::get('success') }}", "Successiful.");
-    @endif
-    @if(Session::has('info'))
-        toastr.info(" {{ Session::get('info') }}", "Information");
-    @endif
-    @if(Session::has('error'))
-        toastr.info(" {{ Session::get('error') }}", "Task failed!");
-    @endif
-</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@include('layouts.messages')
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 </body>
 </html>

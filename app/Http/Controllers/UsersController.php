@@ -71,7 +71,7 @@ class UsersController extends Controller
             return redirect()->back();
         }
         $slug = str_slug($request->name);
-        $check = User::where('slug', $slug)->count();
+        $check = User::withTrashed()->where('slug', $slug)->count();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -108,7 +108,7 @@ class UsersController extends Controller
                 $type = 'ordinary';
             }
             $slug = str_slug($request->name);
-            $check = User::where('slug', $slug)->count();
+            $check = User::withTrashed()->where('slug', $slug)->count();
             $admin = User::create([
                 'name' => $request->name,
                 'email'=> $request->email,
@@ -141,6 +141,23 @@ class UsersController extends Controller
         //
         try{
             $user = User::where('slug', $slug)->first();
+        }
+        catch(QueryException $e){
+            Session::flash('error', 'Couldn\'t find user! Please try again.');
+            return redirect()->back();
+        }
+        if($user == null){
+            Session::flash('error', 'Couldn\'t find user! Please try again.');
+            return redirect()->back();
+        }
+        return view('admin.users.show')->with('user', $user);
+    }
+
+    public function show_by_id($id)
+    {
+        //
+        try{
+            $user = User::withTrashed()->where('id', $id)->first();
         }
         catch(QueryException $e){
             Session::flash('error', 'Couldn\'t find user! Please try again.');

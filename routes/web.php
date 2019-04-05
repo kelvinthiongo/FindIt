@@ -14,16 +14,26 @@
 Route::get('/welcome', function () {
     return view('welcome');
 });
-
-Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
-Route::get('/reviews', 'PagesController@reviews');
-Route::get('/portfolio','PagesController@port');
-Route::get('/contact','PagesController@contact');
-Route::get('/services','PagesController@services');
-Route::get('/web-design','PagesController@web_design');
-Route::get('/digital-marketing','PagesController@digital_marketing');
-Route::get('/graphics-design','PagesController@graphics_design');
+//client page Routes
+Route::get('/', 'PagesController@index')->name('landing');
+Route::get('/faq', 'PagesController@faq')->name('faq');
+Route::get('/terms', 'PagesController@terms')->name('terms');
+Route::get('/submit-query','PagesController@contact')->name('contact');
+Route::get('/profile','PagesController@profile')->name('profile');
+Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
+Route::get('/upload-item','PagesController@upload')->name('upload_item');
+Route::get('/items', function () {
+    return view('client.items');
+});
+Route::get('/show_item', function () {
+    return view('client.show_item');
+});
+Route::get('/login-page', function () {
+    return view('client.login');
+});
+Route::get('/register-page', function () {
+    return view('client.register');
+});
 
 //contact us
 Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@store']);
@@ -31,15 +41,19 @@ Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@
 //Post Routes
 Route::post('/', 'PagesController@subscriber_store');
 
+Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
+
+//Auth Routes
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(){
     
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('users', 'UsersController');
 
+    Route::get('/show_by_id/users/{id}', 'UsersController@show_by_id')->name('show_by_id');
     Route::get('/admins', 'UsersController@admin_index')->name('admin_index');
     Route::get('/admin/add_admin/create', 'UsersController@add_admin')->name('add_admin');
     Route::post('/users/add_admin/store', 'UsersController@admin_store')->name('admin.store');
@@ -47,10 +61,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function(
     Route::get('/trash/admins', 'UsersController@trashed_admins')->name('trashed_admins');
     Route::post('/trash/users/{slug}/restore', 'UsersController@restore')->name('users.restore');
     Route::delete('/trash/users/{slug}/p_destroy', 'UsersController@p_destroy')->name('users.p_destroy');
-    // Route::post('/users/edit/{slug}', 'UsersController@update')->name('admin.update');
 
     Route::resource('categories', 'CategoriesController');
-
+    Route::resource('items', 'ItemsController');
+    Route::resource('faqs', 'FaqController');
 
     Route::resource('clients', 'ClientsController');
     Route::resource('sliders', 'SlidersController');

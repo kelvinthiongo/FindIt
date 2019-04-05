@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>24 Seven Developers | Dashboard</title>
+  <title>FindIt | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -29,8 +29,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css')}}">
-
-  <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+  {{-- toastr --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -42,8 +42,10 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
 </head>
-@include('layouts.messages')
+
 @yield('content')
 <!-- /.login-box -->
 
@@ -121,19 +123,8 @@
   }
 
 </script>
-
-<script src="{{ asset('js/toastr.min.js') }}"></script>
-<!-- <script>
-    @if(Session::has('success'))
-        toastr.success(" {{ Session::get('success') }}", "Successiful.");
-    @endif
-    @if(Session::has('info'))
-        toastr.info(" {{ Session::get('info') }}", "Information");
-    @endif
-    @if(Session::has('error'))
-        toastr.info(" {{ Session::get('error') }}", "Task failed!");
-    @endif
-</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+@include('layouts.messages')
 </body>
 </html>

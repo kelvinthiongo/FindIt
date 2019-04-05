@@ -14,9 +14,8 @@
             <small>List of available @if($user_type == 'Admin')admins @else users @endif</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">{{ $user_type }} Details</a></li>
-            <li class="active">Data tables</li>
+            <li><a href="/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">{{ $user_type }}s Details</li>
         </ol>
         </section>
 
@@ -46,7 +45,7 @@
                     
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->name }} @if(Auth::user()->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
+                            <td>{{ $user->name }} @if($user->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a href="{{ route('users.show', ['slug' => $user->slug]) }}" class="btn btn-xs btn-primary">View</a>

@@ -174,6 +174,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+        bnjns\LaravelNotifications\NotificationServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
     ],
@@ -228,6 +229,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => intervention\image\facades\image::class,
+        'Notify' => bnjns\LaravelNotifications\Facades\Notify::class,
         
 
     ],

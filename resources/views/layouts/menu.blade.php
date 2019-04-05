@@ -48,98 +48,26 @@
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{ route('categories.create') }}"><i class="fa fa-user-plus"></i> Add Category</a></li>
+        <li><a href="{{ route('categories.create') }}"><i class="fa fa-plus"></i> Add Category</a></li>
         <li><a href="/admin/categories"><i class="fa fa-eye"></i>View Categories</a></li>
       </ul>
     </li>
     <!-- List End -->
-
-
     <!-- List Start -->
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-briefcase"></i>
-        <span>Clients</span>
+        <i class="fa fa-id-card"></i>
+        <span>Items</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{ route('clients.create') }}"><i class="fa fa-user-plus"></i> Add Client</a></li>
-        <li><a href="/admin/clients"><i class="fa fa-briefcase"></i>View Clients</a></li>
+        <li><a href="#"><i class="fa fa-eye"></i> View Items</a></li>
+        <li><a href="#"><i class="fa fa-trash"></i>Trashed Items</a></li>
       </ul>
     </li>
     <!-- List End -->
-    
-    
-    <!-- List Start -->
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-image"></i>
-        <span>Sliders</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('sliders.create') }}"><i class="fa fa-user-plus"></i> Add Slider</a></li>
-        <li><a href="/admin/sliders"><i class="fa fa-image"></i>View Sliders</a></li>
-      </ul>
-    </li>
-    <!-- List End -->
-
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-users"></i>
-        <span>Partners</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="/admin/partners/create"><i class="fa fa-user-plus"></i> Add Partner</a></li>
-        <li><a href="/admin/partners"><i class="fa fa-eye"></i>View Partners</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-tags"></i>
-        <span>Meta Tags</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="/admin/metatags/create"><i class="fa fa-plus"></i> Add Meta Tag</a></li>
-        <li><a href="/admin/metatags"><i class="fa fa-eye"></i>View Meta Tags</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-file"></i>
-        <span>Pages</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="/admin/webpages/create"><i class="fa fa-plus"></i> Add Page</a></li>
-        <li><a href="/admin/webpages"><i class="fa fa-eye"></i>View Pages</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-group"></i>
-        <span>Subscribers</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="/admin/subscribers/create"><i class="fa fa-plus"></i> Add Subscriber</a></li>
-        <li><a href="/admin/subscribers"><i class="fa fa-eye"></i>View Subscribers</a></li>
-      </ul>
-    </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-group"></i>

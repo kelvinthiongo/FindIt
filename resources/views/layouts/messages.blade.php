@@ -14,4 +14,5 @@
     @if(Session::has('error'))
         toastr.error(" {{ Session::get('error') }}", "Task failed!");
     @endif
+
 </script>

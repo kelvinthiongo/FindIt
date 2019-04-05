@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Category;
+use App\Faq;
 
 class PagesController extends Controller
 {
@@ -12,7 +13,8 @@ class PagesController extends Controller
         return view('client.index');
     }
     public function faq(){
-        return view('client.faq');
+        $faqs = Faq::all();
+        return view('client.faq')->with('faqs', $faqs);
     }
     public function contact(){
         return view('client.query');

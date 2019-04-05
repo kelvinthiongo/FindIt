@@ -85,7 +85,7 @@
         <div class="clear"></div>
       </div>
 
-      <a class="navbar-brand" href="/"><img src="logo.png" alt="Findit" /></a>
+      <a class="navbar-brand" href="/"><img src="{{ asset('logo.png') }}" alt="Findit" /></a>
 
       <!-- nav toggle -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

@@ -18,7 +18,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        $faqs = Faq::all();
+        return view('admin.faqs.index')->with('faqs', $faqs);
     }
 
     /**
@@ -49,7 +50,7 @@ class FaqController extends Controller
         $faq = Faq::create($request->all());
         $faq->save();
         
-        return redirect()->back()->with('success','Faq created successfully');
+        return redirect('/admin/faqs')->with('success','Faq created successfully');
 
     }
 
@@ -72,7 +73,7 @@ class FaqController extends Controller
      */
     public function edit(Faq $faq)
     {
-        //
+        return view('admin.faqs.edit_faq')->with('faq', $faq);
     }
 
     /**
@@ -84,7 +85,17 @@ class FaqController extends Controller
      */
     public function update(Request $request, Faq $faq)
     {
-        //
+        //validate
+        $this->validate($request, [
+            'question' => 'required',
+            'answer' => 'required'
+        ]);
+          
+        //update faq
+        $faq = Faq::create($request->all());
+        $faq->save();
+        
+        return redirect('/admin/faqs')->with('success','Faq updated successfully');
     }
 
     /**
@@ -95,6 +106,8 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
-        //
+        $faq->delete();
+
+       return redirect('admin/faqs')->with('info','Faq Deleted successfully');
     }
 }

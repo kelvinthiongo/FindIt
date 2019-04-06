@@ -1,21 +1,26 @@
-@extends('client.layouts.app')
+@extends('client.layouts.app') 
 @section('content')
-    <section class="subheader">
+<section class="subheader">
+    <div class="container">
+        <h1>Search results for: {{ $query['content'] }} </h1>
+        <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">Search Results For: {{ $query['content'] }}</a></div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section class="module">
+    <div class="col-12">
         <div class="container">
-            <h1>Search results for: {{ $query['content'] }} </h1>
-            <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">Search Results For: {{ $query['content'] }}</a></div>
-            <div class="clear"></div>
-        </div>
-    </section>
-  
-    <section class="module">
+            <p><b>Didn't find your item? Click <a data-toggle="modal" data-target="#exampleModalCenter">Here</a> to submit document details.<b></p>
+                    </div>
+                        
+                </div>
         <div class="container">
-        
             <div class="row">
                 <div class="col-lg-8 col-md-8">
-                
                     <div class="property-listing-header">
                         <span class="property-count left">{{ $count }} items found</span>
+
                         {{-- <form action="#" method="get" class="right">
                             <select name="sort_by" onchange="this.form.submit();">
                                 <option value="date_desc">New to Old</option>
@@ -125,8 +130,61 @@
                 
                 </div><!-- end sidebar -->
                 
+                        
+                </div>
+                
+                <div class="col-12">
+                    <div class="container">
+                        <p>Didn't find your item? Click <a data-toggle="modal" data-target="#exampleModalCenter">Here</a> to submit document details.</p>
+                    </div>
+                </div>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                                <form action="{{ route('lost.store')}}" class="multi-page-form" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="multi-page-form-content active">
+                                            <h4><span>Submit Lost Document Details</span> </h4>
+                                            <p><img src="{{ asset('client/images/divider-half.png') }}" alt="image" /></p><br>
+                                            <div class="form-block">
+                                                <label>Document Type*</label>
+                                                <select name="category" class="border" required>
+                                                        <option value=""></option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category->name}}">{{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
+                                            <div class="form-block">
+                                                <label>Name (as they appear on the document)</label>
+                                                <input class="border" type="text" name="name" required/>
+                                            </div>
+                                            <div class="form-block">
+                                                <label>Document Number* (Id No, Reg N0, Passport No, etc)</label>
+                                                <input class="border" type="text" name="number" required/>
+                                            </div>
+                                
+                                    </div><!-- end basic info -->
+                                
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="button button-icon" data-dismiss="modal">Close</button>
+                        <button type="submit" class="button button-icon"><i class="fa fa-send"></i>Submit Details</button>
+                        </div>
+                    </form>
+                    </div>
+                    </div>
+                </div>
             </div><!-- end row -->
         
         </div><!-- end container -->
     </section>
-@endsection 
+@endsection

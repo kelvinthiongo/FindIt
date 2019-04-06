@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Item;
 use Image;
 use Auth;
+use App\Category;
 
 use Illuminate\Http\Request;
 
@@ -28,6 +29,8 @@ class ItemsController extends Controller
     }
 
     public function search_item(Request $request){
+        $categories = Category::all();
+
         $this->validate($request, [
             'content' => 'required | max:50'
         ]);
@@ -39,6 +42,7 @@ class ItemsController extends Controller
         return view('client.items')->with('items', $items)
                                         ->with('status', 'Found')
                                         ->with('count', $count)
+                                        ->with('categories', $categories)
                                         ->withQuery($query)
                                         ;
     }

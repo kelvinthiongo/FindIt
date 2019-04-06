@@ -236,7 +236,13 @@ class UsersController extends Controller
                 $user->phone = $request->phone;
             }
 
-            $user->name = $request->name;
+           
+
+            if(User::where('email', $request->email)->where('email','!=',$user->email)->count() > 0){
+               return redirect()->back()->with('error','Sorry The record already exists'); 
+            }  
+
+             $user->name = $request->name;
             $user->email = $request->email;
             if($user->type != 'user'){
                 if($request->supper == true){
@@ -260,12 +266,10 @@ class UsersController extends Controller
                     return redirect()->back();
                 }
             }
-
-
             $result = $user->save();
 
             if($result){
-                Session::flash('success', 'You successifully updated the admin profile.');
+                Session::flash('success', 'You successfully updated the admin profile.');
                 return redirect()->route('users.show', ['slug' => $slug]);
             }
 

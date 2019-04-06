@@ -58,7 +58,7 @@
                                                         color:red;
                                                     }
                                                     #action li {
-                                                       display:inline;
+                                                       display:inline-block;
                                                     }
                                                 </style>
                                                 <ul id="action" style="list-style-type:none;">

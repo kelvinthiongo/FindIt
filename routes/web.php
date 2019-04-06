@@ -22,6 +22,7 @@ Route::get('/submit-query','PagesController@contact')->name('contact');
 Route::get('/profile','PagesController@profile')->name('profile');
 Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
 Route::get('/upload-item','PagesController@upload')->name('upload_item');
+Route::resource('lost', 'LostController');
 
 Route::get('/register-page', function () {
     return view('client.register');

@@ -1,11 +1,11 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">MAIN NAVIGATION</li>
-    <li class="active"><a href="/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="{{ isUserActiveRoute('home') }}"><a href="/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     
 
     <!-- List Start -->
-    <li class="treeview">
+    <li class="{{ areActiveRoutes(['add_admin','admin_index','trashed_admins']) }} treeview">
       <a href="#">
         <i class="fa fa-users"></i>
         <span>Admins</span>
@@ -22,7 +22,7 @@
     <!-- List End -->
 
     <!-- List Start -->
-    <li class="treeview">
+    <li class=" {{ areActiveRoutes(['users.create','users.edit','trashed_users','users.index']) }} treeview">
       <a href="#">
         <i class="fa fa-users"></i>
         <span>Users</span>
@@ -39,7 +39,7 @@
     <!-- List End -->
 
     <!-- List Start -->
-    <li class="treeview">
+    <li class="{{ areActiveRoutes(['categories.create','categories.edit','categories.index']) }} treeview">
       <a href="#">
         <i class="fa fa-list-ul"></i>
         <span>Categories</span>
@@ -54,7 +54,7 @@
     </li>
     <!-- List End -->
     <!-- List Start -->
-    <li class="treeview">
+    <li class="{{ areActiveRoutes(['items.create','items.edit','items.index', 'trashed_items']) }} treeview">
       <a href="#">
         <i class="fa fa-id-card"></i>
         <span>Items</span>
@@ -68,7 +68,7 @@
       </ul>
     </li>
     <!-- List End -->
-    <li class="treeview">
+    <li class="{{ areActiveRoutes(['faqs.create','faqs.edit','faqs.index']) }} treeview">
       <a href="#">
         <i class="fa fa-group"></i>
         <span>FAQs</span>

@@ -6,10 +6,10 @@
     @endif
 
     @if(Session::has('success'))
-        toastr.success(" {{ Session::get('success') }}", "Successiful.");
+        toastr.success(" {{ Session::get('success') }}", "Success Here!");
     @endif
     @if(Session::has('info'))
-        toastr.info(" {{ Session::get('info') }}", "Information");
+        toastr.info(" {{ Session::get('info') }}", "Information Here!");
     @endif
     @if(Session::has('error'))
         toastr.error(" {{ Session::get('error') }}", "Task failed!");

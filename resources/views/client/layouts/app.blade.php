@@ -16,11 +16,10 @@
   <link href="{{ asset('client/assets/chosen-1.6.2/chosen.min.css') }}" rel="stylesheet">
   <link href="{{ asset('client/css/nouislider.min.css') }}" rel="stylesheet">
   <link href="{{ asset('client/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <link href="{{ asset('client/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
   <!--Toaster Popup message CSS -->
-  <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
   {{-- favicon --}}
   <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
@@ -188,6 +187,6 @@
 <script src="{{ asset('client/js/global.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+@include('layouts.messages')
 </body>
 </html>

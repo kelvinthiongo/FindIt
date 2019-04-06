@@ -236,6 +236,10 @@ class UsersController extends Controller
                 $user->phone = $request->phone;
             }
 
+            if(User::where('email', $request->email)->where('email','!=',$user->email)->count() > 0){
+                return redirect()->back()->with('error','Sorry The record already exists'); 
+             }  
+
             $user->name = ucwords($request->name);
             $user->email = $request->email;
             if($user->type != 'user'){

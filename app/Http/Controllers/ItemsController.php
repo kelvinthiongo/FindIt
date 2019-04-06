@@ -44,6 +44,7 @@ class ItemsController extends Controller
         $this->validate($request, [
             'content' => 'required | max:50'
         ]);
+        $categories = Category::all();
         $query = $request->all();
         $items = Item::search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
         $count = $items->count();
@@ -52,6 +53,7 @@ class ItemsController extends Controller
         return view('client.items.items')->with('items', $items)
                                         ->with('status', 'Found')
                                         ->with('count', $count)
+                                        ->with('categories', $categories)
                                         ->withQuery($query)
                                         ;
     }

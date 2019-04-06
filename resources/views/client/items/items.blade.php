@@ -9,6 +9,11 @@
     </section>
   
     <section class="module">
+        {{-- lost link 1 --}}
+        <div class="container">
+            <p><b>Didn't find your item? Click <a data-toggle="modal" data-target="#exampleModalCenter">Here</a> to submit document details.<b></p>
+        </div>
+        {{-- end lost link 1 --}}
         <div class="container">
         
             <div class="row">
@@ -96,34 +101,89 @@
                 <div class="col-lg-4 col-md-4 sidebar">
                 
                     <div class="widget widget-sidebar sidebar-properties advanced-search">
-                    <h4><span>Search Here</span> <img src="{{ asset('client/images/divider-half-white.png') }}" alt="image" /></h4>
-                    <div class="widget-content box">
-                        <form action="{{ route('search_item') }}" method="get">
-                            <div class="form-block border">
-                                <label for="keywords">Enter Keywords</label>
-                                <input type="text" name="content" placeholder="Enter search keywords" required/>
-                            </div>
-                            <div class="form-block">
-                                <input type="submit" class="button" value="Search"/>
-                            </div>
-                        </form>
-                    </div><!-- end widget content -->
+                        <h4><span>Search Here</span> <img src="{{ asset('client/images/divider-half-white.png') }}" alt="image" /></h4>
+                        <div class="widget-content box">
+                            <form action="{{ route('search_item') }}" method="get">
+                                <div class="form-block border">
+                                    <label for="keywords">Enter Keywords</label>
+                                    <input type="text" name="content" placeholder="Enter search keywords" required/>
+                                </div>
+                                <div class="form-block">
+                                    <input type="submit" class="button" value="Search"/>
+                                </div>
+                            </form>
+                        </div><!-- end widget content -->
                     </div><!-- end widget -->
                     <div class="widget widget-sidebar recent-properties">
-                    <h4><span>Quick Links</span> <img src="{{ asset('client/images/divider-half.png') }}" alt="" /></h4>
-                    <div class="widget-content box">
-                        <ul class="bullet-list">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/terms-and-policy">Terms & Policy</a></li>
-                            <li><a href="/submit-query">Submit Query</a></li>
-                            <li><a href="/faq">Frequently Asked Questions</a></li>
-                            <li><a href="/login">Login</a></li>
-                            <li><a href="/upload-item">Upload Found Item</a></li>
-                        </ul>
-                    </div><!-- end widget content -->
+                        <h4><span>Quick Links</span> <img src="{{ asset('client/images/divider-half.png') }}" alt="" /></h4>
+                        <div class="widget-content box">
+                            <ul class="bullet-list">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/terms-and-policy">Terms & Policy</a></li>
+                                <li><a href="/submit-query">Submit Query</a></li>
+                                <li><a href="/faq">Frequently Asked Questions</a></li>
+                                <li><a href="/login">Login</a></li>
+                                <li><a href="/upload-item">Upload Found Item</a></li>
+                            </ul>
+                        </div><!-- end widget content -->
                     </div><!-- end widget -->
                 
                 </div><!-- end sidebar -->
+                </div>
+
+                {{-- lost link 2 --}}
+                <div class="col-12">
+                    <div class="container">
+                        <p>Didn't find your item? Click <a data-toggle="modal" data-target="#exampleModalCenter">Here</a> to submit document details.</p>
+                    </div>
+                </div>
+                {{-- end lost link 2 --}}
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                    <form action="{{ route('lost.store')}}" class="multi-page-form" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="multi-page-form-content active">
+                                                <h4><span>Submit Lost Document Details</span> </h4>
+                                                <p><img src="{{ asset('client/images/divider-half.png') }}" alt="image" /></p><br>
+                                                <div class="form-block">
+                                                    <label>Document Type*</label>
+                                                    <select name="category" class="border" required>
+                                                            <option value=""></option>
+                                                            @foreach($categories as $category)
+                                                                <option value="{{ $category->name}}">{{ $category->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                </div>
+                                                <div class="form-block">
+                                                    <label>Name (as they appear on the document)</label>
+                                                    <input class="border" type="text" name="name" required/>
+                                                </div>
+                                                <div class="form-block">
+                                                    <label>Document Number* (Id No, Reg N0, Passport No, etc)</label>
+                                                    <input class="border" type="text" name="number" required/>
+                                                </div>
+                                    
+                                        </div><!-- end basic info -->
+                                    
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="button button-icon" data-dismiss="modal">Close</button>
+                            <button type="submit" class="button button-icon"><i class="fa fa-send"></i>Submit Details</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {{-- end modal --}}
                 
             </div><!-- end row -->
         

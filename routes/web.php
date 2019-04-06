@@ -32,6 +32,7 @@ Route::get('/register-page', function () {
 });
 
 Route::resource('items', 'ItemsController');
+Route::resource('lost', 'LostController');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
 

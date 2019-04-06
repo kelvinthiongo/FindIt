@@ -7,7 +7,7 @@
       <p>Search based on the name, Number, where you lost the document or the date lost</p>
       <div>
         <form action="{{ route('search_item') }}" method="get" class="simple-search-form">
-          <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" />
+          <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" required/>
           <input type="submit" value="GO" />
         </form>
       </div>

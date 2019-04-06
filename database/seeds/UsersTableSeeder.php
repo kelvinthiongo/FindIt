@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
             'slug' => str_slug('Destiny'),
             'email' => 'destiny@24seven.co.ke',
             'email_verified_at' => now(),
+            'is_verified' => true,
             'phone' => '+254 723077827',
             'type' => 'supper',
             'password' => '$2y$10$/4bTCXlUYYAq78DNmFTwUugFZgKJw4/hRvAxlLKDQvParrPkWDxPS' 

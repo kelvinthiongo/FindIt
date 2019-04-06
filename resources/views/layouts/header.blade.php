@@ -2,9 +2,9 @@
         <!-- Logo -->
         <a href="/" target="_blank" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b><img src="{{ asset('logo.png')}}" alt="Homelly" /></span>
+          <span class="logo-mini"><b><img src="{{ asset('favicon.png')}}" alt="logo" /></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><img src="{{ asset('logo.png')}}" alt="Homelyj" /></span>
+          <span class="logo-lg"><img src="{{ asset('logo.png')}}" alt="logo" /></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">

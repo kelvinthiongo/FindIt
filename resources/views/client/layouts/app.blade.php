@@ -16,11 +16,10 @@
   <link href="{{ asset('client/assets/chosen-1.6.2/chosen.min.css') }}" rel="stylesheet">
   <link href="{{ asset('client/css/nouislider.min.css') }}" rel="stylesheet">
   <link href="{{ asset('client/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <link href="{{ asset('client/css/responsive.css') }}" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
   <!--Toaster Popup message CSS -->
-  <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
@@ -98,7 +97,7 @@
         <div class="clear"></div>
       </div>
 
-      <a class="navbar-brand" href="/"><img src="logo.png" alt="Findit" /></a>
+      <a class="navbar-brand" href="/"><img src="{{ asset('logo.png') }}" alt="Findit" /></a>
 
       <!-- nav toggle -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

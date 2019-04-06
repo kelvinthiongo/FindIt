@@ -6,6 +6,7 @@ use App\Item;
 use App\Category;
 use Image;
 use Auth;
+use App\Category;
 
 use Illuminate\Http\Request;
 
@@ -41,6 +42,8 @@ class ItemsController extends Controller
     }
 
     public function search_item(Request $request){
+        $categories = Category::all();
+
         $this->validate($request, [
             'content' => 'required | max:50'
         ]);

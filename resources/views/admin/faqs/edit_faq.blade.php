@@ -11,13 +11,13 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
             <h1>
-               Edit Page
-                <small>Edit this subscriber Here</small>
+               Edit faq
+                <small>Edit faq Here</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="/admin/subscribers">Subscribers</a></li>
-                <li class="active">Edit Subscriber</li>
+                <li><a href="/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="/admin/faqs">faqs</a></li>
+                <li class="active">Edit faq</li>
             </ol>
             </section>
             <!-- Main content -->
@@ -28,21 +28,25 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                    <h3 class="box-title fa fa-plus">Edit Subscriber</h3>
+                    <h3 class="box-title fa fa-plus">Edit faq</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    {!! Form::open(['action' => ['SubscribersController@update', $subscriber->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['action' => ['FaqController@update', $faq->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
                         <div class="box-body">
                             <div class="form-group">
-                                {{ Form::label('Subscriber Email') }}
+                                {{ Form::label('Queston') }}
 
-                                {{Form::email('email' ,$subscriber->email, ['class' => 'form-control','id' => 'exampleInputEmail1', 'placeholder' => 'Enter the subscriber email address']) }}
+                                {{Form::text('question' ,$faq->question, ['class' => 'form-control','id' => 'exampleInputEmail1', 'placeholder' => 'Enter the faq']) }}
                             </div>
-                            {{ Form::hidden('_method','PUT')}}
+                            <div class="form-group">
+                                    {{ Form::label('Answer') }}
+    
+                                    {{Form::textarea('answer' ,$faq->answer, ['class' => 'form-control','id' => 'exampleInputEmail1', 'placeholder' => 'Enter the answer to the faq above']) }}
+                            </div>
                         </div>
                         <div class="box-footer">
-                            {{ Form::submit('Edit Subscriber',['class'=>'btn btn-primary']) }}
+                            {{ Form::button('Update faq',['class'=>'fa fa-edit btn btn-primary', 'type'=>'submit']) }}
                         </div>
                     {!! Form::close() !!}
                 </div>

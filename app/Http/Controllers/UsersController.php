@@ -70,10 +70,10 @@ class UsersController extends Controller
             Session::flash('error', 'The email is already registered with us!');
             return redirect()->back();
         }
-        $slug = str_slug($request->name);
+        $slug = str_slug(ucwords($request->name));
         $check = User::withTrashed()->where('slug', $slug)->count();
         $user = User::create([
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'email' => $request->email,
             'phone' => $request->phone,
             'is_verified' => $request->is_verified,
@@ -108,10 +108,10 @@ class UsersController extends Controller
             else{
                 $type = 'ordinary';
             }
-            $slug = str_slug($request->name);
+            $slug = str_slug(ucwords($request->name));
             $check = User::withTrashed()->where('slug', $slug)->count();
             $admin = User::create([
-                'name' => $request->name,
+                'name' => ucwords($request->name),
                 'email'=> $request->email,
                 'type'=> $type,
                 'slug'=> $slug,
@@ -226,7 +226,7 @@ class UsersController extends Controller
                 }
                 $avatar_name = time() . $avatar->getClientOriginalName();
                 $avatar_new_name = 'uploads/users/' . $avatar_name;
-                $new_avatar = Image::make($avatar->getRealPath())->resize(172, 50);
+                $new_avatar = Image::make($avatar->getRealPath())->resize(500, 500);
                 $new_avatar->save(public_path($avatar_new_name));
                 $avatar = $avatar_new_name;
                 $user->avatar = $avatar;
@@ -236,7 +236,7 @@ class UsersController extends Controller
                 $user->phone = $request->phone;
             }
 
-            $user->name = $request->name;
+            $user->name = ucwords($request->name);
             $user->email = $request->email;
             if($user->type != 'user'){
                 if($request->supper == true){

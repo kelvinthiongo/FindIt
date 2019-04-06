@@ -13,27 +13,23 @@
             <div class="row">
                 @include('client.include.user_menu')
                 <div class="col-lg-9 col-md-9">
-                    <form>
+                    {!! Form::open(['action' => ['PagesController@update_profile'], 'method' => 'post']) !!}
+                        @csrf
+                        <div class="form-group">
                         <div class="row">
-                            <div class="col-lg-3">
-                                <div class="edit-avatar">
-                                    <img class="profile-avatar" src="{{ asset('client/images/agent-img3.jpg') }}" alt="" />
-                                    <a href="#" class="button small">Change Avatar</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-12">
                                 
                                 <div class="form-block">
                                     <label>Full Name</label>
-                                    <input class="border" type="text" name="name" value="John Doe" />
+                                    <input class="border" type="text" name="name" value="{{ Auth::user()->name }}" required/>
                                 </div>
                                 <div class="form-block">
                                     <label>Email</label>
-                                    <input class="border" type="text" name="email" value="jdoe@gmail.com" />
+                                    <input class="border" type="text" name="email" value="{{ Auth::user()->email }}" required/>
                                 </div>
                                 <div class="form-block">
                                     <label>Phone</label>
-                                    <input class="border" type="text" name="phone" value="443-123-2322" />
+                                    <input class="border" type="text" name="phone" value="{{ Auth::user()->phone }}" required/>
                                 </div>
                             </div>
                         </div><!-- end row -->
@@ -42,18 +38,31 @@
                                 <h4>Change Password</h4>
                                 <div class="divider"></div>
                                 <div class="form-block">
-                                    <label>Current Password</label>
-                                    <input class="border" type="text" name="current_pass" />
+                                    <label>{{ __('Current Password') }}</label>
+                                    <input class="border{{ $errors->has('current_password') ? ' is-invalid' : '' }}" type="password" name="current_password"/>
+                                    @if ($errors->has('current_password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong style="color: red;">{{ $errors->first('current_password') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
-                                
                                 <div class="form-block">
-                                    <label>New Password</label>
-                                    <input class="border" type="text" name="new_pass" />
+                                    <label>{{ __('New Password') }}</label>
+                                    <input class="border{{ $errors->has('new_password') ? ' is-invalid' : '' }}" type="password" name="new_password" />
+                                     @if ($errors->has('new_password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong style="color: red;">{{ $errors->first('new_password') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
-                                
                                 <div class="form-block">
-                                    <label>Confirm New Password</label>
-                                    <input class="border" type="text" name="new_pass_confirm" />
+                                    <label>{{ __('Confirm New Password') }}</label>
+                                    <input class="border{{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" type="password" name="confirm_password" />
+                                     @if ($errors->has('confirm_password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong style="color: red;">{{ $errors->first('confirm_password') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </div><!-- end row -->

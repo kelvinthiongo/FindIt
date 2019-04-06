@@ -22,6 +22,8 @@
   <!--Toaster Popup message CSS -->
   <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
   {{-- favicon --}}
   <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
 
@@ -41,13 +43,24 @@
           <ul class="top-bar-item right social-icons">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
           </ul>
           <div class="clear"></div>
         </div>
         <div class="top-bar-right right">
-          <a href="/login" class="top-bar-item"><i class="fa fa-sign-in icon"></i>Login</a>
-          <a href="/register" class="top-bar-item"><i class="fa fa-user-plus icon"></i>Register</a>
+          @guest
+            <a href="/login" class="top-bar-item"><i class="fa fa-sign-in icon"></i>Login</a>
+            <a href="/register" class="top-bar-item"><i class="fa fa-user-plus icon"></i>Register</a>
+          @endauth
+          @auth
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                <i class="fa fa-reply icon"></i>
+                {{ __('Logout') }}
+            </a>
+            <a href="/profile" class="top-bar-item isActiveRoute('profile')"><i class="fa fa-user-plus icon"></i>Profile</a>
+          @endauth
           <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -66,7 +79,7 @@
               <td><i class="fa fa-phone"></i></td>
               <td class="header-item-text">
                 <a href="tel:">Call Support</a><br/>
-                <span>+254700 000 000</span>
+                <span>{{ $admin_on_duty->phone }}</span>
               </td>
             </tr>
           </table>
@@ -102,13 +115,33 @@
         <div class="container-fixed">
 
         <div class="member-actions right">
-          <a href="/upload-item" class="button small alt button-icon"><i class="fa fa-upload"></i>Upload Found Document</a>
+          <a href="{{ route('items.create') }}" class="button small alt button-icon"><i class="fa fa-upload"></i>Upload Found Document</a>
         </div>
         <ul class="nav navbar-nav right">
           <li class="{{ isActiveRoute('landing') }}"><a href="/">Home</a></li>
           <li class="{{ isActiveRoute('faq') }}"><a href="/faq">FAQ</a></li>
           <li class="{{ isActiveRoute('terms') }}"><a href="/terms-and-policy">Terms & policy</a></li>
           <li class="{{ isActiveRoute('contact') }}"><a href="/submit-query">Submit Query</a></li>
+          @auth
+            <li class="{{ isActiveRoute('profile') }}"><a href="/profile"><i class="fa fa-user icon"></i>Profile</a></li>
+            <li>
+              <a href="{{ route('logout') }}"
+                  onclick="event.preventDefault(); 
+                  document.getElementById('logout-form').submit();">
+                  <i class="fa fa-reply icon"></i> <!-- #logout-form defined earlier in this page -->
+                  {{ __('Logout') }}
+              </a>
+            </li>
+          @endauth
+          @guest
+            <li>
+                <a href="/login" class="top-bar-item"><i class="fa fa-sign-in icon"></i>Login</a>
+            </li>
+            <li>
+              <a href="/register" class="top-bar-item"><i class="fa fa-user-plus icon"></i>Register</a>
+            </li>
+            
+          @endauth
          
         </ul>
         <div class="clear"></div>
@@ -153,7 +186,7 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-4 widget footer-widget">
                 <h4><span>Support</span> <img src="images/divider-half.png" alt="" /></h4>
-                <p class="footer-phone"><i class="fa fa-phone icon"></i> +2547 00 000 000</p>
+                <p class="footer-phone"><i class="fa fa-phone icon"></i>{{ $admin_on_duty->phone }}</p>
                 <p class="footer-phone"><i class="fa fa-envelope icon"></i> findit@24seven.co.ke</p>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 widget footer-widget newsletter">
@@ -177,7 +210,7 @@
 </div>
 
 <!-- JavaScript file links -->
-<script src="{{ asset('client/js/jquery-3.1.1.min.js') }}"></script>      <!-- Jquery -->
+<!-- <script src="{{ asset('client/js/jquery-3.1.1.min.js') }}"></script>     -->
 <script src="{{ asset('client/assets/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('client/js/bootstrap.min.js') }}"></script>  <!-- bootstrap 3.0 -->
 <script src="{{ asset('client/assets/slick-1.6.0/slick.min.js') }}"></script> <!-- slick slider -->
@@ -188,6 +221,6 @@
 <script src="{{ asset('client/js/global.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+@include('layouts.messages')
 </body>
 </html>

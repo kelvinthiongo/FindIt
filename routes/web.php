@@ -19,45 +19,26 @@ Route::get('/', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/terms', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');
-Route::get('/profile','PagesController@profile')->name('profile');
-Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
-Route::get('/upload-item','PagesController@upload')->name('upload_item');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/profile','PagesController@profile')->name('profile');
+    Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
+    Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
+});
+    
+
 
 Route::get('/register-page', function () {
     return view('client.register');
 });
 
+Route::resource('items', 'ItemsController');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
 
-Route::post('/items/store', 'ItemsController@store')->name('store_item');
-Route::get('/items/show/{slug}', 'ItemsController@show')->name('show_item');
 Route::get('/items/report/{slug}', 'ItemsController@report')->name('report');
 
 //Auth Routes
 Auth::routes(['verify' => true]);
-
-// get clients country
-Route::get('/get-client-country', function(){ // getLocationInfoByIp
-    $client  = @$_SERVER['HTTP_CLIENT_IP'];
-    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-    $remote  = @$_SERVER['REMOTE_ADDR'];
-    $result  = array('country'=>'', 'city'=>'');
-    if(filter_var($client, FILTER_VALIDATE_IP)){
-        $ip = $client;
-    }elseif(filter_var($forward, FILTER_VALIDATE_IP)){
-        $ip = $forward;
-    }else{
-        $ip = $remote;
-    }
-
-    $ip_data = @json_decode(file_get_contents("htts://www.geoplugin.net/json.gp?ip=".$ip));    
-    if($ip_data && $ip_data->geoplugin_countryName != null){
-        $result['country'] = $ip_data->geoplugin_countryCode;
-        $result['city'] = $ip_data->geoplugin_city;
-    }
-    return $result;
-});
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(){
@@ -76,9 +57,33 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::delete('/trash/users/{slug}/p_destroy', 'UsersController@p_destroy')->name('users.p_destroy');
 
     Route::resource('categories', 'CategoriesController');
-    Route::resource('items', 'ItemsController');
+    // Route::resource('items', 'ItemsController');
     Route::resource('faqs', 'FaqController');
 
     Route::resource('todo','HomeController');
 
+});
+
+
+
+// get clients country
+Route::get('/get-client-country', function(){ // getLocationInfoByIp
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = @$_SERVER['REMOTE_ADDR'];
+    $result  = array('country'=>'', 'city'=>'');
+    if(filter_var($client, FILTER_VALIDATE_IP)){
+        $ip = $client;
+    }elseif(filter_var($forward, FILTER_VALIDATE_IP)){
+        $ip = $forward;
+    }else{
+        $ip = $remote;
+    }
+
+    $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
+    if($ip_data && $ip_data->geoplugin_countryName != null){
+        $result['country'] = $ip_data->geoplugin_countryCode;
+        $result['city'] = $ip_data->geoplugin_city;
+    }
+    return $ip;
 });

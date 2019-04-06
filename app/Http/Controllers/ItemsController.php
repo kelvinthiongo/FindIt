@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Category;
 use Image;
 use Auth;
 
@@ -10,6 +11,18 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
+    public function __construct()
+    {
+        // Middleware only applied to these methods
+        $this->middleware('auth', ['only' => [
+            'create', 'store', 'edit', 'destroy' // Could add bunch of more methods too
+        ]]);
+
+        $this->middleware('auth', ['only' => [
+            'lost_index', ''// Could add bunch of more methods too
+        ]]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +35,7 @@ class ItemsController extends Controller
     }
      
     public function lost_index() //for lost items
-    {
+    {   
         $items = Item::where('status', 'lost')->get();
         return view('admin.items.index')->with('items', $items)->with('status', 'Lost');
     }
@@ -36,7 +49,7 @@ class ItemsController extends Controller
         $count = $items->count();
         $items = $items->paginate(10);
         $pagination = $items->appends($query);
-        return view('client.items')->with('items', $items)
+        return view('client.items.items')->with('items', $items)
                                         ->with('status', 'Found')
                                         ->with('count', $count)
                                         ->withQuery($query)
@@ -49,8 +62,9 @@ class ItemsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $categories = Category::all();
+        return view('client.items.upload_item')->with('categories', $categories);
     }
 
     /**
@@ -64,18 +78,15 @@ class ItemsController extends Controller
         if(!$request->hasFile('image') && $request->has('image')){
             return redirect()->back()->with('error','Image not supported');
         }
-
         if(Auth::user()->is_verified){
             $this->validate($request, [
                 'number' => 'required',
-                'type' => 'required',
-
+                'category_id' => 'required',
             ]);
-            if(!$request->has('place_to_get'))
+            if($request->place_to_get == '')
                 $place_to_get = Auth::user()->name;
             else
-                $place_to_get = $request->place_to_get;
-        
+                $place_to_get = ucwords($request->place_to_get);
         }
         else{
             $this->validate($request, [
@@ -83,49 +94,54 @@ class ItemsController extends Controller
                 'l_name' => 'required',
                 'image' => 'required',
                 'number' => 'required',
-                'type' => 'required',
+                'category_id' => 'required',
                 'place_to_get' => 'required',
             ]);
-            $place_to_get = $request->place_to_get;
-    
-        }
-
-        
-        if($request->has('image')){
-            $old_image = $item->image;
-            $image = $request->image;
-            if($old_image != 'uploads/items/image.png'){
-                File::delete($old_image);
-            }
-            $image_name = time() . $image->getClientOriginalName();
-            $image_new_name = 'uploads/items/' . $image_name;
-            $new_image = Image::make($image->getRealPath())->resize(1837, 1206);
-            $new_image->save(public_path($image_new_name));
-            $image = $image_new_name;
-            $item->image = $image;
+            $place_to_get = ucwords($request->place_to_get);
         }
 
         $item = Item::create([
-            'f_name' => $request->f_name,
-            's_name' => $request->s_name,
-            'l_name'=> $request->l_name,
             'number'=> $request->number,
             'category_id'=> $request->category_id,
             'user_id'=> Auth::user()->id,
-            'description'=> $request->description,
-            'status'=> $request->status,
-            'place_found'=> $request->place_found,
             'place_to_get'=> $place_to_get,
-            'lf_date'=> $request->lf_date,
         ]);
 
-        $item->slug = $item->id . $item->f_name . $item->s_name . $item->l_name . $item->number;
-        $item->save();
+        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper')
+            $item->approved = Auth::user()->id;
 
+        if($request->f_name != '')
+            $item->f_name = ucwords($request->f_name);
+        if($request->s_name != '')
+            $item->s_name = ucwords($request->s_name);
+        if($request->l_name != '')
+            $item->l_name = ucwords($request->l_name);
+        if($request->description != '')
+            $item->description = $request->description;
+        if($request->status != '')
+            $item->status = $request->status;
+        if($request->place_found != '')
+            $item->place_found = ucwords($request->place_found);
+        if($request->lf_date != '')
+            $item->lf_date = $request->lf_date;
+
+        if($request->has('image')){
+            foreach($request->file('image') as $image){
+                $image_name = time() . $image->getClientOriginalName();
+                $image_new_name = 'uploads/items/' . $image_name;
+                $new_image = Image::make($image->getRealPath())->resize(1837, 1206);
+                $new_image->save(public_path($image_new_name));
+
+                $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
+            }
+            $item->image = json_encode($image_data);
+        }
+        $item->slug = $item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number;
+        $item->save();
         if(Auth::user()->is_verified){
             return redirect()->back()->with('success', 'You successfully uploaded the item.');
         }
-        return redirect()->back()->with('success', 'You successfully uploaded the item.');
+        return redirect()->route('landing')->with('success', 'You successfully uploaded the item.');
     }
 
     /**
@@ -136,7 +152,7 @@ class ItemsController extends Controller
      */
     public function show(Item $item)
     {
-        return view('client.show_item')->with('item', $item);
+        return view('client.items.show_item')->with('item', $item);
     }
     
     
@@ -154,7 +170,7 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
-        
+
     }
 
     /**
@@ -166,7 +182,7 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $this->middleware('auth');
         if(!$request->hasFile('image') && $request->has('image')){
             return redirect()->back()->with('error','Image not supported');
         }
@@ -247,6 +263,6 @@ class ItemsController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+
     }
 }

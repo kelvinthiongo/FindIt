@@ -22,7 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('l_name')->nullable();
             $table->string('slug')->default(str_slug(date('Y-m-d H:i:s')));
             $table->string('number');
-            $table->string('image')->default('/uploads/items/image.jpg');
+            $table->string('image')->default("[\"uploads\\\/items\\\/image.jpg\"]");
             $table->integer('user_id');
             $table->integer('reports')->nullable();
             $table->string('description')->nullable();

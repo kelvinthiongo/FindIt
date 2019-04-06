@@ -18,8 +18,14 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191); //Solved by increasing StringLength
         view()->composer('*',function($view) {
-            $phones = User::select('phone')->where('type', 'supper')->get();
-            $view->with('phones', $phones);
+             //604800 seconds in a week
+            $today = strtotime("now");
+            $weeks = floor($today / 604800);
+            $n = User::count();
+            $user_id = $weeks % $n + 1;
+
+            $admin_on_duty = User::where('id', $user_id)->first();
+            $view->with('admin_on_duty', $admin_on_duty);
         });
     }
 

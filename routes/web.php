@@ -64,7 +64,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::resource('faqs', 'FaqController');
 
     Route::get('/pending-items', 'ItemsController@pending')->name('pending');
+<<<<<<< HEAD
     Route::get('/approved-items', 'ItemsController@approved')->name('approved-items');
+=======
+    Route::get('/approved-items', 'ItemsController@approved')->name('approved');
+>>>>>>> 12669e8c62b99a89bd9d4b8c6716a58f9d6d9b35
     Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
     Route::get('/trashed-items', 'ItemsController@trashed')->name('trashed-items');
     Route::delete('/trashed-items', 'ItemsController@soft_destroy')->name('soft_delete');

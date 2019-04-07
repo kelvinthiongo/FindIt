@@ -27,7 +27,11 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
+<<<<<<< HEAD
+                <h3></h3>
+=======
                 <h3>25000</h3>
+>>>>>>> 243e77f45635048e40a24ac891957553557f984e
 
                 <p>Items</p>
               </div>
@@ -42,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>{{ $usercount }}</h3>
+                <h3></h3>
 
                 <p>User(s)</p>
               </div>
@@ -57,7 +61,11 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
+<<<<<<< HEAD
+                <h3></h3>
+=======
                 <h3>54</h3>
+>>>>>>> 243e77f45635048e40a24ac891957553557f984e
                 <p>Project(s) Done</p>
               </div>
               <div class="icon">

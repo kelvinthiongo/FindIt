@@ -305,6 +305,16 @@ class ItemsController extends Controller
         return view('admin.items.pending')->with('pendings', $pendings);
         
     }
+    //get all approved items
+    public function approved(){
+        $admins = User::where('type', 'ordinary')->orWhere('type', 'supper')->select('id', 'name')->get();
+        $names = array();
+        foreach($admins as $admin){
+            $names[$admin->id] = $admin->name;
+        }
+        $approved_items = Item::where('approved', '!=', null)->get();
+        return view('admin.items.approved')->with('names', $names)->with('approved_items', $approved_items);
+    }
     //approve a pending item
     public function approve($id){
         
@@ -315,15 +325,7 @@ class ItemsController extends Controller
         return redirect()->back()->with('success','Item Approved Successfully');
     }
 
-    public function approved(){
-        $admins = User::where('type', 'ordinary')->orWhere('type', 'supper')->select('id', 'name')->get();
-        $names = array();
-        foreach($admins as $admin){
-            $names[$admin->id] = $admin->name;
-        }
-        $approved_items = Item::where('approved', '!=', null)->get();
-        return view('admin.items.approved')->with('names', $names)->with('approved_items', $approved_items);
-    }
+    
 
     public function trashed(){
         $trashed_items = Item::onlyTrashed()->get();

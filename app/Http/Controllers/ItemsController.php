@@ -278,8 +278,15 @@ class ItemsController extends Controller
     //get all items pending approval
     public function pending(){
         $pendings = Item::where('approved', null)->get();
-        dd($pendings);
+   
         return view('admin.items.pending')->with('pendings', $pendings);
+        
+    }
+    //get all approved items
+    public function approved(){
+        $approved_items = Item::where('approved', '!=', null)->get();
+   
+        return view('admin.items.approved')->with('approved_items', $approved_items);
         
     }
     //approve a pending item
@@ -308,7 +315,7 @@ class ItemsController extends Controller
         $result = $item->forceDelete();
         if($result){
             Session::flash('success', 'Item deleted successfully');
-            return redirect()->route('uploads');
+            return redirect()->back();
         }
         Session::flash('error', 'Item could not be deleted.');
         return redirect()->back();

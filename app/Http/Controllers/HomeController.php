@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Todo;
-use App\Subscriber;
 use App\Partner;
 use App\User;
 use Auth;
@@ -39,14 +38,9 @@ class HomeController extends Controller
         if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper'){
             $users = User::all();
             $usercount = $users->count();
-            $subs = Subscriber::all();
-            $subscount= $subs->count();
-            $clientcount= Client::all()->count();
             $todos = Auth::user()->todos()->get();
             return view('admin.dashboard')->with('todos',$todos)
-                                            ->with('subscount',$subscount)
-                                            ->with('usercount',$usercount)
-                                            ->with('clientcount',$clientcount);
+                                            ->with('usercount',$usercount);
         }
         else
             return redirect()->route('landing');

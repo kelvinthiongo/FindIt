@@ -24,7 +24,7 @@ class AllowAdminsOnly
     {   
         if (Auth::user()->type != 'ordinary' && Auth::user()->type != 'supper') {
             Session::flash('error', 'Sorry, task allowed to admins only. Logout first then login as an admin');
-            return redirect()->back();
+            return redirect()->route('landing');
         }
         else if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper'){
             return $next($request);

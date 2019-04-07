@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile','PagesController@profile')->name('profile');
     Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
     Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
+    Route::delete('/items/delete-image/{item}/{image}', 'ItemsController@delete_image')->name('delete_image');
 });
     
 
@@ -35,6 +36,7 @@ Route::resource('items', 'ItemsController');
 Route::resource('lost', 'LostController');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
+
 
 Route::post('/items/report/{item}', 'ItemsController@report')->name('report');
 

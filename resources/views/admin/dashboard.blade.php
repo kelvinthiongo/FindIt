@@ -27,14 +27,14 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>{{ $subscount }}</h3>
+                <h3>25000</h3>
 
-                <p>Subscribers</p>
+                <p>Items</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person"></i>
               </div>
-              <a href="/admin/subscribers" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>{{ $clientcount }}</h3>
+                <h3>54</h3>
                 <p>Project(s) Done</p>
               </div>
               <div class="icon">

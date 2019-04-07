@@ -59,7 +59,8 @@ class PagesController extends Controller
                 return redirect()->back();
             }
         }      
-
+        if(Auth::user()->email != $request->email)
+            Auth::user()->email_verified_at = null;
         Auth::user()->phone = $request->phone;
         Auth::user()->name = ucwords($request->name);
         Auth::user()->email = $request->email;

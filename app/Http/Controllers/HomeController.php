@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Todo;
-use App\Partner;
 use App\User;
 use Auth;
-use App\Client;
 
 class HomeController extends Controller
 {
@@ -19,6 +17,10 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->middleware('admin', ['only' => [
+            'create', 'store', 'edit', 'update', 'show', 'destroy'
+        ]]);
     }
     
     /**

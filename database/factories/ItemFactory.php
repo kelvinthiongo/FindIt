@@ -31,6 +31,7 @@ $factory->define(App\Item::class, function (Faker $faker) {
             'Guka',
         ]),
         'l_name' => $faker->lastName,
+        'slug' => str_slug($faker->name . $faker->ean8),
         'category_id' => $faker->randomElement([1, 2, 3, 4, 5, 6, 7]),
         'user_id' => $faker->randomElement([1, 2, 3, 4, 5]),
         'number' => $faker->ean8,

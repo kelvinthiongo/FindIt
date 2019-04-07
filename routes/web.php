@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/approved-items', 'ItemsController@approved')->name('approved-items');
     Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
     Route::get('/trashed-items', 'ItemsController@trashed')->name('trashed-items');
+    Route::delete('/trashed-items', 'ItemsController@soft_destroy')->name('soft_delete');
 
     Route::resource('todo','HomeController');
 

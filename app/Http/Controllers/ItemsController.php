@@ -356,4 +356,24 @@ class ItemsController extends Controller
         return redirect()->back();
     }
 
+    public function soft_delete(Item $item)
+    {
+        $images = json_decode($item->image);
+        foreach($images as $image){
+            if($image == "uploads/items/image.jpg")
+                continue;
+            File::delete($image);
+        }
+        $result = $item->forceDelete();
+        if($result){
+            Session::flash('success', 'Item deleted successfully');
+            if(Auth::user()->type == 'user')
+                return redirect()->route('uploads');
+            else
+                return redirect()->back();
+        }
+        Session::flash('error', 'Item could not be deleted.');
+        return redirect()->back();
+    }
+
 }

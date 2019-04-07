@@ -67,6 +67,9 @@
                                                     <a href='/admin/pending-items/{{$pending->id}}/approve' ><button style="color:green;" class="trans btn btn-success fa fa-check"> </button></a>
                                                 </li>
                                                 <li class="links">
+                                                    <a target="_blank" href='/items/{{$pending->slug}}/edit' ><button style="color:green;" class="trans btn btn-success fa fa-edit"> </button></a>
+                                                </li>
+                                                <li class="links">
                                                     <a target="_blank" href='/items/{{$pending->slug}}' ><button style="color:green;" class="trans btn btn-success fa fa-eye"> </button></a>
                                                 </li>
                                                 <li class="links">

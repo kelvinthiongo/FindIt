@@ -63,6 +63,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     // Route::resource('items', 'ItemsController');
     Route::resource('faqs', 'FaqController');
     Route::get('/pending-items', 'ItemsController@pending')->name('pending');
+    Route::get('/approved-items', 'ItemsController@approved')->name('approved');
     Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
 
     Route::resource('todo','HomeController');

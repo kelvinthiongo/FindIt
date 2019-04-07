@@ -64,7 +64,7 @@
       </a>
       <ul class="treeview-menu">
         <li><a href="/admin/pending-items"><i class="fa fa-refresh"></i> Pending Items</a></li>
-        <li><a href="#"><i class="fa fa-check"></i> Approved Items</a></li>
+        <li><a href="/admin/approved-items"><i class="fa fa-check"></i> Approved Items</a></li>
         <li><a href="#"><i class="fa fa-trash"></i>Trashed Items</a></li>
       </ul>
     </li>

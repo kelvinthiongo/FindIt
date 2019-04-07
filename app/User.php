@@ -26,6 +26,9 @@ class User extends Authenticatable
     public function todos(){
         return $this->hasMany('App\Todo');
     }
+    public function approvals(){
+        return $this->hasMany('App\Item');
+    }
 
     protected $guarded = [];
 

@@ -28,7 +28,7 @@ class PagesController extends Controller
         return view('client.profile');
     }
     public function my_uploads(){
-        $items = Item::where('user_id', Auth::user()->id)->paginate(10);
+        $items = Item::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(10);
         return view('client.my_uploads')->with('items', $items);
     }
     public function upload(){

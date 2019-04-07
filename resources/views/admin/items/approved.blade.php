@@ -50,7 +50,7 @@
                                     <tr>
                                         <td>{{$n = $n + 1}}</td>
                                         <td>{{$approved->category->name}}</td>
-                                        <td>{{$approved->name}}</td>
+                                        <td>{{$approved->f_name." ".$approved->s_name." ".$approved->l_name}}</td>
                                         <td>{{$approved->number}}</td>
 <<<<<<< HEAD
                                         <td>{{$names[$approved->approved]}}</td>

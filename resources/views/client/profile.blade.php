@@ -24,7 +24,7 @@
                                     <input class="border" type="text" name="name" value="{{ Auth::user()->name }}" required/>
                                 </div>
                                 <div class="form-block">
-                                    <label>Email(If you changed you will have to verify your account again!</label>
+                                    <label>Email(If CHANGED you will have to verify your account again!)</label>
                                     <input class="border" type="text" name="email" value="{{ Auth::user()->email }}" required/>
                                 </div>
                                 <div class="form-block">

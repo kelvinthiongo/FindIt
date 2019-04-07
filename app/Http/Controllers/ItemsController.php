@@ -7,6 +7,7 @@ use Image;
 use Session;
 use File;
 use Auth;
+use App\User;
 use App\Category;
 use App\Lost;
 
@@ -303,16 +304,18 @@ class ItemsController extends Controller
     //get all items pending approval
     public function pending(){
         $pendings = Item::where('approved', null)->get();
-   
         return view('admin.items.pending')->with('pendings', $pendings);
         
     }
     //get all approved items
     public function approved(){
+        $admins = User::where('type', 'ordinary')->orWhere('type', 'supper')->select('id', 'name')->get();
+        $names = array();
+        foreach($admins as $admin){
+            $names[$admin->id] = $admin->name;
+        }
         $approved_items = Item::where('approved', '!=', null)->get();
-   
-        return view('admin.items.approved')->with('approved_items', $approved_items);
-        
+        return view('admin.items.approved')->with('names', $names)->with('approved_items', $approved_items);
     }
     //approve a pending item
     public function approve($id){
@@ -329,6 +332,14 @@ class ItemsController extends Controller
         } 
      
         return redirect()->back()->with('success','Item Approved Successfully');
+    }
+
+    
+
+    public function trashed(){
+        $trashed_items = Item::onlyTrashed()->get();
+        return view('admin.items.trashed')->with('trashed_items', $trashed_items);
+        
     }
     /**
      * Remove the specified resource from storage.
@@ -347,7 +358,30 @@ class ItemsController extends Controller
         $result = $item->forceDelete();
         if($result){
             Session::flash('success', 'Item deleted successfully');
-            return redirect()->back();
+            if(Auth::user()->type == 'user')
+                return redirect()->route('uploads');
+            else
+                return redirect()->back();
+        }
+        Session::flash('error', 'Item could not be deleted.');
+        return redirect()->back();
+    }
+
+    public function soft_delete(Item $item)
+    {
+        $images = json_decode($item->image);
+        foreach($images as $image){
+            if($image == "uploads/items/image.jpg")
+                continue;
+            File::delete($image);
+        }
+        $result = $item->forceDelete();
+        if($result){
+            Session::flash('success', 'Item deleted successfully');
+            if(Auth::user()->type == 'user')
+                return redirect()->route('uploads');
+            else
+                return redirect()->back();
         }
         Session::flash('error', 'Item could not be deleted.');
         return redirect()->back();

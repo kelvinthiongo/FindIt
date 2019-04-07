@@ -143,11 +143,13 @@
               <a href="/register" class="top-bar-item"><i class="fa fa-user-plus icon"></i>Register</a>
             </li>
           @endauth
-          @if(Auth::user()->type != 'user')
-            <li>
-              <a href="/admin" class="top-bar-item" target="_blank"><i class="fa fa-user icon"></i>Admin</a>
-            </li>
-          @endif
+          @auth
+            @if(Auth::user()->type != 'user')
+              <li>
+                <a href="/admin" class="top-bar-item" target="_blank"><i class="fa fa-user icon"></i>Admin</a>
+              </li>
+            @endif
+          @endauth
         </ul>
         <div class="clear"></div>
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Item;
-use App\Category;
 use Image;
 use Auth;
 use App\Category;

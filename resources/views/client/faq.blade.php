@@ -12,9 +12,9 @@
         <div class="container">
       
           <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-lg-12 col-md-12"> 
+              @if($faqs->count() > 0)
               <div id="accordion" class="content">
-                @if($faqs->count() > 0)
                   @foreach ($faqs as $faq)
                     <h3>{{ $faq->question }}</h3>
                     <div>
@@ -23,24 +23,10 @@
                       </p>
                     </div>
                   @endforeach
-                @else
-                <p>There are no FAQs to display!</p>
-                @endif
-                
-                <h3>How can I sign up?</h3>
-                <div>
-                  <p>
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                  ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                  amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                  odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                  </p>
-                  <p>Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                  amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                  odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                  </p>
-                </div>
               </div>
+              @else
+              <p>There are no FAQs to display!</p>
+              @endif
             </div>
           </div><!-- end row -->
         </div>

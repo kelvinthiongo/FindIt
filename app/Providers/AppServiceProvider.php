@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
              //604800 seconds in a week
             $today = strtotime("now");
             $weeks = floor($today / 604800);
-            $n = User::count();
+            $n = User::where('type', '!=', 'user')->count();
             $user_id = $weeks % $n + 1;
 
             $admin_on_duty = User::where('id', $user_id)->first();

@@ -80,8 +80,13 @@
                                     </div>
                                     <table class="property-details">
                                     <tr>
-                                        <a href="{{ route('report', ['slug' => $item->slug]) }}"><td><i class="fa fa-flag"></i> Report</td></a>
+                                        <form action="{{ route('report', ['slug' => $item->slug]) }}" method="post">
+                                            @csrf
+                                                <td><button type="submit" class="btn btn-default"><i class="fa fa-flag"></i> Report</button></td>
+                                        </form>
+                                        
                                         <td><i class="fa fa-user"></i> Uploaded by: <b>{{ $item->user->name }}<b></td>
+                                    </tr>
                                     </table>
                                 </div>
                                 <div class="property-footer">

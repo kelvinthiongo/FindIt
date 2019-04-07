@@ -25,7 +25,7 @@
                             <tr>
                                 <td class="property-img"><a href="{{ asset(json_decode($item->image)[0]) }}"><img src="{{ asset(json_decode($item->image)[0]) }}" alt="" /></a></td>
                                 <td class="property-title">
-                                    <a href="property-single.html"> {{ $item->category->name }}</a><br/>
+                                    <a href="{{ route('items.show', ['slug' => $item->slug]) }}"> {{ $item->category->name }}<span class="flag-icon flag-icon-gr"></span></a><br/>
                                     <p class="property-address"><i class="fa fa-user"></i> {{ $item->f_name . ' ' . $item->s_name . ' ' . $item->l_name }}</p>
                                     <p class="property-address"><i class="fa fa-id-card"></i> {{ $item->number }}</p>
                                 </td>

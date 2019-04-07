@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile','PagesController@profile')->name('profile');
     Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
     Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
+    Route::delete('/items/delete-image/{item}/{image}', 'ItemsController@delete_image')->name('delete_image');
 });
     
 
@@ -36,7 +37,8 @@ Route::resource('lost', 'LostController');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
 
-Route::get('/items/report/{slug}', 'ItemsController@report')->name('report');
+
+Route::post('/items/report/{item}', 'ItemsController@report')->name('report');
 
 //Auth Routes
 Auth::routes(['verify' => true]);
@@ -60,6 +62,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::resource('categories', 'CategoriesController');
     // Route::resource('items', 'ItemsController');
     Route::resource('faqs', 'FaqController');
+    Route::get('/pending-items', 'ItemsController@pending')->name('pending');
+    Route::get('/approved-items', 'ItemsController@approved')->name('approved');
+    Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
 
     Route::resource('todo','HomeController');
 

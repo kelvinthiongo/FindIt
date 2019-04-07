@@ -71,7 +71,14 @@ class UsersController extends Controller
             return redirect()->back();
         }
         $slug = str_slug(ucwords($request->name));
+        $slug = str_replace('/', '-', $slug);
         $check = User::withTrashed()->where('slug', $slug)->count();
+        if($request->is_verified == 'on'){
+            $is_verified = true;
+        }
+        else{
+            $type = false;
+        }
         $user = User::create([
             'name' => ucwords($request->name),
             'email' => $request->email,
@@ -81,6 +88,7 @@ class UsersController extends Controller
         ]);
         if($check > 0){
             $user->slug = $slug . $user->id;
+            $user->slug = str_replace('/', '-', $user->slug);
             $user->save();
         }
         return redirect()->route('users.index')->with('success', 'You successfully added the user.');
@@ -108,7 +116,7 @@ class UsersController extends Controller
             else{
                 $type = 'ordinary';
             }
-            $slug = str_slug(ucwords($request->name));
+            $slug = str_replace('/', '-', str_slug(ucwords($request->name)));
             $check = User::withTrashed()->where('slug', $slug)->count();
             $admin = User::create([
                 'name' => ucwords($request->name),
@@ -118,7 +126,7 @@ class UsersController extends Controller
             ]);
             
             if($check > 0){
-                $user->slug = $slug . $user->id;
+                $user->slug = str_replace('/', '-', $slug . $user->id);
                 $user->save();
             }
     
@@ -208,6 +216,8 @@ class UsersController extends Controller
             'email' => 'required',
         ]);
         $user = User::where('slug', $slug)->first();
+        if($user->email != $request->email)
+             $user->email_verified_at = null;
         if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
             if($request->password != ''){
                 if($request->password == $request->confirm_password){

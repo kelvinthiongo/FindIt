@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Item;
-use App\Category;
 use Image;
 use Session;
 use File;
 use Auth;
+use App\Category;
 
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class ItemsController extends Controller
         ]]);
 
         $this->middleware('admin', ['only' => [
-            'lost_index'
+            'lost_index', 'index'
         ]]);
     }
 
@@ -142,7 +142,7 @@ class ItemsController extends Controller
             }
             $item->image = json_encode($image_data);
         }
-        $item->slug = $item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number;
+        $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
         $item->save();
         if(Auth::user()->is_verified){
             return redirect()->back()->with('success', 'You successfully uploaded the item.');
@@ -162,10 +162,11 @@ class ItemsController extends Controller
     }
     
     
-    public function report(Item $item)
+    public function report(Request $request, Item $item)
     {
         $item->reports = $item->reports + 1;
-        return redirect()->route('landing')->with('success', 'Item reported to the management. We will do something about it. Thanks!');
+        $item->save();
+        return redirect()->back()->with('success', 'Item reported to the management. We will do something about it. Thanks!');
     }
 
     /**
@@ -180,6 +181,29 @@ class ItemsController extends Controller
             return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
         }
         return view('client.items.edit')->with('item', $item)->with('categories', Category::all());
+    }
+
+    public function delete_image(Item $item, $image)
+    {   
+        if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user'){
+            return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
+        }
+        $images = json_decode($item->image);
+        if(count($images) == 1)
+            return redirect()->back()->with('error', 'You cannot remove the ONLY remaining image! Click edit button to add more images.');
+        if($images[$image] != "uploads/items/image.jpg")
+            File::delete($images[$image]);
+        $data = [];
+        foreach($images as $img){
+            if($images[$image] == $img){
+                continue;
+            }
+            $data[] = $img;
+        }
+        $item->image = json_encode($data);
+        $item->save();
+        Session::flash('success', 'You successifuly removed the image.');
+        return redirect()->back();
     }
 
     /**
@@ -260,7 +284,7 @@ class ItemsController extends Controller
 
             $item->image = json_encode($image_data);
         }
-        $item->slug = $item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number;
+        $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
  
         if(Auth::user()->type != "user"){
             $item->approved = Auth::user()->id;
@@ -274,6 +298,29 @@ class ItemsController extends Controller
         return redirect()->route('items.show')->with('item' ,$item)->with('success', 'You successfully updated the item!'); //to be changed
     }
 
+    //get all items pending approval
+    public function pending(){
+        $pendings = Item::where('approved', null)->get();
+   
+        return view('admin.items.pending')->with('pendings', $pendings);
+        
+    }
+    //get all approved items
+    public function approved(){
+        $approved_items = Item::where('approved', '!=', null)->get();
+   
+        return view('admin.items.approved')->with('approved_items', $approved_items);
+        
+    }
+    //approve a pending item
+    public function approve($id){
+        
+        $item = Item::find($id);
+        $item->approved = Auth::user()->id;
+        $item->save();
+     
+        return redirect()->back()->with('success','Item Approved Successfully');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -291,9 +338,10 @@ class ItemsController extends Controller
         $result = $item->forceDelete();
         if($result){
             Session::flash('success', 'Item deleted successfully');
-            return redirect()->route('uploads');
+            return redirect()->back();
         }
         Session::flash('error', 'Item could not be deleted.');
         return redirect()->back();
     }
+
 }

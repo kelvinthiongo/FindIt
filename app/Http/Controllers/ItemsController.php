@@ -192,7 +192,7 @@ class ItemsController extends Controller
         $images = json_decode($item->image);
         if(count($images) == 1)
             return redirect()->back()->with('error', 'You cannot remove the ONLY remaining image! Click edit button to add more images.');
-        if($images[$image] != "uploads/items/image.jpg")
+        if($images[$image] != "uploads/items/image.png")
             File::delete($images[$image]);
         $data = [];
         foreach($images as $img){
@@ -272,7 +272,7 @@ class ItemsController extends Controller
         
         if($request->image != null){
             $image_data = json_decode($item->image);
-            if($image_data == [0 => "uploads/items/image.jpg"])
+            if($image_data == [0 => "uploads/items/image.png"])
                 $image_data = [];
             foreach($request->file('image') as $image){
                 $image_name =  time() . $image->getClientOriginalName();
@@ -347,7 +347,7 @@ class ItemsController extends Controller
 
         if(Auth::user()->id == $item->user->id){
             foreach($images as $image){
-                if($image == "uploads/items/image.jpg")
+                if($image == "uploads/items/image.png")
                     continue;
                 File::delete($image);
             }
@@ -371,7 +371,7 @@ class ItemsController extends Controller
     {
         $images = json_decode($item->image);
         foreach($images as $image){
-            if($image == "uploads/items/image.jpg")
+            if($image == "uploads/items/image.png")
                 continue;
             File::delete($image);
         }

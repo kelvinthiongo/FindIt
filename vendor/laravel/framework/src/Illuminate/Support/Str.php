@@ -433,6 +433,9 @@ class Str
         // Replace all separator characters and whitespace by a single separator
         $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
 
+        // Replace / characters by a -
+        $title = str_replace('/', '-', $title);
+
         return trim($title, $separator);
     }
 

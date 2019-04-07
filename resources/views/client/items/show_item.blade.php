@@ -1,8 +1,8 @@
-@extends('client.layouts.app')
+ @extends('client.layouts.app')
 @section('content')
     <section class="subheader">
         <div class="container">
-            <h1>View {{ $item->category->name == 'others'? 'Item': $item->category->name }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</h1>
+        <h1>View {{ $item->category->name == 'others'? 'Item': $item->category->name }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</h1>
             <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">View {{ $item->category->name == 'others'? 'Item': $item->category->name }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</a></div>
             <div class="clear"></div>
         </div>
@@ -22,6 +22,7 @@
                             </div>
                             <div class="property-single-tags">
                                 <div class="property-tag button alt featured">{{ $item->category->name }}</div>
+                            <a href="{{ route('items.edit', ['slug' => $item->slug]) }}" class="property-tag button alt featured right" style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-pencil icon"></i>Edit</a>
                             </div>
                         </div>
                         <table class="property-details-single">
@@ -37,11 +38,23 @@
                             <span class="slider-prev"><i class="fa fa-angle-left"></i></span>
                             <span class="slider-next"><i class="fa fa-angle-right"></i></span>
                         </div>
-                        <div style="display:none">{{ $n = 0 }}{{ $m = 1 }}</div>
+                        <div style="display: none;">
+                            {{ $i = 0 }}
+                        </div>
                         <div class="slide-counter"></div>
                             <div class="slider slider-property-gallery">
                                 @foreach(json_decode($item->image) as $image)
-                                    <div class="slide"> <a href="{{ asset($image) }}"><img src="{{ asset($image) }}" alt="" /></a></div>
+                                    <div class="slide" style="position: relative">
+                                        {!! Form::open(['action' => ['ItemsController@delete_image', $item->slug, $i], 'method' => 'DELETE']) !!}
+                                            <button onClick= "javascript: return confirm ('Are you sure you want to delete this item?');" class="btn btn-danger right" type="submit" style="transform: translate(100%, 0%);
+                                            -ms-transform: translate(100%, 0%); position: absolute"><i class="fa fa-trash icon"></i>Delete Image</button>
+                                        {!! Form::close() !!}
+                                        <div style="display: none;">
+                                            {{ $i++ }}
+                                        </div>
+                                        <a href="{{ asset($image) }}"><img src="{{ asset($image) }}" alt="" /></a>
+                                    </div>
+                                    
                                 @endforeach
                             </div>
                             <div class="slider property-gallery-pager">
@@ -62,12 +75,10 @@
                         <p>{{ $item->description }}</p>
 
                         <p>This Item was Uploaded by <strong>{{ $item->user->name }}.</strong></p>
-        
                         <div class="tabs">
                             <ul style="">
-                            <li><a href="#tabs-1"><i class="fa fa-map-marker icon"></i>Where Found</a></li>
-                            <li><a href="#tabs-2"><i class="fa fa-map-marker icon"></i>Where to collect</a></li>
-                           
+                                <li><a href="#tabs-1"><i class="fa fa-map-marker icon"></i>Where Found</a></li>
+                                <li><a href="#tabs-2"><i class="fa fa-map-marker icon"></i>Where to collect</a></li>
                             </ul>
                             <div id="tabs-1" class="ui-tabs-hide">
                                 <p>{{ $item->place_found == ''? 'Place not indicated.' : $item->place_found }}</p>

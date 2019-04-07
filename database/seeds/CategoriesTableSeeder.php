@@ -11,56 +11,15 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        App\Category::create([
-            'name' => 'School ID',
-        ]);
-        
-        App\Category::create([
-            'name' => 'National ID',
-        ]);
+        $items = [ 
+            'School ID',  'National ID',  'NHIF', 'name' => 'NSSF', 'Passport', 'ATM Card', 'Log book', 'Driving Licence', 'Birth certificate', 'Education certificate', 'Others',
+        ];
 
-
-        App\Category::create([
-            'name' => 'NHIF',
-        ]);
-
-
-        App\Category::create([
-            'name' => 'NSSF',
-        ]);
-
-
-        App\Category::create([
-            'name' => 'Passport',
-        ]);
-
-
-        App\Category::create([
-            'name' => 'ATM Card',
-        ]);
-
-
-        App\Category::create([
-            'name' => 'Log book',
-        ]);
-
-
-        App\Category::create([
-            'name' => 'Driving Licence',
-        ]);
-
-
-        App\Category::create([
-            'name' => 'Birth certificate',
-        ]);
-
-        App\Category::create([
-            'name' => 'Education certificate',
-        ]);
-
-        App\Category::create([
-            'name' => 'Others',
-        ]);
-
+        foreach($items as $item){
+             App\Category::create([
+                'name' => $item,
+                'slug' => str_slug($item),
+            ]);
+        }
     }
 }

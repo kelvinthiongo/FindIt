@@ -60,6 +60,9 @@
             </a>
             <a href="/profile" class="top-bar-item isActiveRoute('profile')"><i class="fa fa-user-plus icon"></i>Profile</a>
           @endauth
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
           <div class="clear"></div>
         </div>
         <div class="clear"></div>

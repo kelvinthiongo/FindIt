@@ -147,6 +147,9 @@ a:hover { color:#68b4e8; text-decoration:none; }
 .button.alt { background-color:#4fba6f; }
 .button.alt:hover { background-color:#5fc97e; }
 
+.button.published { background-color:#4fba6f; }
+.button.pending { background-color:gray; }
+
 .button.small {
 	padding:6px 23px 6px 23px;
 	font-size:12px;

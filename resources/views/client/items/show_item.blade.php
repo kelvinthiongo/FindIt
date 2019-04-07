@@ -41,7 +41,7 @@
                         <div class="slide-counter"></div>
                             <div class="slider slider-property-gallery">
                                 @foreach(json_decode($item->image) as $image)
-                                    <div class="slide"><img src="{{ asset($image) }}" alt="" /></div>
+                                    <div class="slide"> <a href="{{ asset($image) }}"><img src="{{ asset($image) }}" alt="" /></a></div>
                                 @endforeach
                             </div>
                             <div class="slider property-gallery-pager">

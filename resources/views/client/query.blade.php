@@ -23,7 +23,7 @@
               <div class="contact-item">
                 <i class="fa fa-phone"></i>
                 <h4>Call Us</h4>
-                <p>Tel: +254700 000 000</p>
+                <p>Tel: {{ $admin_on_duty->phone }}</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-4">

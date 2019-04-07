@@ -8,6 +8,8 @@ use Session;
 use File;
 use Auth;
 use App\Category;
+use App\Lost;
+
 
 use Illuminate\Http\Request;
 
@@ -318,6 +320,13 @@ class ItemsController extends Controller
         $item = Item::find($id);
         $item->approved = Auth::user()->id;
         $item->save();
+
+        $check = Lost::where('number',$item->number)->count();
+        if($check > 0){
+            //mail fn here
+
+        return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
+        } 
      
         return redirect()->back()->with('success','Item Approved Successfully');
     }

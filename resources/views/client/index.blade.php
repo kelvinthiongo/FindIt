@@ -4,10 +4,10 @@
     <div class="container">
       <h1>Lost a Personal Document? </h1>
       <p>Search here with the (national ID, Student ID, NHIF Card, etc) details.</p>
-      <p>Search based on the name, Numebr, where you lost the document or the date lost</p>
+      <p>Search based on the name, Number, where you lost the document or the date lost</p>
       <div>
         <form action="{{ route('search_item') }}" method="get" class="simple-search-form">
-          <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" />
+          <input type="text" name="content" placeholder="Name/Number/place lost/date lost(eg 30thJune)" required/>
           <input type="submit" value="GO" />
         </form>
       </div>
@@ -21,8 +21,12 @@
       <div class="row">
         <div class="col-lg-4 col-md-4">
           <div class="service-item shadow-hover">
-            <i class="fa fa-upload"></i>
-            <h4>Upload Found Document</h4>
+            <a href="{{ route('items.create') }}">
+              <i class="fa fa-upload"></i>
+            </a>
+            <a href="{{ route('items.create') }}">
+              <h4>Upload Found Document</h4>
+            </a>
             <p>Found a misplaced document? Could be a National Id, Student Id, Passport, Driver's License, etc.</p>
             <p>All you need to do is <a href="/register"> <strong>Create</strong></a> an account with us, after which you will be redirected to an upload page where you will upload the item's details. It's That easy. Help a friend for it could be you tomorrow.</p>
           </div>

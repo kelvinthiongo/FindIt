@@ -36,16 +36,21 @@ class HomeController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        $usercount = $users->count();
-        $subs = Subscriber::all();
-        $subscount= $subs->count();
-        $clientcount= Client::all()->count();
-        $todos = Auth::user()->todos()->get();
-        return view('admin.dashboard')->with('todos',$todos)
-                                        ->with('subscount',$subscount)
-                                        ->with('usercount',$usercount)
-                                        ->with('clientcount',$clientcount);
+        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper'){
+            $users = User::all();
+            $usercount = $users->count();
+            $subs = Subscriber::all();
+            $subscount= $subs->count();
+            $clientcount= Client::all()->count();
+            $todos = Auth::user()->todos()->get();
+            return view('admin.dashboard')->with('todos',$todos)
+                                            ->with('subscount',$subscount)
+                                            ->with('usercount',$usercount)
+                                            ->with('clientcount',$clientcount);
+        }
+        else
+            return redirect()->route('landing');
+        
                                                             
     }
 
@@ -56,6 +61,7 @@ class HomeController extends Controller
      */
     public function create()
     {
+        $this->middleware('admin');
         return view('admin.todo.add_todo');
     }
 
@@ -67,6 +73,7 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('admin');
         $this->validate($request, [
             'duration' => 'required',
             'measure' => 'required',
@@ -93,6 +100,7 @@ class HomeController extends Controller
      */
     public function show($id)
     {
+        $this->middleware('admin');
         //
     }
 
@@ -104,6 +112,7 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
+        $this->middleware('admin');
         $todo = Todo::find($id);
         return view('/admin/todo/edit_todo')->with('todo', $todo);
     }
@@ -117,6 +126,7 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->middleware('admin');
         $this->validate($request, [
             'duration' => 'required',
             'measure' => 'required',
@@ -142,6 +152,7 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
+        $this->middleware('admin');
         $todo = Todo::find($id);
         $todo->delete();
 

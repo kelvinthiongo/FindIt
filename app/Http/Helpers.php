@@ -30,7 +30,7 @@ function isUserActiveRoute($route)
 | Very useful for navigation, marking if the link is active.
 |
 */
-function areActiveRoutes(Array $routes, $output = "current-menu-item")
+function areActiveRoutes(Array $routes, $output = "active")
 {
     foreach ($routes as $route)
     {

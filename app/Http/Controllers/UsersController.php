@@ -70,12 +70,13 @@ class UsersController extends Controller
             Session::flash('error', 'The email is already registered with us!');
             return redirect()->back();
         }
-        $slug = str_slug($request->name);
+        $slug = str_slug(ucwords($request->name));
         $check = User::withTrashed()->where('slug', $slug)->count();
         $user = User::create([
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'email' => $request->email,
             'phone' => $request->phone,
+            'is_verified' => $request->is_verified,
             'slug' => $slug,
         ]);
         if($check > 0){
@@ -107,10 +108,10 @@ class UsersController extends Controller
             else{
                 $type = 'ordinary';
             }
-            $slug = str_slug($request->name);
+            $slug = str_slug(ucwords($request->name));
             $check = User::withTrashed()->where('slug', $slug)->count();
             $admin = User::create([
-                'name' => $request->name,
+                'name' => ucwords($request->name),
                 'email'=> $request->email,
                 'type'=> $type,
                 'slug'=> $slug,
@@ -235,7 +236,11 @@ class UsersController extends Controller
                 $user->phone = $request->phone;
             }
 
-            $user->name = $request->name;
+            if(User::where('email', $request->email)->where('email','!=',$user->email)->count() > 0){
+                return redirect()->back()->with('error','Sorry The record already exists'); 
+             }  
+
+            $user->name = ucwords($request->name);
             $user->email = $request->email;
             if($user->type != 'user'){
                 if($request->supper == true){

@@ -2,7 +2,7 @@
 @section('content')
     <section class="subheader">
         <div class="container">
-            <h1>Uploaded Documents</h1>
+            <h1>My Uploaded Documents</h1>
             <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">View Your Uploaded Items</a></div>
             <div class="clear"></div>
         </div>
@@ -21,30 +21,32 @@
                             <th>Date Uploaded</th>
                             <th>Actions</th>
                         </tr>
-                        <tr>
-                            <td class="property-img"><a href="property-single.html"><img src="{{ asset('client/images/property-img4.jpg') }}" alt="" /></a></td>
-                            <td class="property-title">
-                                <a href="property-single.html">National Id</a><br/>
-                                <p class="property-address"><i class="fa fa-user"></i>Jane Doe Smith</p>
-                            </td>
-                            <td class="property-post-status"><span class="button small alt">Published</span></td>
-                            <td class="property-date">2/27/2017</td>
-                            <td class="property-actions">
-                                <a href="#"><i class="fa fa-eye icon"></i>View</a>
-                                <a href="#"><i class="fa fa-pencil icon"></i>Edit</a>
-                                <a href="#"><i class="fa fa-close icon"></i>Delete</a>
-                            </td>
-                        </tr>
+                        @foreach($items as $item)
+                            <tr>
+                                <td class="property-img"><a href="{{ asset(json_decode($item->image)[0]) }}"><img src="{{ asset(json_decode($item->image)[0]) }}" alt="" /></a></td>
+                                <td class="property-title">
+                                    <a href="property-single.html"> {{ $item->category->name }}</a><br/>
+                                    <p class="property-address"><i class="fa fa-user"></i> {{ $item->f_name . ' ' . $item->s_name . ' ' . $item->l_name }}</p>
+                                    <p class="property-address"><i class="fa fa-id-card"></i> {{ $item->number }}</p>
+                                </td>
+                                <td class="property-post-status"><span class="button small {{ $item->approved != null? 'published': 'pending' }}">{{ $item->approved != null? 'Published': 'Pending' }}</span></td>
+                                <td class="property-date">{{ date("F d, Y", strtotime($item->created_at)) }}</td>
+                                {!! Form::open(['action' => ['ItemsController@destroy', $item->slug], 'method' => 'DELETE']) !!}
+                                <td class="property-actions" >
+                                        <a href="{{ route('items.show', ['slug' => $item->slug]) }}"><i class="fa fa-eye icon"></i>View</a>
+                                        <a href="{{ route('items.edit', ['slug' => $item->slug]) }}"><i class="fa fa-pencil icon"></i>Edit</a>
+                                        <button onClick= "javascript: return confirm ('Are you sure you want to delete this item?');" class="btn danger" type="submit" style="color: red"><i class="fa fa-trash icon"></i>Delete</button>
+                                    </td>
+                                {!! Form::close() !!}
+                            </tr>
+                        @endforeach
+                            
                     </table>
                     
                     <div class="pagination">
                         <div class="center">
                             <ul>
-                                <li><a href="#" class="button small grey"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="current"><a href="#" class="button small grey">1</a></li>
-                                <li><a href="#" class="button small grey">2</a></li>
-                                <li><a href="#" class="button small grey">3</a></li>
-                                <li><a href="#" class="button small grey"><i class="fa fa-angle-right"></i></a></li>
+                                {{ $items->links() }}
                             </ul>
                         </div>
                         <div class="clear"></div>

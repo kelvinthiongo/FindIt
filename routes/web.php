@@ -19,29 +19,24 @@ Route::get('/', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/terms', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');
-Route::get('/profile','PagesController@profile')->name('profile');
-Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
-Route::get('/upload-item','PagesController@upload')->name('upload_item');
-Route::get('/items', function () {
-    return view('client.items');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/profile','PagesController@profile')->name('profile');
+    Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
+    Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
 });
-Route::get('/show_item', function () {
-    return view('client.show_item');
-});
-Route::get('/login-page', function () {
-    return view('client.login');
-});
+    
+
+
 Route::get('/register-page', function () {
     return view('client.register');
 });
 
-//contact us
-Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@store']);
-
-//Post Routes
-Route::post('/', 'PagesController@subscriber_store');
+Route::resource('items', 'ItemsController');
+Route::resource('lost', 'LostController');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
+
+Route::get('/items/report/{slug}', 'ItemsController@report')->name('report');
 
 //Auth Routes
 Auth::routes(['verify' => true]);
@@ -63,45 +58,33 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::delete('/trash/users/{slug}/p_destroy', 'UsersController@p_destroy')->name('users.p_destroy');
 
     Route::resource('categories', 'CategoriesController');
-    Route::resource('items', 'ItemsController');
+    // Route::resource('items', 'ItemsController');
     Route::resource('faqs', 'FaqController');
 
-    Route::resource('clients', 'ClientsController');
-    Route::resource('sliders', 'SlidersController');
-    Route::resource('partners', 'PartnersController');
-    Route::resource('metatags', 'MetatagsController');
-    Route::resource('webpages', 'WebpagesController');
-    Route::resource('subscribers', 'SubscribersController');
     Route::resource('todo','HomeController');
 
 });
 
 
-// Route::get('/users', [
-//     'uses' => 'usersController@index',
-//     'as' => 'users.index'
-// ]);
-// Route::get('/users/create', [
-//     'uses' => 'usersController@create',
-//     'as' => 'users.create'
-// ]);
-// Route::post('/users', [
-//     'uses' => 'usersController@store',
-//     'as' => 'users.store'
-// ]);
-// Route::get('/users/{slug}', [
-//     'uses' => 'usersController@show',
-//     'as' => 'users.show'
-// ]);
-// Route::get('/users/{slug}/edit', [
-//     'uses' => 'usersController@edit',
-//     'as' => 'users.edit'
-// ]);
-// Route::post('/users/{slug}', [
-//     'uses' => 'usersController@update',
-//     'as' => 'users.update'
-// ]);
-// Route::delete('/users/{slug}', [
-//     'uses' => 'usersController@destroy',
-//     'as' => 'users.destroy'
-// ]);
+
+// get clients country
+Route::get('/get-client-country', function(){ // getLocationInfoByIp
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = @$_SERVER['REMOTE_ADDR'];
+    $result  = array('country'=>'', 'city'=>'');
+    if(filter_var($client, FILTER_VALIDATE_IP)){
+        $ip = $client;
+    }elseif(filter_var($forward, FILTER_VALIDATE_IP)){
+        $ip = $forward;
+    }else{
+        $ip = $remote;
+    }
+
+    $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
+    if($ip_data && $ip_data->geoplugin_countryName != null){
+        $result['country'] = $ip_data->geoplugin_countryCode;
+        $result['city'] = $ip_data->geoplugin_city;
+    }
+    return $ip;
+});

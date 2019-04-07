@@ -147,6 +147,9 @@ a:hover { color:#68b4e8; text-decoration:none; }
 .button.alt { background-color:#4fba6f; }
 .button.alt:hover { background-color:#5fc97e; }
 
+.button.published { background-color:#4fba6f; }
+.button.pending { background-color:gray; }
+
 .button.small {
 	padding:6px 23px 6px 23px;
 	font-size:12px;
@@ -557,7 +560,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .subheader.simple-search {
 	text-align:center;
 	padding:200px 0px;
-	background-image:url(../images/simple-search-bg.jpg);
+	background-image:url(../images/bg.gif);
 }
 .subheader.simple-search h1 { float:none; font-size:48px; font-weight:700; }
 .subheader.simple-search p {

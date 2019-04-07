@@ -49,7 +49,7 @@
                                     <tr>
                                         <td>{{$n = $n + 1}}</td>
                                         <td>{{$pending->category->name}}</td>
-                                        <td>{{$pending->name}}</td>
+                                        <td>{{$pending->f_name." ".$pending->s_name." ".$pending->l_name}}</td>
                                         <td>{{$pending->number}}</td>
                                         <td>
                                             <style>

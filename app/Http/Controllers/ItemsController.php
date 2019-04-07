@@ -7,6 +7,7 @@ use Image;
 use Session;
 use File;
 use Auth;
+use App\Category;
 
 use Illuminate\Http\Request;
 
@@ -161,10 +162,11 @@ class ItemsController extends Controller
     }
     
     
-    public function report(Item $item)
+    public function report(Request $request, Item $item)
     {
         $item->reports = $item->reports + 1;
-        return redirect()->route('landing')->with('success', 'Item reported to the management. We will do something about it. Thanks!');
+        $item->save();
+        return redirect()->back()->with('success', 'Item reported to the management. We will do something about it. Thanks!');
     }
 
     /**
@@ -273,6 +275,22 @@ class ItemsController extends Controller
         return redirect()->route('items.show')->with('item' ,$item)->with('success', 'You successfully updated the item!'); //to be changed
     }
 
+    //get all items pending approval
+    public function pending(){
+        $pendings = Item::where('approved', null)->get();
+        dd($pendings);
+        return view('admin.items.pending')->with('pendings', $pendings);
+        
+    }
+    //approve a pending item
+    public function approve($id){
+        
+        $item = Item::find($id);
+        $item->approved = Auth::user()->id;
+        $item->save();
+     
+        return redirect()->back()->with('success','Item Approved Successfully');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -295,4 +313,5 @@ class ItemsController extends Controller
         Session::flash('error', 'Item could not be deleted.');
         return redirect()->back();
     }
+
 }

@@ -340,13 +340,22 @@ class ItemsController extends Controller
      */
     public function destroy(Item $item)
     {
-        $images = json_decode($item->image);
-        foreach($images as $image){
-            if($image == "uploads/items/image.jpg")
-                continue;
-            File::delete($image);
+        if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user'){
+            return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
         }
-        $result = $item->forceDelete();
+        $images = json_decode($item->image);
+
+        if(Auth::user()->id == $item->user->id){
+            foreach($images as $image){
+                if($image == "uploads/items/image.jpg")
+                    continue;
+                File::delete($image);
+            }
+            $result = $item->forceDelete();
+        }
+        else
+            $result = $item->delete();
+
         if($result){
             Session::flash('success', 'Item deleted successfully');
             if(Auth::user()->type == 'user')
@@ -358,7 +367,7 @@ class ItemsController extends Controller
         return redirect()->back();
     }
 
-    public function soft_delete(Item $item)
+    public function trash(Item $item)
     {
         $images = json_decode($item->image);
         foreach($images as $image){

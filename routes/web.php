@@ -60,10 +60,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::delete('/trash/users/{slug}/p_destroy', 'UsersController@p_destroy')->name('users.p_destroy');
 
     Route::resource('categories', 'CategoriesController');
-    // Route::resource('items', 'ItemsController');
+
     Route::resource('faqs', 'FaqController');
+
     Route::get('/pending-items', 'ItemsController@pending')->name('pending');
+    Route::get('/approved-items', 'ItemsController@approved')->name('approved-items');
     Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
+    Route::get('/trashed-items', 'ItemsController@trashed')->name('trashed-items');
 
     Route::resource('todo','HomeController');
 

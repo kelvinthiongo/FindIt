@@ -23,7 +23,7 @@
                             <div class="property-single-tags">
                                 <div class="property-tag button alt featured">{{ $item->category->name }}</div>
                                 @auth
-                                    <a href="{{ route('approve', ['slug' => $item->slug]) }}" class="property-tag button alt info featured right" style="{{ Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-check icon"></i>Approve</a>
+                                    <a href="{{ route('approve', ['id' => $item->id]) }}" class="property-tag button alt info featured right" style="{{ Auth::user()->type == 'user' || $item->approved != null? 'display: none' : '' }}"><i class="fa fa-check icon"></i>Approve</a>
                                     <a href="{{ route('items.edit', ['slug' => $item->slug]) }}" class="property-tag button alt featured right" style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-pencil icon"></i>Edit</a>  
                                 @endauth
                                     

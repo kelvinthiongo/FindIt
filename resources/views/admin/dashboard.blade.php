@@ -27,22 +27,22 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>25000</h3>
+              <h3>{{ $admins }}</h3>
 
-                <p>Items</p>
+                <p>Admin(s)</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person"></i>
+                <i class="fa fa-users"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="/admin/users" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
+          <!-- ./col 1-->
           <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3></h3>
+              <h3>{{ $users }}</h3>
 
                 <p>User(s)</p>
               </div>
@@ -52,21 +52,64 @@
               <a href="/admin/users" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
+          <!-- ./col 2-->
+          <div class="col-lg-4 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>{{ $approved_items }}</h3>
+  
+                  <p>Approved Items</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
           <div class="col-lg-4 col-xs-12">
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>54</h3>
-                <p>Project(s) Done</p>
+                <h3>{{ $pending_items }}</h3>
+                <p>Pending Items</p>
               </div>
               <div class="icon">
-                <i class="ion ion-cube"></i>
+                <i class="fa fa-id-card"></i>
               </div>
               <a href="/admin/clients" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
+          <!-- ./col 3-->
+          <div class="col-lg-4 col-xs-12">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+              <div class="inner">
+                <h3>{{ $trashed_items }}</h3>
+                <p>Trashed Items</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-id-card"></i>
+              </div>
+              <a href="/admin/clients" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col 4-->
+          <div class="col-lg-4 col-xs-12">
+            <!-- small box -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{ $reported_items }}</h3>
+                <p>Reported Items</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-id-card"></i>
+              </div>
+              <a href="/admin/clients" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col 5-->
         </div>
         <!-- /.row -->
         <!-- Main row -->

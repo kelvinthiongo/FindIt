@@ -14,9 +14,13 @@
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{ route('add_admin') }}"><i class="fa fa-user-plus"></i> Add Admin</a></li>
-        <li><a href="{{ route('admin_index') }}"><i class="fa fa-eye"></i>View Admins</a></li>
-        <li><a href="{{ route('trashed_admins') }}"><i class="fa fa-trash"></i>Trashed Admins</a></li>
+        @if(Auth::user()->type == 'supper')
+          <li><a href="{{ route('add_admin') }}"><i class="fa fa-user-plus"></i> Add Admin</a></li>
+        @endif
+          <li><a href="{{ route('admin_index') }}"><i class="fa fa-eye"></i>View Admins</a></li>
+        @if(Auth::user()->type == 'supper')
+          <li><a href="{{ route('trashed_admins') }}"><i class="fa fa-trash"></i>Trashed Admins</a></li>
+        @endif
       </ul>
     </li>
     <!-- List End -->

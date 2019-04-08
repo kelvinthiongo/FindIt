@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Todo;
 use App\User;
+use App\Item;
 use Auth;
 
 class HomeController extends Controller
@@ -38,11 +39,21 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper'){
-            $users = User::all();
-            $usercount = $users->count();
+            $users = User::where('type', 'user')->where('email_verified_at', '!=', null)->count();
+            $admins = User::where('type', '!=', 'user')->where('email_verified_at', '!=', null)->count();
+            $approved_items = Item::where('approved', '!=', null)->count();
+            $pending_items = Item::where('approved', null)->count();
+            $reported_items = Item::where('reports', '!=', null)->count();
+            $trashed_items = Item::onlyTrashed()->count();
             $todos = Auth::user()->todos()->get();
             return view('admin.dashboard')->with('todos',$todos)
-                                            ->with('usercount',$usercount);
+                                            ->with('users',$users)
+                                            ->with('admins',$admins)
+                                            ->with('approved_items',$approved_items)
+                                            ->with('pending_items',$pending_items)
+                                            ->with('reported_items',$reported_items)
+                                            ->with('trashed_items',$trashed_items)
+                                            ;
         }
         else
             return redirect()->route('landing');

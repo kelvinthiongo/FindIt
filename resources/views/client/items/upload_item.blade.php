@@ -56,8 +56,8 @@
                         </div>
                         </div>
                         <div class="form-block">
-                            <label>Where Found{{ Auth::user()->is_verified ? '' : '*' }}</label>
-                            <input class="border" type="text" name="place_found" {{ Auth::user()->is_verified ? '' : 'required' }} />
+                            <label>Where Found</label>
+                            <input class="border" type="text" name="place_found" />
                         </div>
                         <div class="form-block">
                             <label>Where Owner can Find Item{{ Auth::user()->is_verified ? '' : '*' }}</label>

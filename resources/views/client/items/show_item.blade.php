@@ -22,7 +22,11 @@
                             </div>
                             <div class="property-single-tags">
                                 <div class="property-tag button alt featured">{{ $item->category->name }}</div>
-                            <a href="{{ route('items.edit', ['slug' => $item->slug]) }}" class="property-tag button alt featured right" style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-pencil icon"></i>Edit</a>
+                                @auth
+                                    <a href="{{ route('approve', ['slug' => $item->slug]) }}" class="property-tag button alt info featured right" style="{{ Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-check icon"></i>Approve</a>
+                                    <a href="{{ route('items.edit', ['slug' => $item->slug]) }}" class="property-tag button alt featured right" style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-pencil icon"></i>Edit</a>  
+                                @endauth
+                                    
                             </div>
                         </div>
                         <table class="property-details-single">
@@ -45,12 +49,15 @@
                             <div class="slider slider-property-gallery">
                                 @foreach(json_decode($item->image) as $image)
                                     <div class="slide" style="position: relative">
-                                        <span style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}">
-                                            {!! Form::open(['action' => ['ItemsController@delete_image', $item->slug, $i], 'method' => 'DELETE']) !!}
-                                                <button onClick= "javascript: return confirm ('Are you sure you want to delete this image?');" class="btn btn-danger right" type="submit" style="transform: translate(100%, 0%);
-                                                -ms-transform: translate(100%, 0%); position: absolute"><i class="fa fa-trash icon"></i>Delete Image</button>
-                                            {!! Form::close() !!}
-                                        </span>
+                                        @auth
+                                             <span style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}">
+                                                {!! Form::open(['action' => ['ItemsController@delete_image', $item->slug, $i], 'method' => 'DELETE']) !!}
+                                                    <button onClick= "javascript: return confirm ('Are you sure you want to delete this image?');" class="btn btn-danger right" type="submit" style="transform: translate(100%, 0%);
+                                                    -ms-transform: translate(100%, 0%); position: absolute"><i class="fa fa-trash icon"></i>Delete Image</button>
+                                                {!! Form::close() !!}
+                                            </span>
+                                        @endauth
+                                           
                                         
                                         <div style="display: none;">
                                             {{ $i++ }}

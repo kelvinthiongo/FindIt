@@ -48,10 +48,10 @@
                                 @foreach($trashed_items as $trashed)
                                     <tr>
                                         <td>{{$n = $n + 1}}</td>
-                                        <td>{{$trashed->category->name}}</td>
-                                        <td>{{$trashed->name}}</td>
+                                        <td>{{$trashed->category == null? 'No Category': $trashed->category->name}}</td>
+                                        <td>{{$trashed->f_name . ' ' . $trashed->s_name . ' ' . $trashed->l_name }}</td>
                                         <td>{{$trashed->number}}</td>
-                                        <td>{{$trashed->trashed}}</td>
+                                        {{--  <td>{{$trashed->trashed}}</td>  --}}
                                         <td>
                                             <style>
                                                 .trans{
@@ -65,7 +65,10 @@
                                             </style>
                                             <ul id="action" style="list-style-type:none;">
                                                 <li class="links">
-                                                    <a target="_blank" href='/items/{{$trashed->slug}}' ><button style="color:green;" class="trans btn btn-success fa fa-reply"> </button></a>
+                                                    {!! Form::open(['action' => ['ItemsController@restore',$trashed->slug], 'method' => 'PUT']) !!}
+                                                        {{ Form::button('',['class'=>'trans btn btn-success fa fa-reply', 'style' => 'color:green;', 'type'=>'submit']) }}
+                                                    
+                                                    {!! Form::close() !!}
                                                 </li>
                                                 <li class="links">
                                                     {!! Form::open(['action' => ['ItemsController@destroy',$trashed->slug], 'method' => 'POST','onsubmit' => 'return ConfirmDelete()']) !!}

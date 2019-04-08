@@ -58,7 +58,7 @@
                 <i class="fa fa-reply icon"></i>
                 {{ __('Logout') }}
             </a>
-            <a href="/profile" class="top-bar-item isActiveRoute('profile')"><i class="fa fa-user-plus icon"></i>Profile</a>
+            <a href="/profile" class="top-bar-item isActiveRoute('profile')"><i class="fa fa-user-plus icon"></i>Profile ({{ (explode(' ', Auth::user()->name))[0] }})</a>
           @endauth
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf

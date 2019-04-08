@@ -45,10 +45,13 @@
                             <div class="slider slider-property-gallery">
                                 @foreach(json_decode($item->image) as $image)
                                     <div class="slide" style="position: relative">
-                                        {!! Form::open(['action' => ['ItemsController@delete_image', $item->slug, $i], 'method' => 'DELETE']) !!}
-                                            <button onClick= "javascript: return confirm ('Are you sure you want to delete this item?');" class="btn btn-danger right" type="submit" style="transform: translate(100%, 0%);
-                                            -ms-transform: translate(100%, 0%); position: absolute"><i class="fa fa-trash icon"></i>Delete Image</button>
-                                        {!! Form::close() !!}
+                                        <span style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}">
+                                            {!! Form::open(['action' => ['ItemsController@delete_image', $item->slug, $i], 'method' => 'DELETE']) !!}
+                                                <button onClick= "javascript: return confirm ('Are you sure you want to delete this image?');" class="btn btn-danger right" type="submit" style="transform: translate(100%, 0%);
+                                                -ms-transform: translate(100%, 0%); position: absolute"><i class="fa fa-trash icon"></i>Delete Image</button>
+                                            {!! Form::close() !!}
+                                        </span>
+                                        
                                         <div style="display: none;">
                                             {{ $i++ }}
                                         </div>

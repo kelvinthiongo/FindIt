@@ -24,7 +24,7 @@ class ItemsController extends Controller
         ]]);
 
         $this->middleware('admin', ['only' => [
-            'lost_index', 'index'
+            'lost_index', 'index', 'pending', 'approved', 'approve', 'trashed'
         ]]);
     }
 
@@ -53,7 +53,7 @@ class ItemsController extends Controller
         ]);
         $categories = Category::all();
         $query = $request->all();
-        $items = Item::search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
+        $items = Item::where('approved', '!=', null)->orderBy('created_at', 'DESC')->search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
         $count = $items->count();
         $items = $items->paginate(10);
         $pagination = $items->appends($query);
@@ -194,7 +194,7 @@ class ItemsController extends Controller
         $images = json_decode($item->image);
         if(count($images) == 1)
             return redirect()->back()->with('error', 'You cannot remove the ONLY remaining image! Click edit button to add more images.');
-        if($images[$image] != "uploads/items/image.jpg")
+        if($images[$image] != "uploads/items/image.png")
             File::delete($images[$image]);
         $data = [];
         foreach($images as $img){
@@ -274,7 +274,7 @@ class ItemsController extends Controller
         
         if($request->image != null){
             $image_data = json_decode($item->image);
-            if($image_data == [0 => "uploads/items/image.jpg"])
+            if($image_data == [0 => "uploads/items/image.png"])
                 $image_data = [];
             foreach($request->file('image') as $image){
                 $image_name =  time() . $image->getClientOriginalName();
@@ -341,6 +341,14 @@ class ItemsController extends Controller
         return view('admin.items.trashed')->with('trashed_items', $trashed_items);
         
     }
+
+    
+
+    public function restore($slug){
+        $item = Item::onlyTrashed()->where('slug', $slug)->first();
+        $item->restore();
+        return redirect()->back()->with('success', 'You succesfully restored the');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -349,13 +357,22 @@ class ItemsController extends Controller
      */
     public function destroy(Item $item)
     {
-        $images = json_decode($item->image);
-        foreach($images as $image){
-            if($image == "uploads/items/image.jpg")
-                continue;
-            File::delete($image);
+        if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user'){
+            return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
         }
-        $result = $item->forceDelete();
+        $images = json_decode($item->image);
+
+        if(Auth::user()->id == $item->user->id){
+            foreach($images as $image){
+                if($image == "uploads/items/image.png")
+                    continue;
+                File::delete($image);
+            }
+            $result = $item->forceDelete();
+        }
+        else
+            $result = $item->delete();
+
         if($result){
             Session::flash('success', 'Item deleted successfully');
             if(Auth::user()->type == 'user')
@@ -367,11 +384,11 @@ class ItemsController extends Controller
         return redirect()->back();
     }
 
-    public function soft_delete(Item $item)
+    public function trash(Item $item)
     {
         $images = json_decode($item->image);
         foreach($images as $image){
-            if($image == "uploads/items/image.jpg")
+            if($image == "uploads/items/image.png")
                 continue;
             File::delete($image);
         }

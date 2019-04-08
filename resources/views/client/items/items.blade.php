@@ -176,6 +176,10 @@
                                                     <label>Document Number* (Id No, Reg N0, Passport No, etc)</label>
                                                     <input class="border" type="text" name="number" required/>
                                                 </div>
+                                                <div class="form-block">
+                                                    <label>Email* (we will contact you via mail if we find your item)</label>
+                                                    <input class="border" type="email" name="email" required/>
+                                                </div>
                                     
                                         </div><!-- end basic info -->
                                     

@@ -19,6 +19,7 @@ class CreateLostsTable extends Migration
             $table->string('category');
             $table->string('name');
             $table->string('number');
+            $table->string('email');
         });
     }
 

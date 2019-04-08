@@ -64,13 +64,8 @@
       </a>
       <ul class="treeview-menu">
         <li><a href="/admin/pending-items"><i class="fa fa-refresh"></i> Pending Items</a></li>
-<<<<<<< HEAD
         <li><a href="{{ route('approved-items') }}"><i class="fa fa-check"></i> Approved Items</a></li>
         <li><a href="{{ route('trashed-items') }}"><i class="fa fa-trash"></i>Trashed Items</a></li>
-=======
-        <li><a href="/admin/approved-items"><i class="fa fa-check"></i> Approved Items</a></li>
-        <li><a href="#"><i class="fa fa-trash"></i>Trashed Items</a></li>
->>>>>>> 12669e8c62b99a89bd9d4b8c6716a58f9d6d9b35
       </ul>
     </li>
     <!-- List End -->

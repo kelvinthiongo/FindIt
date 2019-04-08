@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="form-block">
-                            <label>Document Second</label>
+                            <label>Document Second Name</label>
                             <input class="border" type="text" name="s_name" />
                             </div>
                         </div>

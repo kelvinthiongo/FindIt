@@ -22,7 +22,7 @@ class ItemsController extends Controller
         ]]);
 
         $this->middleware('admin', ['only' => [
-            'lost_index', 'index'
+            'lost_index', 'index', 'pending', 'approved', 'approve', 'trashed'
         ]]);
     }
 
@@ -51,7 +51,7 @@ class ItemsController extends Controller
         ]);
         $categories = Category::all();
         $query = $request->all();
-        $items = Item::search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
+        $items = Item::where('approved', '!=', null)->orderBy('created_at', 'DESC')->search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
         $count = $items->count();
         $items = $items->paginate(10);
         $pagination = $items->appends($query);
@@ -331,6 +331,14 @@ class ItemsController extends Controller
         $trashed_items = Item::onlyTrashed()->get();
         return view('admin.items.trashed')->with('trashed_items', $trashed_items);
         
+    }
+
+    
+
+    public function restore($slug){
+        $item = Item::onlyTrashed()->where('slug', $slug)->first();
+        $item->restore();
+        return redirect()->back()->with('success', 'You succesfully restored the');
     }
     /**
      * Remove the specified resource from storage.

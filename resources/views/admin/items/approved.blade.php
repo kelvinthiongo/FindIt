@@ -52,7 +52,7 @@
                                         <td>{{$approved->category->name}}</td>
                                         <td>{{$approved->f_name." ".$approved->s_name." ".$approved->l_name}}</td>
                                         <td>{{$approved->number}}</td>
-                                        <td>{{$approved->approved}}</td>
+                                        <td>{{$names[$approved->approved]}}</td>
                                         <td>
                                             <style>
                                                 .trans{

@@ -54,7 +54,7 @@
     </li>
     <!-- List End -->
     <!-- List Start -->
-    <li class="{{ areActiveRoutes(['items.create','items.edit','items.index', 'trashed_items']) }} treeview">
+    <li class="{{ areActiveRoutes(['items.create','items.edit','items.index', 'pending', 'trashed_items', 'approved-items']) }} treeview">
       <a href="#">
         <i class="fa fa-id-card"></i>
         <span>Items</span>
@@ -64,8 +64,8 @@
       </a>
       <ul class="treeview-menu">
         <li><a href="/admin/pending-items"><i class="fa fa-refresh"></i> Pending Items</a></li>
-        <li><a href="/admin/approved-items"><i class="fa fa-check"></i> Approved Items</a></li>
-        <li><a href="#"><i class="fa fa-trash"></i>Trashed Items</a></li>
+        <li><a href="{{ route('approved-items') }}"><i class="fa fa-check"></i> Approved Items</a></li>
+        <li><a href="{{ route('trashed-items') }}"><i class="fa fa-trash"></i>Trashed Items</a></li>
       </ul>
     </li>
     <!-- List End -->

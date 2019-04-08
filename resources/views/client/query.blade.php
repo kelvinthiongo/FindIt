@@ -75,7 +75,7 @@
                     </div>
                   </div>
                   <div class="form-block">
-                        <label>Subject</label>
+                        <label>Subject *</label>
                         <input type="text" placeholder="Subject" name="subject" value="" />
                       </div>
                   <div class="form-block">

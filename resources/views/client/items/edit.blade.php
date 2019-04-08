@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-block text-center" style="display: {{ Auth::user()->is_verified ? '' : 'none' }}">
                             Submit at this point? Click the button!
-                            <button type="submit" class="button button-icon"><i class="fa fa-upload"></i>Upload Item</button><br><br>
+                            <button type="submit" class="button button-icon"><i class="fa fa-upload"></i>Save Changes</button><br><br>
                         </div>
                         <div class="row">
                         <div class="col-lg-4 col-md-4">

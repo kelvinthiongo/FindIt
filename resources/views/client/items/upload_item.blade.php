@@ -21,6 +21,7 @@
                         <div class="form-block">
                             <label>Document Type*</label>
                             <select name="category_id" class="border" required>
+                                <option ></option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -43,7 +44,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="form-block">
-                            <label>Document Second Name</label>
+                            <label>Document Middle Name</label>
                             <input class="border" type="text" name="s_name" />
                             </div>
                         </div>

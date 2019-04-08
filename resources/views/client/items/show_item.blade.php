@@ -117,7 +117,12 @@
                             <li><a href="/terms-and-policy">Terms & Policy</a></li>
                             <li><a href="/submit-query">Submit Query</a></li>
                             <li><a href="/faq">Frequently Asked Questions</a></li>
-                            <li><a href="/login">Login</a></li>
+                            @auth
+                                <li><a href="/uploaded-items">My Uploads</a></li>
+                            @endauth
+                            @guest
+                                <li><a href="/login">Login</a></li>
+                            @endauth
                             <li><a href="/upload-item">Upload Found Item</a></li>
                             </ul>
                         </div><!-- end widget content -->

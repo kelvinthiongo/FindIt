@@ -49,12 +49,12 @@
                             {{ Form::label('phone', 'Enter Phone Number') }} 
                             {{ Form::text('phone', $user->phone, ['class' => 'form-control', 'id' => 'phone',]) }} <br>
                             
-                            @if(Auth::user()->type == 'supper')
+                            {{-- @if(Auth::user()->type == 'supper')
                             <div class="form-group ">
                                 <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
                                 <label>Make supper admin</label>
                             </div>
-                            @endif
+                            @endif --}}
 
                             {{ Form::label('avatar', 'Upload an avatar') }}
                             {{ Form::file('avatar', ['class' => 'form-control']) }} <br>

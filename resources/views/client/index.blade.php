@@ -54,7 +54,7 @@
     <div class="container">
       <div class="module-header">
         <h2>Our <strong>Success Stories</strong></h2>
-        <img src="images/divider-white.png" alt="" />
+        <img src="{{ asset('client/images/divider-white.png')}}" alt="" />
         <p>Get to hear from those who have found help from FindIt</p>
       </div>
     </div>
@@ -69,7 +69,7 @@
         <div class="testimonial slide">
           <h3>"I Recently lost my National Id and upon searching for it here in FindIt, I was connected to my Guardian Angel who had found it for me and decided to keep it safe for me."</h3>
           <div class="testimonial-details">
-            <img class="testimonial-img" src="images/testimonial-img.png" alt="" />
+            <img class="testimonial-img" src="{{ asset('client/images/testimonial-img.png')}}" alt="" />
             <p class="testimonial-name"><strong>John Doe</strong></p>
             <span class="testiomnial-title"><em>Student at <a href="">JKUAT</a></em></span>
           </div>
@@ -77,7 +77,7 @@
         <div class="testimonial slide">
             <h3>"I Recently lost my National Id and upon searching for it here in FindIt, I was connected to my Guardian Angel who had found it for me and decided to keep it safe for me."</h3>
             <div class="testimonial-details">
-              <img class="testimonial-img" src="images/testimonial-img.png" alt="" />
+              <img class="testimonial-img" src="{{ asset('client/images/testimonial-img.png')}}" alt="" />
               <p class="testimonial-name"><strong>John Doe</strong></p>
               <span class="testiomnial-title"><em>Student at <a href="">JKUAT</a></em></span>
             </div>

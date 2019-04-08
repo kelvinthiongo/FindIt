@@ -29,7 +29,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css')}}">
-
+  <!--favicon-->
+  <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
   {{-- toastr --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 

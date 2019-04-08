@@ -59,7 +59,7 @@
                             </ul>
                                 {!! Form::open(['action' => ['UsersController@destroy', $user->slug], 'method' => 'DELETE']) !!}
                                         @if(Auth::user() == $user)
-                                            <button onClick= "javascript: return confirm ('Are you sure you want to exit?');" class="btn btn-danger" type="submit">Exit</button>
+                                            <button onClick= "javascript: return confirm ('Are you sure you want to exit?');" class="btn btn-danger" type="submit">Delete Account</button>
                                         @else
                                         <button onClick= "javascript: return confirm ('Are you sure you want to remove {{ $user->name }}?');" class="btn btn-danger" type="submit">Remove</button>
                                         @endif

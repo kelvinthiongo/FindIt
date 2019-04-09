@@ -19,14 +19,12 @@ Route::get('/', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/terms', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['verified','auth']], function(){
     Route::get('/profile','PagesController@profile')->name('profile');
     Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
     Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
     Route::delete('/items/delete-image/{item}/{image}', 'ItemsController@delete_image')->name('delete_image');
 });
-    
-
 
 Route::get('/register-page', function () {
     return view('client.register');
@@ -44,7 +42,7 @@ Route::post('/items/report/{item}', 'ItemsController@report')->name('report');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin',]], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']], function(){
     
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'HomeController@index')->name('home');

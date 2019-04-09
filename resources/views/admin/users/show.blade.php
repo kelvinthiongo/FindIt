@@ -54,7 +54,7 @@
                                   <b>Phone</b> <a class="pull-right">{{ $user->phone }}</a>
                               </li>
                               <li class="list-group-item">
-                                  <b>Users Status</b> <a class="pull-right"> @if($user->type == 'supper') Supper Admin @elseif($user->type == 'ordinary') Ordinary Admin @else User @endif</a>
+                                  <b>User Status</b> <a class="pull-right"> @if($user->type == 'supper') Supper Admin @elseif($user->type == 'ordinary') Ordinary Admin @else User @endif</a>
                               </li>
                             </ul>
                                 {!! Form::open(['action' => ['UsersController@destroy', $user->slug], 'method' => 'DELETE']) !!}
@@ -106,7 +106,7 @@
                           <!-- /.box-body -->
             
                           <div class="box-footer">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-pencil"></i> Save Changes</button>
                             <a href="{{ route('users.edit', ['slug' => $user->slug]) }}" class="btn btn-primary"><i class="fa fa-eye"></i>show all</a>
                           </div>
                         </form>

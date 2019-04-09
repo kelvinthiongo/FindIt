@@ -10,7 +10,7 @@
     <section class="module login">
         <div class="container">
             <div class="row">
-            <div class="col-lg-4 col-lg-offset-4"> 
+            <div class="col-md-4 col-md-offset-4 col-lg-offset-4"> 
                 <p>Don't have an account? <strong><a href="/register">Register here.</a></strong></p> 
                 <form method="post" class="login-form" action="{{ route('login') }}">
                     @csrf

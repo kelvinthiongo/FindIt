@@ -100,7 +100,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="exampleInputFile">Change Display Image</label>
-                                <input type="file" name="profile" id="exampleInputFile">
+                                <input type="file" name="avatar" id="exampleInputFile">
                               </div>
                               <!-- Not to be diplayed -->
                               <div class="form-group" style="display: none">

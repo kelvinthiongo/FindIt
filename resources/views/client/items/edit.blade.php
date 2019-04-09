@@ -83,7 +83,7 @@
                         </div>
             
                         <div class="form-block">
-                            <button type="submit" class="button button-icon"><i class="fa fa-upload"></i>Upload Item</button>
+                            <button type="submit" class="button button-icon"><i class="fa fa-upload"></i>Save</button>
                         </div>
                         <div class="clear"></div>
             

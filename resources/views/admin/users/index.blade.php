@@ -31,8 +31,8 @@
                 <h3 class="box-title">View all {{ $user_type }}s</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
-                <table id="example1" class="table table-bordered table-striped table-responsive">
+                <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>

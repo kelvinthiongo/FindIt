@@ -91,7 +91,7 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category_id' => 'required',
-                'image' => 'mimes:jpeg,png,bmp,svg',
+                'image' => 'mimes:jpeg,jpg,png,bmp,svg',
             ]);
             if($request->place_to_get == '')
                 $place_to_get = Auth::user()->name;
@@ -232,7 +232,7 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category_id' => 'required',
-                'image' => 'mimes:jpeg,png,bmp,svg',
+                'image' => 'mimes:jpeg,jpg,png,bmp,svg',
             ]);
             if(!$request->has('place_to_get'))
                 $place_to_get = Auth::user()->name;
@@ -247,7 +247,7 @@ class ItemsController extends Controller
                 'number' => 'required',
                 'category_id' => 'required',
                 'place_to_get' => 'required',
-                'image' => 'mimes:jpeg,png,bmp,svg',
+                'image' => 'mimes:jpeg,jpg,png,bmp,svg',
             ]);
 
             

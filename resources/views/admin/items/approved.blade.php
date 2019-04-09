@@ -40,7 +40,9 @@
                         <th>Category</th>
                         <th>Name</th>
                         <th>Number</th>
-                        <th>Approved By</th>
+                        @if (Auth::user()->type == 'supper')
+                            <th>Approved By</th>
+                        @endif
                         <th>Action</th>
                         </tr>
                         </thead>
@@ -52,7 +54,9 @@
                                         <td>{{$approved->category->name}}</td>
                                         <td>{{$approved->f_name." ".$approved->s_name." ".$approved->l_name}}</td>
                                         <td>{{$approved->number}}</td>
-                                        <td>{{$names[$approved->approved]}}</td>
+                                        @if (Auth::user()->type == 'supper')
+                                          <td>{{$names[$approved->approved]}}</td>
+                                        @endif
                                         <td>
                                             <style>
                                                 .trans{

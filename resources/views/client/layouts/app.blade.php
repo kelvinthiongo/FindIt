@@ -167,7 +167,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-4 widget footer-widget">
-                <a class="footer-logo" href="index.html"><img src="{{ asset('images/logo-white.png')}}" alt="Homely" /></a>
+                <a class="footer-logo" href="index.html"><img src="{{ asset('images/logo-white.png')}}" alt="FinfIt" /></a>
                 <p>FindIt helps connect owners to their lost documents. Have you lost any of your important documents? Search for it here. If you want to be part of the good deed, all you need to do is create and account with FindfIt and upload that misplaced Id, Driver's License, Passport etc, to our database and connect it to its rightful owner. Help a friend for tomorrow, it could be you.</p>
                 <div class="divider"></div>
                 <ul class="social-icons circle">

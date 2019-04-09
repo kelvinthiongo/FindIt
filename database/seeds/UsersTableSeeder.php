@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'is_verified' => true,
             'phone' => '+254 723077827',
             'type' => 'supper',
-            'password' => '$2y$10$/4bTCXlUYYAq78DNmFTwUugFZgKJw4/hRvAxlLKDQvParrPkWDxPS' 
+            'password' => '$2y$10$/4bTCXlUYYAq78DNmFTwUugFZgKJw4/hRvAxlLKDQvParrPkWDxPS' //@destiny
         ]);
 
         

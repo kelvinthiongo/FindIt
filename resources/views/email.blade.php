@@ -69,7 +69,7 @@
 									<img src="./Re-engagement_files/cog-03.jpg" style="max-width:600px;margin:0 auto 0 auto;display:inline-block;">
 								</p>
 								<h6 style="text-align:center;margin-top: 9px;">Findit</h6>
-								<h6 style="text-align:center;">Contact Message From {{name}}​</h6>
+								<h6 style="text-align:center;">Contact Message From {{$name}}​</h6>
 								<h6 style="text-align:center;">All rights reserved​</h6>
 							</td>
 						</tr>

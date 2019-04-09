@@ -2,8 +2,8 @@
 @section('content')
     <section class="subheader">
         <div class="container">
-            <h1>Login</h1>
-            <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">Login</a></div>
+            <h1>Register</h1>
+            <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">Register</a></div>
             <div class="clear"></div>
         </div>
     </section>
@@ -11,7 +11,7 @@
         <div class="container">
     
         <div class="row">
-            <div class="col-lg-4 col-lg-offset-4"> 
+            <div class="col-md-4 col-md-offset-4 col-lg-offset-4"> 
             <p>Already have an account? <strong><a href="/login">Login here.</a></strong></p> 
             <form class="login-form" method="POST" action="{{ route('register') }}">
                 @csrf

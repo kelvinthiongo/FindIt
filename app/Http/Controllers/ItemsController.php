@@ -91,22 +91,23 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category_id' => 'required',
+                'image' => 'mimes:jpeg,png,bmp,svg',
             ]);
             if($request->place_to_get == '')
                 $place_to_get = Auth::user()->name;
             else
-                $place_to_get = ucwords($request->place_to_get);
+                $place_to_get = ucwords(strtolower($request->place_to_get));
         }
         else{
             $this->validate($request, [
                 'f_name' => 'required',
                 'l_name' => 'required',
-                'image' => 'required',
+                'image' => 'required|mimes:jpeg,png,bmp,svg',
                 'number' => 'required',
                 'category_id' => 'required',
                 'place_to_get' => 'required',
             ]);
-            $place_to_get = ucwords($request->place_to_get);
+            $place_to_get = ucwords(strtolower($request->place_to_get));
         }
 
         $item = Item::create([
@@ -120,17 +121,17 @@ class ItemsController extends Controller
             $item->approved = Auth::user()->id;
 
         if($request->f_name != '')
-            $item->f_name = ucwords($request->f_name);
+            $item->f_name = ucwords(strtolower($request->f_name));
         if($request->s_name != '')
-            $item->s_name = ucwords($request->s_name);
+            $item->s_name = ucwords(strtolower($request->s_name));
         if($request->l_name != '')
-            $item->l_name = ucwords($request->l_name);
+            $item->l_name = ucwords(strtolower($request->l_name));
         if($request->description != '')
             $item->description = $request->description;
         if($request->status != '')
             $item->status = $request->status;
         if($request->place_found != '')
-            $item->place_found = ucwords($request->place_found);
+            $item->place_found = ucwords(strtolower($request->place_found));
         if($request->lf_date != '')
             $item->lf_date = $request->lf_date;
 
@@ -150,7 +151,7 @@ class ItemsController extends Controller
         if(Auth::user()->is_verified){
             return redirect()->back()->with('success', 'You successfully uploaded the item.');
         }
-        return redirect()->route('landing')->with('success', 'You successfully uploaded the item.');
+        return redirect()->route('uploads')->with('success', 'You successfully uploaded the item.');
     }
 
     /**
@@ -231,11 +232,12 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category_id' => 'required',
+                'image' => 'mimes:jpeg,png,bmp,svg',
             ]);
             if(!$request->has('place_to_get'))
                 $place_to_get = Auth::user()->name;
             else
-                $place_to_get = ucwords($request->place_to_get);
+                $place_to_get = ucwords(strtolower($request->place_to_get));
         
         }
         else{
@@ -245,10 +247,11 @@ class ItemsController extends Controller
                 'number' => 'required',
                 'category_id' => 'required',
                 'place_to_get' => 'required',
+                'image' => 'mimes:jpeg,png,bmp,svg',
             ]);
 
             
-            $place_to_get = ucwords($request->place_to_get);
+            $place_to_get = ucwords(strtolower($request->place_to_get));
     
         }
 
@@ -258,17 +261,17 @@ class ItemsController extends Controller
             $item->approved = Auth::user()->id;
 
         if($request->f_name != '')
-            $item->f_name = ucwords($request->f_name);
+            $item->f_name = ucwords(strtolower($request->f_name));
         if($request->s_name != '')
-            $item->s_name = ucwords($request->s_name);
+            $item->s_name = ucwords(strtolower($request->s_name));
         if($request->l_name != '')
-            $item->l_name = ucwords($request->l_name);
+            $item->l_name = ucwords(strtolower($request->l_name));
         if($request->description != '')
             $item->description = $request->description;
         if($request->status != '')
             $item->status = $request->status;
         if($request->place_found != '')
-            $item->place_found = ucwords($request->place_found);
+            $item->place_found = ucwords(strtolower($request->place_found));
         if($request->lf_date != '')
             $item->lf_date = $request->lf_date;
         
@@ -298,7 +301,7 @@ class ItemsController extends Controller
         
         $item->save(); //saving any pending changes
 
-        return redirect()->route('items.show')->with('item' ,$item)->with('success', 'You successfully updated the item!'); //to be changed
+        return redirect()->route('items.show', ['slug' => $item->slug])->with('item' ,$item)->with('success', 'You successfully updated the item!'); //to be changed
     }
 
     //get all items pending approval

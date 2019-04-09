@@ -80,7 +80,7 @@
             <tr>
               <td><i class="fa fa-phone"></i></td>
               <td class="header-item-text">
-                <a href="tel:">Call Support</a><br/>
+                <a href="tel:{{ $admin_on_duty->phone }}">Call Support</a><br/>
                 <span>{{ $admin_on_duty->phone }}</span>
               </td>
             </tr>

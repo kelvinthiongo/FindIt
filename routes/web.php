@@ -44,7 +44,7 @@ Route::post('/items/report/{item}', 'ItemsController@report')->name('report');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin',]], function(){
     
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'HomeController@index')->name('home');

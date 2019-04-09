@@ -25,12 +25,12 @@ Route::group(['middleware' => ['verified','auth']], function(){
     Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
     Route::delete('/items/delete-image/{item}/{image}', 'ItemsController@delete_image')->name('delete_image');
 });
-<<<<<<< HEAD
+
 Route::post('/send-query', 'ContactUsController@query')->name('query');
     
 
-=======
->>>>>>> 9ce89d48bb52f1a8a8a0ed5a01f006be8aed8764
+Route::post('/send-query', 'ContactUsController@query')->name('query');
+    
 
 Route::get('/register-page', function () {
     return view('client.register');

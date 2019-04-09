@@ -34,7 +34,7 @@
                 <section class="content">
             
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 {{ $user->type == 'user' || Auth::user()->type == 'supper' || Auth::user()->id == $user->id? ' ': 'col-md-offset-3' }}">
                       <!-- Profile Image -->
                         <div class="box box-primary" style="height:410px;">
                             <div class="box-body box-profile">
@@ -57,63 +57,69 @@
                                   <b>User Status</b> <a class="pull-right"> @if($user->type == 'supper') Supper Admin @elseif($user->type == 'ordinary') Ordinary Admin @else User @endif</a>
                               </li>
                             </ul>
-                                {!! Form::open(['action' => ['UsersController@destroy', $user->slug], 'method' => 'DELETE']) !!}
+                            @if ($user->type == 'user' || Auth::user()->type == 'supper' || Auth::user()->id == $user->id)
+                              {!! Form::open(['action' => ['UsersController@destroy', $user->slug], 'method' => 'DELETE']) !!}
                                         @if(Auth::user() == $user)
                                             <button onClick= "javascript: return confirm ('Are you sure you want to exit?');" class="btn btn-danger" type="submit">Delete Account</button>
                                         @else
                                         <button onClick= "javascript: return confirm ('Are you sure you want to remove {{ $user->name }}?');" class="btn btn-danger" type="submit">Remove</button>
                                         @endif
                                 {!! Form::close() !!}
+                            @endif
+                                
                             </div>
                         <!-- /.box-body -->
-                        </div>
+                      </div>
                       <!-- /.box -->
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-6">
-                      <!--edit profile details-->
-                      <div class="box box-primary"   style="height:410px;">
-                        <div class="box-header with-border">
-                          <h3 class="box-title">Edit User Details</h3>
+                    @if ($user->type == 'user' || Auth::user()->type == 'supper' || Auth::user()->id == $user->id)
+                      <div class="col-md-6">
+                        <!--edit profile details-->
+                        <div class="box box-primary"   style="height:410px;">
+                          <div class="box-header with-border">
+                            <h3 class="box-title">Edit User Details</h3>
+                          </div>
+                          <!-- /.box-header -->
+                          <!-- form start -->
+                          
+                          {!! Form::open(['action' => ['UsersController@update', $user->slug], 'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
+                            @csrf
+                            <div class="box-body">
+                              <div class="form-group">
+                                <label for="exampleInputPassword1"> Admin Name </label>
+                                <input value="{{ $user->name }}" type="text" name = "name" class="form-control" id="exampleInputPassword1" placeholder="Name">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputEmail1"> Email address</label>
+                                <input value="{{ $user->email }}" type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Phone</label>
+                                <input value="{{ $user->phone }}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Phone">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputFile">Change Display Image</label>
+                                <input type="file" name="profile" id="exampleInputFile">
+                              </div>
+                              <!-- Not to be diplayed -->
+                              <div class="form-group" style="display: none">
+                                  <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
+                              </div>
+                            </div>
+                            <!-- /.box-body -->
+              
+                            <div class="box-footer">
+                              <button type="submit" class="btn btn-success"><i class="fa fa-pencil"></i> Save Changes</button>
+                              <a href="{{ route('users.edit', ['slug' => $user->slug]) }}" class="btn btn-primary"><i class="fa fa-eye"></i>show all</a>
+                            </div>
+                          </form>
                         </div>
-                        <!-- /.box-header -->
-                        <!-- form start -->
-                        
-                        {!! Form::open(['action' => ['UsersController@update', $user->slug], 'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
-                          @csrf
-                          <div class="box-body">
-                            <div class="form-group">
-                              <label for="exampleInputPassword1"> Admin Name </label>
-                              <input value="{{ $user->name }}" type="text" name = "name" class="form-control" id="exampleInputPassword1" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputEmail1"> Email address</label>
-                              <input value="{{ $user->email }}" type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputPassword1">Phone</label>
-                              <input value="{{ $user->phone }}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Phone">
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputFile">Change Display Image</label>
-                              <input type="file" name="profile" id="exampleInputFile">
-                            </div>
-                            <!-- Not to be diplayed -->
-                            <div class="form-group" style="display: none">
-                                <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
-                            </div>
-                          </div>
-                          <!-- /.box-body -->
-            
-                          <div class="box-footer">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-pencil"></i> Save Changes</button>
-                            <a href="{{ route('users.edit', ['slug' => $user->slug]) }}" class="btn btn-primary"><i class="fa fa-eye"></i>show all</a>
-                          </div>
-                        </form>
+                        <!--end edit profile details-->
                       </div>
-                      <!--end edit profile details-->
-                    </div>
-                    <!-- /.col -->
+                    <!-- /.col -->   
+                    @endif
+                      
                   </div>
                   <!-- /.row -->
             

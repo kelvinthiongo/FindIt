@@ -29,12 +29,12 @@
               <div class="inner">
               <h3>{{ $admins }}</h3>
 
-                <p>Admin(s)</p>
+                <p>Admins</p>
               </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
               </div>
-              <a href="/admin/users" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="/admin/admins" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col 1-->
@@ -44,7 +44,7 @@
               <div class="inner">
               <h3>{{ $users }}</h3>
 
-                <p>User(s)</p>
+                <p>Users</p>
               </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
@@ -64,11 +64,11 @@
                 <div class="icon">
                   <i class="ion ion-person"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/admin/approved-items" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
-          <div class="col-lg-4 col-xs-12">
+          <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
@@ -78,11 +78,11 @@
               <div class="icon">
                 <i class="fa fa-id-card"></i>
               </div>
-              <a href="/admin/clients" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="/admin/pending-items" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col 3-->
-          <div class="col-lg-4 col-xs-12">
+          <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-purple">
               <div class="inner">
@@ -92,11 +92,11 @@
               <div class="icon">
                 <i class="fa fa-id-card"></i>
               </div>
-              <a href="/admin/clients" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="/admin/trashed-items" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col 4-->
-          <div class="col-lg-4 col-xs-12">
+          <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-orange">
               <div class="inner">
@@ -106,7 +106,7 @@
               <div class="icon">
                 <i class="fa fa-id-card"></i>
               </div>
-              <a href="/admin/clients" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="javascript void()" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col 5-->

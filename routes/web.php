@@ -25,6 +25,9 @@ Route::group(['middleware' => ['verified','auth']], function(){
     Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
     Route::delete('/items/delete-image/{item}/{image}', 'ItemsController@delete_image')->name('delete_image');
 });
+Route::post('/send-query', 'ContactUsController@query')->name('query');
+    
+
 
 Route::get('/register-page', function () {
     return view('client.register');

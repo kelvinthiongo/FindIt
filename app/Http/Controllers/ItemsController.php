@@ -91,7 +91,7 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category_id' => 'required',
-                'image' => 'mimes:jpeg,jpg,png,bmp,svg',
+                'image' => 'mimes:jpeg,jpg,png,git,WebP',
             ]);
             if($request->place_to_get == '')
                 $place_to_get = Auth::user()->name;
@@ -232,7 +232,7 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category_id' => 'required',
-                'image' => 'mimes:jpeg,jpg,png,bmp,svg',
+                'image' => 'mimes:jpeg,jpg,png,git,WebP',
             ]);
             if(!$request->has('place_to_get'))
                 $place_to_get = Auth::user()->name;
@@ -247,7 +247,7 @@ class ItemsController extends Controller
                 'number' => 'required',
                 'category_id' => 'required',
                 'place_to_get' => 'required',
-                'image' => 'mimes:jpeg,jpg,png,bmp,svg',
+                'image' => 'mimes:jpeg,jpg,png,git,WebP',
             ]);
 
             
@@ -310,6 +310,12 @@ class ItemsController extends Controller
         return view('admin.items.pending')->with('pendings', $pendings);
         
     }
+    //get all items pending_ui approval
+    public function pending_ui(){
+        $pendings = Item::where('approved', null)->paginate(20);
+        return view('admin.items.pending_ui')->with('items', $pendings);
+        
+    }
     //get all approved items
     public function approved(){
         $admins = User::where('type', 'ordinary')->orWhere('type', 'supper')->select('id', 'name')->get();
@@ -335,6 +341,27 @@ class ItemsController extends Controller
         } 
      
         return redirect()->back()->with('success','Item Approved Successfully');
+    }
+
+    
+    //approve a pending item
+    public function approve_multiple(Request $request){
+        $ids = json_decode($request->ids);
+        foreach($ids as $id){
+            $item = Item::find($id);
+            $item->approved = Auth::user()->id;
+            $item->save();
+
+            $check = Lost::where('number',$item->number)->count();
+        }
+        if($check > 0){
+            //mail fn here
+            
+        return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to the uploaders.');  
+        } 
+    
+        return redirect()->back()->with('success','Items Approved Successfully');
+        
     }
 
     

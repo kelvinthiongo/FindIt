@@ -6,6 +6,10 @@
   <meta name="author" content="Rype Creative [Chris Gipple]">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  {{-- Image Display To Social --}}
+  <meta property="og:image" content="{{ asset('logo.png') }}" />
+
   <title>Find-it | Search | Add Lost Document</title>
 
   <!-- CSS file links -->
@@ -25,6 +29,9 @@
 
   {{-- favicon --}}
   <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
+
+  {{-- Image Display To Social media and such--}}
+  <meta property="og:image" content="{{ asset('logo.png') }}" />
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>

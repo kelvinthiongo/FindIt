@@ -65,8 +65,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
     Route::resource('faqs', 'FaqController');
 
     Route::get('/pending-items', 'ItemsController@pending')->name('pending');
+    Route::get('/pending_ui-items', 'ItemsController@pending_ui')->name('pending_ui');
     Route::get('/approved-items', 'ItemsController@approved')->name('approved-items');
     Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
+    Route::post('/pending-items/approve-multiple', 'ItemsController@approve_multiple')->name('approve_multiple');
     Route::get('/trashed-items', 'ItemsController@trashed')->name('trashed-items');
     Route::delete('/trashed-items', 'ItemsController@soft_delete')->name('soft_delete');
     Route::put('/restore-item/{slug}', 'ItemsController@restore')->name('restore_item');

@@ -69,17 +69,17 @@
         <div class="testimonial slide">
           <h3>"I Recently lost my National Id and upon searching for it here in FindIt, I was connected to my Guardian Angel who had found it for me and decided to keep it safe for me."</h3>
           <div class="testimonial-details">
-            <img class="testimonial-img" src="{{ asset('client/images/testimonial-img.png')}}" alt="" />
-            <p class="testimonial-name"><strong>John Doe</strong></p>
+            <img class="testimonial-img" src="{{ asset('uploads/users/avatar.png')}}" alt="" />
+            <p class="testimonial-name"><strong></strong></p>
             <span class="testiomnial-title"><em>Student at <a href="">JKUAT</a></em></span>
           </div>
         </div>
         <div class="testimonial slide">
             <h3>"I Recently lost my National Id and upon searching for it here in FindIt, I was connected to my Guardian Angel who had found it for me and decided to keep it safe for me."</h3>
             <div class="testimonial-details">
-              <img class="testimonial-img" src="{{ asset('client/images/testimonial-img.png')}}" alt="" />
-              <p class="testimonial-name"><strong>John Doe</strong></p>
-              <span class="testiomnial-title"><em>Student at <a href="">JKUAT</a></em></span>
+              <img class="testimonial-img" src="{{ asset('uploads/users/avatar.png')}}" alt="" />
+              <p class="testimonial-name"><strong></strong></p>
+              <span class="testiomnial-title"><em>Student </em></span>
             </div>
         </div>
       </div><!-- end slider -->

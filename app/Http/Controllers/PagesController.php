@@ -24,6 +24,9 @@ class PagesController extends Controller
     public function contact(){
         return view('client.query');
     }
+    public function terms(){
+        return view('client.terms');
+    }
     public function profile(){
         return view('client.profile');
     }

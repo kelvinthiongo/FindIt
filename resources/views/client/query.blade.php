@@ -51,7 +51,8 @@
                 <h4><span>Quick Contact</span> <img src="{{ asset('client/images/divider-half.png') }}" alt="" /></h4>
                 <p><b>Fill out the form below.</b> Describe your query in the form below and FindIt support team will attend to your query. Everything with an asterisk is mandatory.</p>
                 
-                <form method="" id="contact-us">
+              <form method="POST" action="{{route('query')}}" >
+                @csrf
                   <div class="form-block">
                     <label>
                       Name *

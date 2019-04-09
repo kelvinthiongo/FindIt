@@ -25,7 +25,7 @@ class LostController extends Controller
         $check = Lost::where('number',$request->number)->count();
 
         if($check > 0){
-            return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via mail when we find your item.');
+            return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via email when we find your item.');
         }
           
         //add lost item

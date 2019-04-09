@@ -141,12 +141,6 @@
     border-spacing: 0;
   }
 
-  /**
-  * @tab Page
-  * @section heading 1
-  * @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
-  * @style heading 1
-  */
   h1{
      color:#2e2e2e;
     display:block;
@@ -163,12 +157,6 @@
      text-align:left;
   }
 
-  /**
-  * @tab Page
-  * @section heading 2
-  * @tip Set the styling for all second-level headings in your emails.
-  * @style heading 2
-  */
   h2{
      color:#2e2e2e;
     display:block;
@@ -185,12 +173,6 @@
      text-align:left;
   }
 
-  /**
-  * @tab Page
-  * @section heading 3
-  * @tip Set the styling for all third-level headings in your emails.
-  * @style heading 3
-  */
   h3{
      color:#545454;
     display:block;
@@ -206,13 +188,6 @@
     margin-left:0;
      text-align:left;
   }
-
-  /**
-  * @tab Page
-  * @section heading 4
-  * @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
-  * @style heading 4
-  */
   h4{
      color:#545454;
     display:block;
@@ -329,11 +304,6 @@
     margin-bottom: 0;
   }
 
-  /**
-  * @tab Body
-  * @section body link
-  * @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-  */
   a:visited { color: #3386e4; text-decoration:none;}
   a:focus   { color: #3386e4; text-decoration:none;}
   a:hover   { color: #3386e4; text-decoration:none;}
@@ -356,12 +326,6 @@
     padding-left:2.000em;
     text-align:left;
   }
-
-  /**
-  * @tab Footer
-  * @section footer link
-  * @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-  */
   .footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
      color:#606060;
      font-weight:normal;

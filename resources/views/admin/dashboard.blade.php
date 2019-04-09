@@ -62,7 +62,7 @@
                   <p>Approved Items</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-person"></i>
+                  <i class="fa fa-check"></i>
                 </div>
                 <a href="/admin/approved-items" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
@@ -76,7 +76,7 @@
                 <p>Pending Items</p>
               </div>
               <div class="icon">
-                <i class="fa fa-id-card"></i>
+                <i class="fa fa-spinner"></i>
               </div>
               <a href="/admin/pending-items" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -90,7 +90,7 @@
                 <p>Trashed Items</p>
               </div>
               <div class="icon">
-                <i class="fa fa-id-card"></i>
+                <i class="fa fa-trash"></i>
               </div>
               <a href="/admin/trashed-items" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -104,7 +104,7 @@
                 <p>Reported Items</p>
               </div>
               <div class="icon">
-                <i class="fa fa-id-card"></i>
+                <i class="fa fa-flag"></i>
               </div>
               <a href="javascript void()" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>

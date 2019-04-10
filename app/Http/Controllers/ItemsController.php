@@ -10,6 +10,7 @@ use Auth;
 use App\User;
 use App\Category;
 use App\Lost;
+use Mail;
 
 
 use Illuminate\Http\Request;
@@ -295,6 +296,14 @@ class ItemsController extends Controller
         if(Auth::user()->type != "user"){
             $item->approved = Auth::user()->id;
             $item->save();
+
+            $check = Lost::where('number',$item->number)->count();
+            if($check > 0){
+
+            dd($item->email);
+
+            return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
+            } 
             return redirect()->route('items.show', ['slug' => $item->slug])->with('success', 'You successfully updated and APPROVED the item!'); //to be changed
         }
         $item->approved = null;
@@ -335,7 +344,15 @@ class ItemsController extends Controller
 
         $check = Lost::where('number',$item->number)->count();
         if($check > 0){
-            //mail fn here
+            $lost = Lost::where('number',$item->number)->first();
+
+            $data = ['name' => $item->name, 'email' => $lost->email];
+
+            Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+            {
+                $message->to( $data['email'] )->from( 'no-reply@findit.24seven.co.ke')->subject( 'Lost Document Found' );
+            });
+            
 
         return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
         } 
@@ -355,7 +372,14 @@ class ItemsController extends Controller
             $check = Lost::where('number',$item->number)->count();
         }
         if($check > 0){
-            //mail fn here
+            $lost = Lost::where('number',$item->number)->first();
+
+            $data = ['name' => $item->name, 'email' => $lost->email];
+
+            Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+            {
+                $message->to( $data['email'] )->from( 'no-reply@findit.24seven.co.ke')->subject( 'Lost Document Found' );
+            });
             
         return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to the uploaders.');  
         } 

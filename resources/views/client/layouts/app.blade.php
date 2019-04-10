@@ -82,6 +82,19 @@
     <div class="navbar-header">
 
       <div class="header-details">
+        <div class="header-item header-search left">
+            <table>
+                <tr>
+                <td><i class="fa fa-search"></i></td>
+                <td class="header-item-text">
+                  <form action="{{ route('search_item') }}" method="get" class="search-form">
+                    <input type="text" name="content" placeholder="Document details" />
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                  </form>
+                </td>
+              </tr>
+            </table>
+        </div>
         <div class="header-item header-phone left">
           <table>
             <tr>

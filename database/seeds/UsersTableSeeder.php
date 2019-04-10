@@ -63,5 +63,14 @@ class UsersTableSeeder extends Seeder
             'type' => 'ordinary',
             'password' => bcrypt('@findit')
         ]);
+        App\User::create([
+            'name' => 'Mwaura George',
+            'slug' => str_slug('Mwaura George'),
+            'email_verified_at' => now(),
+            'email' => 'me@24seven.co.ke',
+            'phone' => '+25471829989',
+            'is_verified' => true,
+            'password' => bcrypt('@24seven')
+        ]);
     }
 }

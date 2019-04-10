@@ -17,7 +17,7 @@ Route::get('/welcome', function () {
 //client page Routes
 Route::get('/', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
-Route::get('/terms', 'PagesController@terms')->name('terms');
+Route::get('/terms-and-policy', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');
 Route::group(['middleware' => ['verified','auth']], function(){
     Route::get('/profile','PagesController@profile')->name('profile');

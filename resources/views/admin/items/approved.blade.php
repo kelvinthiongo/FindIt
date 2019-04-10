@@ -70,6 +70,9 @@
                                             </style>
                                             <ul id="action" style="list-style-type:none;">
                                                 <li class="links">
+                                                <a href="/admin/approved-items/{{$approved->id}}/disapprove" ><button style="color:green;" class="trans btn btn-success fa fa-thumbs-down"> </button></a>
+                                                </li>
+                                                <li class="links">
                                                     <a target="_blank" href='/items/{{$approved->slug}}' ><button style="color:green;" class="trans btn btn-success fa fa-eye"> </button></a>
                                                 </li>
                                                 <li class="links">

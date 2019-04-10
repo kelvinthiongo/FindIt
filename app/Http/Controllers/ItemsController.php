@@ -374,7 +374,7 @@ class ItemsController extends Controller
         if($check > 0){
             $lost = Lost::where('number',$item->number)->first();
 
-            $data = ['name' => $item->name, 'email' => $lost->email];
+            $data = ['name' => $item->f_name, 'email' => $lost->email];
 
             Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
             {

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="description" content="FindIt - Upload and Search for Lost Documents">
-  <meta name="author" content="Rype Creative [Chris Gipple]">
+  <meta name="author" content="24seven Developers">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -38,6 +38,8 @@
       <script src="js/html5shiv.min.js"></script>
       <script src="js/respond.min.js"></script>
   <![endif]-->
+  <!--crisp-->
+  <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="445ed02f-28bf-4306-b094-b1ccc694aec7";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 <body>
 

@@ -387,6 +387,14 @@ class ItemsController extends Controller
         return redirect()->back()->with('success','Items Approved Successfully');
         
     }
+    //disapprove an approved item
+    public function disapprove($id){
+
+        $item = Item::find($id);
+        $item->approved = null;
+        $item->save();
+        return redirect()->back()->with('success','Item dispproved! It has been marked as pending');
+    }
 
     
 

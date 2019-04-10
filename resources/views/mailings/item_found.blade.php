@@ -154,7 +154,7 @@
     <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff">
             <tr>
                     <td align="center" height="70" style="height:70px;">
-                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="C:\xampp\htdocs\FindIt\public\logo.png" alt="Findit" /></a>
+                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="{{asset('logo.png')}}" alt="Findit" /></a>
                     </td>
                 </tr>
         <tr>
@@ -303,7 +303,7 @@
                                             <tr>
                                                 <!-- logo -->
                                                 <td align="left">
-                                                    <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="80" border="0" style="display: block; width: 80px;" src="C:\xampp\htdocs\FindIt\public\logo.png" alt="Findit"/></a>
+                                                    <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="80" border="0" style="display: block; width: 80px;" src="{{asset('logo.png')}}" alt="Findit"/></a>
                                                 </td>
                                             </tr>
 

@@ -108,7 +108,7 @@ class ItemsController extends Controller
                 'category_id' => 'required',
                 'place_to_get' => 'required',
             ]);
-            $place_to_get = ucwords(strtolower($request->place_to_get));
+            $place_to_get = ucwords($request->place_to_get);
         }
 
         $item = Item::create([
@@ -118,15 +118,13 @@ class ItemsController extends Controller
             'place_to_get'=> $place_to_get,
         ]);
 
-        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper')
-            $item->approved = Auth::user()->id;
 
         if($request->f_name != '')
-            $item->f_name = ucwords(strtolower($request->f_name));
+            $item->f_name = ucwords($request->f_name);
         if($request->s_name != '')
-            $item->s_name = ucwords(strtolower($request->s_name));
+            $item->s_name = ucwords($request->s_name);
         if($request->l_name != '')
-            $item->l_name = ucwords(strtolower($request->l_name));
+            $item->l_name = ucwords($request->l_name);
         if($request->description != '')
             $item->description = $request->description;
         if($request->status != '')
@@ -137,19 +135,50 @@ class ItemsController extends Controller
             $item->lf_date = $request->lf_date;
 
         if($request->has('image')){
+            if(count($request->file('image')) > 4)
+                return redirect()->back()->with('error', 'You can only upload a maximum of 4 images');
             foreach($request->file('image') as $image){
                 $image_name = time() . $image->getClientOriginalName();
                 $image_new_name = 'uploads/items/' . $image_name;
-                $new_image = Image::make($image->getRealPath())->resize(1837, 1206);
+                $new_image = Image::make($image->getRealPath())->resize(500, 328);
+                $new_image->insert('watermark.png', 'center');
                 $new_image->save(public_path($image_new_name));
 
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
             }
-            $item->image = json_encode($image_data);
+            $image_data = json_encode($image_data);
+            if(strlen(json_decode($image_data))>60){
+                $images = $image_data;
+                foreach ($images as $image) {
+                    File::delete($image);
+                }
+               return redirect()->back()->with('error', 'Sorry some images contain long names! Please rename them to shorter names then upload again');
+            }
+            $item->image = $image_data;
         }
         $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
         $item->save();
+        
+        //Mark item as approved if user is either an admin or verified by FindIt. Sending Mail to attached users, then save changes
+        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper' || Auth::user()->is_verified ){
+            $item->approved = Auth::user()->id;
+            $check = Lost::where('number',$item->number)->count();
+            if($check > 0){
+                $lost = Lost::where('number',$item->number)->first();
+
+                $data = ['name' => $item->f_name, 'email' => $lost->email];
+
+                Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+                {
+                    $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                });
+            }
+            $item->save();
+        }
+            
+
         if(Auth::user()->is_verified){
+
             return redirect()->back()->with('success', 'You successfully uploaded the item.');
         }
         return redirect()->route('uploads')->with('success', 'You successfully uploaded the item.');
@@ -182,10 +211,12 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
+        $image_data = json_decode($item->image);
+        $count = count($image_data);
         if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user'){
             return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
         }
-        return view('client.items.edit')->with('item', $item)->with('categories', Category::all());
+        return view('client.items.edit')->with('item', $item)->with('categories', Category::all())->with('count', $count);
     }
 
     public function delete_image(Item $item, $image)
@@ -283,20 +314,39 @@ class ItemsController extends Controller
             foreach($request->file('image') as $image){
                 $image_name =  time() . $image->getClientOriginalName();
                 $image_new_name = 'uploads/items/' . $image_name;
-                $new_image = Image::make($image->getRealPath())->resize(1837, 1206);
+                $new_image = Image::make($image->getRealPath())->resize(500, 328);
+                $new_image->insert('watermark.png', 'center', 10, 10);
                 $new_image->save($image_new_name);
         
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
             }
-
+            
+            if(strlen(json_encode($image_data))>60){
+                foreach ($request->file('image') as $image) {
+                    File::delete($image);
+                }
+               return redirect()->back()->with('error', 'Sorry some images contain long names! Please rename them to shorter names then upload again');
+            }
             $item->image = json_encode($image_data);
         }
         $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
  
         if(Auth::user()->type != "user"){
+            if($item->approved == null){
+                $check = Lost::where('number',$item->number)->count();
+                if($check > 0){
+                    $lost = Lost::where('number',$item->number)->first();
+
+                    $data = ['name' => $item->f_name, 'email' => $lost->email];
+
+                    Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+                    {
+                        $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                    });
+                }
+            }
             $item->approved = Auth::user()->id;
             $item->save();
-
             $check = Lost::where('number',$item->number)->count();
             if($check > 0){
 
@@ -361,27 +411,30 @@ class ItemsController extends Controller
     }
 
     
-    //approve a pending item
+    //approve a multiple pending item
     public function approve_multiple(Request $request){
         $ids = json_decode($request->ids);
+        $check_mailable = false;
         foreach($ids as $id){
             $item = Item::find($id);
             $item->approved = Auth::user()->id;
             $item->save();
 
             $check = Lost::where('number',$item->number)->count();
+            if($check > 0){
+                $lost = Lost::where('number',$item->number)->first();
+    
+                $data = ['name' => $item->f_name, 'email' => $lost->email];
+    
+                Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+                {
+                    $message->to( $data['email'] )->from( 'no-reply@findit.24seven.co.ke')->subject( 'Lost Document Found' );
+                });
+                $check_mailable = true;
+            }
         }
-        if($check > 0){
-            $lost = Lost::where('number',$item->number)->first();
-
-            $data = ['name' => $item->f_name, 'email' => $lost->email];
-
-            Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
-            {
-                $message->to( $data['email'] )->from( 'no-reply@findit.24seven.co.ke')->subject( 'Lost Document Found' );
-            });
-            
-        return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to the uploaders.');  
+        if($check_mailable){
+            return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to each of the uploaders.');  
         } 
     
         return redirect()->back()->with('success','Items Approved Successfully');

@@ -99,13 +99,18 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-
+        var n = 0;
         $(".btn-success").click(function(){ 
+            if(n > 2)
+                return false;
             var html = $(".clone").html();
             $(".increment").after(html);
+            n++;
         });
 
         $("body").on("click",".btn-danger",function(){ 
+            if(n>0)
+                n--;
             $(this).parents(".control-group").remove();
         });
 

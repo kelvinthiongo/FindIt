@@ -147,8 +147,8 @@ class ItemsController extends Controller
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
             }
             $image_data = json_encode($image_data);
-            if(strlen(json_decode($image_data))>60){
-                $images = $image_data;
+            if(strlen($image_data)>60){
+                $images = json_decode($image_data);
                 foreach ($images as $image) {
                     File::delete($image);
                 }

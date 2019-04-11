@@ -62,9 +62,12 @@
                     var checkedValue = $('.messageCheckbox:checked').val();
                 </script>
 
-                <input type="submit" id="demo" value="Demo" />
-                <input type="checkbox" name="check_all" id="check_all">
-
+                @if(count($items) > 0)
+                    <div class="col-sm-6 col-sm-offset-2">
+                        <label for="check_all">Select all: </label><input type="checkbox" name="check_all" id="check_all">
+                        <input type="submit" id="demo" value="Approve Selected" />
+                    </div>
+                @endif
                 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
                 <script type="text/javascript">
                     $("#check_all").click(function () {

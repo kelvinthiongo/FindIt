@@ -28,6 +28,7 @@
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Pending Items</h3>
+                  <a href="{{ route('pending_ui') }}" class="btn btn-info  right">Client View</a>
                 </div>
                 @if($pendings->count() > 0)
                 <!-- /.box-header -->

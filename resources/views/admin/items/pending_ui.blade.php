@@ -64,11 +64,11 @@
 
                 @if(count($items) > 0)
                     <div class="col-sm-6 col-sm-offset-2">
-                        <label for="check_all">Select all: </label><input type="checkbox" name="check_all" id="check_all">
-                        <input type="submit" id="demo" value="Approve Selected" />
+                        <label for="check_all">Select all: </label><input type="checkbox" name="check_all" id="check_all_lower" onclick="$('#check_all').click()">
+                        <input type="submit" id="demo_lower" value="Approve Selected" onclick="$('#demo').click()" />
                     </div>
                 @endif
-                <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
+                <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
                 <script type="text/javascript">
                     $("#check_all").click(function () {
                         $(".check_approve").prop('checked', $(this).prop('checked'));
@@ -78,7 +78,7 @@
                         $("input:checkbox[name=selected]:checked").each(function () {
                             slug.push($(this).val());
                         });
-                        alert(slug[0]);
+                        confirm("Are you sure you want to approve the selected items?");
                         $form = $("#form_1");
                         $form.append('<textarea name="ids" id="slug_array"></textarea>');
                         $form.append('<input type="submit" id="slug_text" value="Demo" >');

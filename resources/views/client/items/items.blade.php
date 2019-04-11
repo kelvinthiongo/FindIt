@@ -102,8 +102,15 @@
                             </div>
                         @endif
                     @endforeach
-
-                    {{ $items->links() }}
+                   <div class="pagination">
+                        <div class="center">
+                            <ul>
+                                {{ $items->links() }}
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <br><br><br><br><br><br>
                 </div>
                 <div class="col-lg-4 col-md-4 sidebar">
                 

@@ -64,10 +64,15 @@
                         </div>
                         <div class="form-block increment">
                             <label>Document Image{{ Auth::user()->is_verified ? '' : '*' }}</label>
-                            <input class="border" type="file" name="image[]"/>
-                            <div class="input-group-btn"> 
-                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i>Add Another Image</button>
-                            </div>
+                            @if ($count < 4)
+                                <input class="border" type="file" name="image[]"/>
+                                <div class="input-group-btn"> 
+                                    <button class="btn btn-success" type="button"><i class="fa fa-plus"></i>Add Another Image</button>
+                                </div>
+                            @else
+                                <p>You have already uploaded 4 images for this item, please visit <a href="{{ route('items.show', ['slug' => $item->slug]) }}">the item</a> and delete unneccessary images.</p>
+                            @endif
+                                
                         </div>
                         <div class="form-block clone hide">
                             <div class="control-group input-group" style="margin-top:10px">
@@ -98,13 +103,18 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-
+        var n = {{ $count }};
         $(".btn-success").click(function(){ 
+            if(n > 2)
+                return false;
             var html = $(".clone").html();
             $(".increment").after(html);
+            n++;
         });
 
-        $("body").on("click",".btn-danger",function(){ 
+        $("body").on("click",".btn-danger",function(){
+            if(n>0)
+                n--; 
             $(this).parents(".control-group").remove();
         });
 

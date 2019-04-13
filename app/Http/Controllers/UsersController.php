@@ -237,7 +237,7 @@ class UsersController extends Controller
                 $avatar_name = time() . $avatar->getClientOriginalName();
                 $avatar_new_name = 'uploads/users/' . $avatar_name;
                 $new_avatar = Image::make($avatar->getRealPath())->resize(500, 500);
-                $new_avatar->save(public_path($avatar_new_name));
+                $new_avatar->save($avatar_new_name);
                 $avatar = $avatar_new_name;
                 $user->avatar = $avatar;
             }

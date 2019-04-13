@@ -1,0 +1,4 @@
+[09-Apr-2019 11:42:37 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 69632 bytes) in /home/sevencok/FindIt/vendor/fzaninotto/faker/src/Faker/Provider/Base.php on line 195
+[09-Apr-2019 11:42:37 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/sevencok/FindIt/vendor/laravel/framework/src/Illuminate/Auth/AuthManager.php on line 69
+[09-Apr-2019 12:49:36 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 69632 bytes) in /home/sevencok/FindIt/vendor/fzaninotto/faker/src/Faker/Provider/Base.php on line 195
+[09-Apr-2019 12:49:36 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/sevencok/FindIt/vendor/laravel/framework/src/Illuminate/Auth/AuthManager.php on line 69

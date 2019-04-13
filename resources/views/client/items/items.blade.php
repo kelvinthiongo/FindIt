@@ -35,7 +35,9 @@
                         </div> --}}
                         <div class="clear"></div>
                     </div><!-- end property listing header -->
-
+                    @if ($count == 0)
+                        <p><b>Sorry we did not find any data that match what you searched for. For more accurate results, feed your details in the search input box SEPARATING  them with SPACES. For example, if you are searching for a documment with name: John Doe, and number: 12345678, you should search for "John Doe 12345678". <br> If still you did this and failed to get the results, click <a data-toggle="modal" data-target="#exampleModalCenter">here</a> to drop your details. We will get to you soon if someone uploads a document that match your details, good luck.</b><br><br><br></p>
+                    @endif
                     @foreach($items as $item)
                         @if($item->user->is_verified)
                             <div class="property property-row property-row-sidebar shadow-hover">
@@ -100,8 +102,15 @@
                             </div>
                         @endif
                     @endforeach
-
-                    {{ $items->links() }}
+                   <div class="pagination">
+                        <div class="center">
+                            <ul>
+                                {{ $items->links() }}
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <br><br><br><br><br><br>
                 </div>
                 <div class="col-lg-4 col-md-4 sidebar">
                 
@@ -127,7 +136,12 @@
                                 <li><a href="/terms-and-policy">Terms & Policy</a></li>
                                 <li><a href="/submit-query">Submit Query</a></li>
                                 <li><a href="/faq">Frequently Asked Questions</a></li>
-                                <li><a href="/login">Login</a></li>
+                                @auth
+                                    <li><a href="/uploaded-items">My Uploads</a></li>
+                                @endauth
+                                @guest
+                                    <li><a href="/login">Login</a></li>
+                                @endguest
                                 <li><a href="/upload-item">Upload Found Item</a></li>
                             </ul>
                         </div><!-- end widget content -->

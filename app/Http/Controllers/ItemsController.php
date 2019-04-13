@@ -434,7 +434,7 @@ class ItemsController extends Controller
             }
         }
         if($check_mailable){
-            return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to each of the uploaders.');  
+            return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to each of the uploaders.');
         } 
     
         return redirect()->back()->with('success','Items Approved Successfully');

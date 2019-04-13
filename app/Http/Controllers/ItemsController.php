@@ -170,7 +170,7 @@ class ItemsController extends Controller
 
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
-                    $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                    $message->to( $data['email'] )->from( 'findit24seven.co.ke')->subject( 'Lost Document Found' );
                 });
             }
             $item->save();
@@ -341,7 +341,7 @@ class ItemsController extends Controller
 
                     Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                     {
-                        $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                        $message->to( $data['email'] )->from( 'findit24seven.co.ke')->subject( 'Lost Document Found' );
                     });
                 }
             }
@@ -400,7 +400,7 @@ class ItemsController extends Controller
 
             Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
             {
-                $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                $message->to( $data['email'] )->from( 'findit@24seven.co.ke')->subject( 'Lost Document Found' );
             });
             
 
@@ -428,7 +428,7 @@ class ItemsController extends Controller
     
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
-                    $message->to( $data['email'] )->from( 'no-reply@findit.24seven.co.ke')->subject( 'Lost Document Found' );
+                    $message->to( $data['email'] )->from( 'findit@24seven.co.ke')->subject( 'Lost Document Found' );
                 });
                 $check_mailable = true;
             }

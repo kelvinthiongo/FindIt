@@ -18,7 +18,7 @@ class ContactUsController extends Controller
             ]);
         $data = array( 'name' => $request->get('name'), 'email' => $request->get('email'),'subject' => $request->get('subject'), 'phone' => $request->get('phone'), 'user_message' => $request->get('message'));
 
-        Mail::send( 'email', $data, function( $message ) use ($data)
+        Mail::send( 'mailings.query', $data, function( $message ) use ($data)
         {
             $message->to( 'georgenjoroge977@gmail.com' )->from( $data['email'])->subject( 'Findit Contact Form' );
         });

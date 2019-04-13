@@ -28,7 +28,6 @@ class Item extends Model
             'items.f_name' => 7,
             'items.s_name' => 7,
             'items.l_name' => 7,
-            'items.lf_date' => 1,
             'items.place_found' => 1,
         ],
         // 'joins' => [

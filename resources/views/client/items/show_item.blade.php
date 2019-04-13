@@ -62,7 +62,7 @@
                                         <div style="display: none;">
                                             {{ $i++ }}
                                         </div>
-                                        <a href="{{ asset($image) }}"><img src="{{ asset($image) }}" alt="" /></a>
+                                        <a href="{{ asset($image) }}"><img src="{{ asset($image) }}" alt="" width="1206" /></a>
                                     </div>
                                     
                                 @endforeach

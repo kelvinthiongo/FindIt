@@ -373,12 +373,12 @@ class ItemsController extends Controller
         }
         if($check > 0){
             $lost = Lost::where('number',$item->number)->first();
-
-            $data = ['name' => $item->f_name, 'email' => $lost->email];
+        
+            $data = array('name' => $item->f_name, 'email' => $lost->email);
 
             Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
             {
-                $message->to( $data['email'] )->from( 'no-reply@findit.24seven.co.ke')->subject( 'Lost Document Found' );
+                $message->to( $data['email'] )->from( 'findit@24seven.co.ke')->subject( 'Lost Document Found' );
             });
             
         return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to the uploaders.');  

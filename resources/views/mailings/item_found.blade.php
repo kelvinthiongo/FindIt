@@ -1,14 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:v="urn:schemas-microsoft-com:vml">
+<!DOCTYPE html>
+<html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
-    <!--[if !mso]><!-- -->
+    <!--[if !mso]>
     <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700' rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel="stylesheet">
-    <!--<![endif]-->
+    <![endif]-->
 
     <title>Item Found | Findit Team</title>
 
@@ -349,11 +349,11 @@
                                                     <table border="0" align="right" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td>
-                                                                <a href="#" style="display: block; border-style: none !important; border: 0 !important;"><img width="24" border="0" style="display: block;" src="http://i.imgur.com/Qc3zTxn.png" alt=""></a>
+                                                                <a href="#" style="display: block; border-style: none !important; border: 0 !important;"><img width="24" border="0" style="display: block;" src="https://i.imgur.com/Qc3zTxn.png" alt=""></a>
                                                             </td>
                                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                             <td>
-                                                                <a href="#" style="display: block; border-style: none !important; border: 0 !important;"><img width="24" border="0" style="display: block;" src="http://i.imgur.com/RBRORq1.png" alt=""></a>
+                                                                <a href="#" style="display: block; border-style: none !important; border: 0 !important;"><img width="24" border="0" style="display: block;" src="https://i.imgur.com/RBRORq1.png" alt=""></a>
                                                             </td>
                                                         </tr>
                                                     </table>

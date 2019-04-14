@@ -142,7 +142,7 @@
                                 @guest
                                     <li><a href="/login">Login</a></li>
                                 @endguest
-                                <li><a href="/upload-item">Upload Found Item</a></li>
+                                <li><a href="/items/create">Upload Found Item</a></li>
                             </ul>
                         </div><!-- end widget content -->
                     </div><!-- end widget -->

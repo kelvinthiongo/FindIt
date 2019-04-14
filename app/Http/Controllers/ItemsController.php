@@ -373,20 +373,28 @@ class ItemsController extends Controller
             }
             $item->approved = Auth::user()->id;
             $item->save();
+            
             $check = Lost::where('number',$item->number)->count();
             if($check > 0){
+                $lost = Lost::where('number',$item->number)->first();
 
-            dd($item->email);
+                $data = ['name' => $item->f_name, 'email' => $lost->email];
 
-            return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
-            } 
-            return redirect()->route('items.show', ['slug' => $item->slug])->with('success', 'You successfully updated and APPROVED the item!'); //to be changed
+                Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+                {
+                    $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                });
+                $item->save();
+                return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
+            }
+            
+            return redirect()->route('items.show', ['slug' => $item->slug])->with('success', 'You successfully updated and APPROVED the item!');
         }
         $item->approved = null;
         
         $item->save(); //saving any pending changes
 
-        return redirect()->route('items.show', ['slug' => $item->slug])->with('item' ,$item)->with('success', 'You successfully updated the item!'); //to be changed
+        return redirect()->route('items.show', ['slug' => $item->slug])->with('item' ,$item)->with('success', 'You successfully updated the item!');
     }
 
     //get all items pending approval

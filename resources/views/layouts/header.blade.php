@@ -226,7 +226,7 @@
                     <img src="{{ asset(Auth::User()->avatar) }}" class="img-circle" alt="User Image">
     
                     <p>
-                     {{ Auth::User()-> name }} - Web Developer 24 Seven Developers
+                     {{ Auth::User()-> name }} - Admin at FindIt
                       <small>Member since {{ date('F d, Y', strtotime(Auth::User()->created_at)) }}</small>
                     </p>
                   </li>

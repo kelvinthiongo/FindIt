@@ -50,10 +50,16 @@
                             {{ Form::text('phone', $user->phone, ['class' => 'form-control', 'id' => 'phone',]) }} <br>
                             
                             @if(Auth::user()->type == 'supper' && $user->type != 'user')
-                            <div class="form-group ">
-                                <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
-                                <label>Make supper admin</label>
-                            </div>
+                                <div class="form-group ">
+                                    <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
+                                    <label>Make supper admin</label>
+                                </div>
+                            @endif
+                            @if(Auth::user()->type != 'user' && $user->type == 'user')
+                                <div class="form-group ">
+                                    <input type="checkbox" name='is_verified' @if($user->is_verified) checked @endif>
+                                    <label>Mark as verified</label>
+                                </div>
                             @endif
 
                             {{ Form::label('avatar', 'Upload an avatar') }}

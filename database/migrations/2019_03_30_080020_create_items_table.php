@@ -16,16 +16,17 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->integer('category_id');
+            $table->string('category');
             $table->string('f_name')->nullable();
             $table->string('s_name')->nullable();
             $table->string('l_name')->nullable();
             $table->string('slug')->default(str_slug(date('Y-m-d H:i:s')));
             $table->string('number');
-            $table->string('image')->default("[\"uploads\\\/items\\\/image.png\"]");
+            $table->string('ip')->nullable();
+            $table->text('image'); //->default("[\"uploads\\\/items\\\/image.png\"]")
             $table->integer('user_id');
             $table->integer('reports')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('status')->default('found');
             $table->string('place_found')->nullable();
             $table->string('place_to_get');

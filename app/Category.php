@@ -13,7 +13,7 @@ class Category extends Model
         return 'slug';
     }
 
-    public function items(){
-        return $this->hasMany('App\Item');
-    }
+    // public function items(){
+    //     return $this->hasMany('App\Item');
+    // }
 }

@@ -20,9 +20,9 @@
                         <p><img src="{{ asset('client/images/divider-half.png') }}" alt="image" /></p><br>
                         <div class="form-block">
                             <label>Document Type*</label>
-                            <select name="category_id" class="border" required>
+                            <select name="category" class="border" required>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $item->category }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>

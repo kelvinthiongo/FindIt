@@ -51,7 +51,7 @@
                                 @foreach($approved_items as $approved)
                                     <tr>
                                         <td>{{$n = $n + 1}}</td>
-                                        <td>{{$approved->category->name}}</td>
+                                        <td>{{$approved->category}}</td>
                                         <td>{{$approved->f_name." ".$approved->s_name." ".$approved->l_name}}</td>
                                         <td>{{$approved->number}}</td>
                                         @if (Auth::user()->type == 'supper')

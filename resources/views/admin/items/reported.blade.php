@@ -48,7 +48,7 @@
                                 @foreach($trashed_items as $trashed)
                                     <tr>
                                         <td>{{$n = $n + 1}}</td>
-                                        <td>{{$trashed->category == null? 'No Category': $trashed->category->name}}</td>
+                                        <td>{{$trashed->category == null? 'No Category': $trashed->category}}</td>
                                         <td>{{$trashed->f_name . ' ' . $trashed->s_name . ' ' . $trashed->l_name }}</td>
                                         <td>{{$trashed->number}}</td>
                                         {{--  <td>{{$trashed->trashed}}</td>  --}}

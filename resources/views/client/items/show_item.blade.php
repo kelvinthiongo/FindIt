@@ -2,8 +2,8 @@
 @section('content')
     <section class="subheader">
         <div class="container">
-        <h1>View {{ $item->category->name == 'others'? 'Item': $item->category->name }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</h1>
-            <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">View {{ $item->category->name == 'others'? 'Item': $item->category->name }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</a></div>
+        <h1>View {{ $item->category == 'others'? 'Item': $item->category }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</h1>
+            <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="/" class="current">View {{ $item->category == 'others'? 'Item': $item->category }} {{ $item->f_name == ''? '' : 'for ' . $item->f_name }}</a></div>
             <div class="clear"></div>
         </div>
     </section>
@@ -21,7 +21,7 @@
                                 <div class="clear"></div>
                             </div>
                             <div class="property-single-tags">
-                                <div class="property-tag button alt featured">{{ $item->category->name }}</div>
+                                <div class="property-tag button alt featured">{{ $item->category }}</div>
                                 @auth
                                     <a href="{{ route('approve', ['id' => $item->id]) }}" class="property-tag button alt info featured right" style="{{ Auth::user()->type == 'user' || $item->approved != null? 'display: none' : '' }}"><i class="fa fa-check icon"></i>Approve</a>
                                     <a href="{{ route('items.edit', ['slug' => $item->slug]) }}" class="property-tag button alt featured right" style="{{ $item->user->id != Auth::user()->id && Auth::user()->type == 'user'? 'display: none' : '' }}"><i class="fa fa-pencil icon"></i>Edit</a>  

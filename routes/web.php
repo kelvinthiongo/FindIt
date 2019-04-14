@@ -96,7 +96,7 @@ Route::get('/get-client-country', function(){ // getLocationInfoByIp
     }else{
         $ip = $remote;
     }
-
+    return $ip;
     $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
     if($ip_data && $ip_data->geoplugin_countryName != null){
         $result['country'] = $ip_data->geoplugin_countryName;

@@ -10,6 +10,7 @@ use Auth;
 use App\User;
 use App\Category;
 use App\Lost;
+use App\Report;
 use Mail;
 
 
@@ -222,6 +223,27 @@ class ItemsController extends Controller
     
     public function report(Request $request, Item $item)
     {
+        $client  = @$_SERVER['HTTP_CLIENT_IP'];
+        $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+        $remote  = @$_SERVER['REMOTE_ADDR'];
+        $result  = array('country'=>'', 'city'=>'');
+        if(filter_var($client, FILTER_VALIDATE_IP)){
+            $ip = $client;
+        }elseif(filter_var($forward, FILTER_VALIDATE_IP)){
+            $ip = $forward;
+        }else{
+            $ip = $remote;
+        }
+        if($ip == null)
+            return redirect()->back()->with('error', 'Could not get you IP address.');
+        $item_report = Report::where('ip', $ip)->where('item_id', $item->id)->first();
+        if($item_report != null){
+            return redirect()->back()->with('info', 'Already reported this item. The management will take an action soon. Thank you.');
+        }
+        Report::create([
+            'ip' => $ip,
+            'item_id' => $item->id
+        ]);
         $item->reports = $item->reports + 1;
         $item->save();
         return redirect()->back()->with('success', 'Item reported to the management. We will do something about it. Thanks!');

@@ -43,7 +43,7 @@
                             <div class="property property-row property-row-sidebar shadow-hover">
                                 <a href="{{ route('items.show', ['slug' => $item->slug]) }}" class="property-img">
                                     <div class="img-fade"></div>
-                                    <div class="property-tag button status">{{ $item->category->name }}</div>
+                                    <div class="property-tag button status">{{ $item->category }}</div>
                                     <div class="property-price button "> <i class="fa fa-check"></i> {{ $item->user->tag == '' ? $item->user->name : Auth::user()->tag }}</div>
                                     <div class="property-color-bar"></div>
                                     <img src="{{ asset(json_decode($item->image)[0]) }}" alt="item image" />
@@ -69,7 +69,7 @@
                             <div class="property property-row property-row-sidebar shadow-hover">
                                 <a href="{{ route('items.show', ['slug' => $item->slug]) }}" class="property-img">
                                     <div class="img-fade"></div>
-                                    <div class="property-tag button status">{{ $item->category->name }}</div>
+                                    <div class="property-tag button status">{{ $item->category }}</div>
                                     <div class="property-color-bar"></div>
                                     <img src="{{ asset(json_decode($item->image)[0]) }}" alt="Item image" />
                                 </a>
@@ -142,7 +142,7 @@
                                 @guest
                                     <li><a href="/login">Login</a></li>
                                 @endguest
-                                <li><a href="/upload-item">Upload Found Item</a></li>
+                                <li><a href="/items/create">Upload Found Item</a></li>
                             </ul>
                         </div><!-- end widget content -->
                     </div><!-- end widget -->

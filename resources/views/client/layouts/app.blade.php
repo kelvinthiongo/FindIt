@@ -31,7 +31,12 @@
   <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
 
   {{-- Image Display To Social media and such--}}
-  <meta property="og:image" content="{{ asset('logo.png') }}" />
+  <meta property="og:image" content="{{ asset('findIt-logo.png') }}" />
+  <meta property="og:title" content="Find-it | Search | Add Lost Document" />
+  <meta property="og:url" content="https://findit.24seven.co.ke" />
+  <meta property="og:description" content="FindIt - Upload and Search for Lost Documents" />
+  <meta property="og:image" content="{{ asset('logo-png.png') }}" />
+  <meta property="og:type" content="" /> <!-- http://ogp.me/#types -->
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>

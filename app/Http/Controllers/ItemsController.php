@@ -47,8 +47,6 @@ class ItemsController extends Controller
     }
 
     public function search_item(Request $request){
-        $categories = Category::all();
-
         $this->validate($request, [
             'content' => 'required | max:50'
         ]);
@@ -91,7 +89,7 @@ class ItemsController extends Controller
         if(Auth::user()->is_verified){
             $this->validate($request, [
                 'number' => 'required',
-                'category_id' => 'required',
+                'category' => 'required',
 
             ]);
             if($request->place_to_get == '')
@@ -105,7 +103,7 @@ class ItemsController extends Controller
                 'l_name' => 'required',
                 // 'image' => 'required|mimes:jpeg,png,bmp,svg',
                 'number' => 'required',
-                'category_id' => 'required',
+                'category' => 'required',
                 'place_to_get' => 'required',
             ]);
             $place_to_get = ucwords($request->place_to_get);
@@ -113,11 +111,34 @@ class ItemsController extends Controller
 
         $item = Item::create([
             'number'=> $request->number,
-            'category_id'=> $request->category_id,
+            'category'=> $request->category,
             'user_id'=> Auth::user()->id,
             'place_to_get'=> $place_to_get,
         ]);
 
+        
+        //Get the country of the client
+
+        $client  = @$_SERVER['HTTP_CLIENT_IP'];
+        $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+        $remote  = @$_SERVER['REMOTE_ADDR'];
+        $result  = array('country'=>'', 'city'=>'');
+        if(filter_var($client, FILTER_VALIDATE_IP)){
+            $ip = $client;
+        }elseif(filter_var($forward, FILTER_VALIDATE_IP)){
+            $ip = $forward;
+        }else{
+            $ip = $remote;
+        }
+
+        // $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
+        // if($ip_data && $ip_data->geoplugin_countryName != null){
+        //     $result['country'] = $ip_data->geoplugin_countryName;
+        //     $result['country_code'] = $ip_data->geoplugin_countryCode;
+        //     $result['city'] = $ip_data->geoplugin_city;
+        // }
+        
+        $item->ip = $ip;
 
         if($request->f_name != '')
             $item->f_name = ucwords($request->f_name);
@@ -147,7 +168,7 @@ class ItemsController extends Controller
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
             }
             $image_data = json_encode($image_data);
-            if(strlen($image_data)>60){
+            if(strlen($image_data)>500){
                 $images = json_decode($image_data);
                 foreach ($images as $image) {
                     File::delete($image);
@@ -155,6 +176,9 @@ class ItemsController extends Controller
                return redirect()->back()->with('error', 'Sorry some images contain long names! Please rename them to shorter names then upload again');
             }
             $item->image = $image_data;
+        }
+        else{
+            $item->image = json_encode(['/uploads/items/image.png']);
         }
         $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
         $item->save();
@@ -236,6 +260,8 @@ class ItemsController extends Controller
             }
             $data[] = $img;
         }
+        if(count($data) == 0)
+            return redirect()->back()->with('error', 'The action leads to zero images being left.');
         $item->image = json_encode($data);
         $item->save();
         Session::flash('success', 'You successifuly removed the image.');
@@ -263,7 +289,7 @@ class ItemsController extends Controller
         if(Auth::user()->is_verified){
             $this->validate($request, [
                 'number' => 'required',
-                'category_id' => 'required',
+                'category' => 'required',
 
             ]);
             if(!$request->has('place_to_get'))
@@ -277,7 +303,7 @@ class ItemsController extends Controller
                 'f_name' => 'required',
                 'l_name' => 'required',
                 'number' => 'required',
-                'category_id' => 'required',
+                'category' => 'required',
                 'place_to_get' => 'required',
 
             ]);
@@ -288,7 +314,7 @@ class ItemsController extends Controller
         }
 
         $item->number = $request->number;
-        $item->category_id = $request->category_id;
+        $item->category = $request->category;
         if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper')
             $item->approved = Auth::user()->id;
 
@@ -321,7 +347,7 @@ class ItemsController extends Controller
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
             }
             
-            if(strlen(json_encode($image_data))>60){
+            if(strlen(json_encode($image_data))>1200){
                 foreach ($request->file('image') as $image) {
                     File::delete($image);
                 }
@@ -347,20 +373,28 @@ class ItemsController extends Controller
             }
             $item->approved = Auth::user()->id;
             $item->save();
+            
             $check = Lost::where('number',$item->number)->count();
             if($check > 0){
+                $lost = Lost::where('number',$item->number)->first();
 
-            dd($item->email);
+                $data = ['name' => $item->f_name, 'email' => $lost->email];
 
-            return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
-            } 
-            return redirect()->route('items.show', ['slug' => $item->slug])->with('success', 'You successfully updated and APPROVED the item!'); //to be changed
+                Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
+                {
+                    $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
+                });
+                $item->save();
+                return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
+            }
+            
+            return redirect()->route('items.show', ['slug' => $item->slug])->with('success', 'You successfully updated and APPROVED the item!');
         }
         $item->approved = null;
         
         $item->save(); //saving any pending changes
 
-        return redirect()->route('items.show', ['slug' => $item->slug])->with('item' ,$item)->with('success', 'You successfully updated the item!'); //to be changed
+        return redirect()->route('items.show', ['slug' => $item->slug])->with('item' ,$item)->with('success', 'You successfully updated the item!');
     }
 
     //get all items pending approval

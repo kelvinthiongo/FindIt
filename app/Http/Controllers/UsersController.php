@@ -123,8 +123,8 @@ class UsersController extends Controller
                 'email'=> $request->email,
                 'type'=> $type,
                 'slug'=> $slug,
+                'is_verified' => true,
             ]);
-            
             if($check > 0){
                 $user->slug = str_replace('/', '-', $slug . $user->id);
                 $user->save();
@@ -216,8 +216,13 @@ class UsersController extends Controller
             'email' => 'required',
         ]);
         $user = User::where('slug', $slug)->first();
-        if($user->email != $request->email)
-             $user->email_verified_at = null;
+        if(Auth::user()->type != 'user'){
+            if($request->is_verified == 'on'){
+                $user->is_verified = true;
+            }
+            else
+                $user->is_verified = false;
+        }
         if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
             if($request->password != ''){
                 if($request->password == $request->confirm_password){
@@ -248,8 +253,9 @@ class UsersController extends Controller
 
             if(User::where('email', $request->email)->where('email','!=',$user->email)->count() > 0){
                 return redirect()->back()->with('error','Sorry The record already exists'); 
-             }  
-
+            }  
+            if($user->email != $request->email)
+                $user->email_verified_at = null;
             $user->name = $request->name;
             $user->email = $request->email;
             if($user->type != 'user'){

@@ -64,7 +64,7 @@
                             <input class="border" type="text" name="place_to_get" {{ Auth::user()->is_verified ? '' : 'required' }} />
                         </div>
                         <div class="form-block increment">
-                            <label>Document Image{{ Auth::user()->is_verified ? '' : '*' }}</label>
+                            <label>Document Image{{ Auth::user()->is_verified ? '' : '*' }} (Please hide sensitive information eg. grades on certificates.)</label>
                             <input class="border" type="file" name="image[]" {{ Auth::user()->is_verified ? '' : 'required' }}/>
                             <div class="input-group-btn"> 
                                 <button class="btn btn-success" type="button"><i class="fa fa-plus"></i>Add Another Image</button>

@@ -74,7 +74,15 @@ class UsersTableSeeder extends Seeder
             'is_verified' => true,
             'email' => 'me@24seven.co.ke',
             'phone' => '+25471829989',
-            'is_verified' => true,
+            'password' => bcrypt('@24seven')
+        ]);
+        App\User::create([
+            'name' => 'Findit user',
+            'slug' => str_slug('Findit user'),
+            'email_verified_at' => now(),
+            'email' => 'user@24seven.co.ke',
+            'phone' => '+25471829989',
+            'is_verified' => false,
             'password' => bcrypt('@24seven')
         ]);
     }

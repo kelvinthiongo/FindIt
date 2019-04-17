@@ -17,6 +17,8 @@ class CreateLostsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('category');
+            $table->string('ip')->nullable();
+            $table->string('status')->default('lost');
             $table->string('name');
             $table->string('number');
             $table->string('email');

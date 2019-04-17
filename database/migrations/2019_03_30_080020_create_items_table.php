@@ -27,7 +27,7 @@ class CreateItemsTable extends Migration
             $table->integer('user_id');
             $table->integer('reports')->nullable();
             $table->text('description')->nullable();
-            $table->string('status')->default('found');
+            // $table->string('status')->default('found');
             $table->string('place_found')->nullable();
             $table->string('place_to_get');
             $table->date('lf_date')->default(date('Y-m-d H:i:s')); //date lost or found

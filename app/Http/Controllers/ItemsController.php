@@ -91,7 +91,6 @@ class ItemsController extends Controller
             $this->validate($request, [
                 'number' => 'required',
                 'category' => 'required',
-
             ]);
             if($request->place_to_get == '')
                 $place_to_get = Auth::user()->name;
@@ -163,7 +162,8 @@ class ItemsController extends Controller
                 $image_name = time() . $image->getClientOriginalName();
                 $image_new_name = 'uploads/items/' . $image_name;
                 $new_image = Image::make($image->getRealPath())->resize(500, 328);
-                $new_image->insert('watermark.png', 'center');
+                // if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper' || Auth::user()->is_verified ) //
+                    $new_image->insert('watermark.png', 'center');
                 $new_image->save(public_path($image_new_name));
 
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
@@ -195,7 +195,7 @@ class ItemsController extends Controller
 
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
-                    $message->to( $data['email'] )->from( 'findit24seven.co.ke')->subject( 'Lost Document Found' );
+                    $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
                 });
             }
             $item->save();
@@ -377,6 +377,8 @@ class ItemsController extends Controller
             }
             $item->image = json_encode($image_data);
         }
+        // $new_image->insert('watermark.png', 'center');
+        $image = File::get('watermark.png');
         $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
  
         if(Auth::user()->type != "user"){
@@ -389,7 +391,7 @@ class ItemsController extends Controller
 
                     Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                     {
-                        $message->to( $data['email'] )->from( 'findit24seven.co.ke')->subject( 'Lost Document Found' );
+                        $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
                     });
                 }
             }
@@ -456,7 +458,7 @@ class ItemsController extends Controller
 
             Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
             {
-                $message->to( $data['email'] )->from( 'findit@24seven.co.ke')->subject( 'Lost Document Found' );
+                $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
             });
             
 
@@ -484,7 +486,7 @@ class ItemsController extends Controller
     
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
-                    $message->to( $data['email'] )->from( 'findit@24seven.co.ke')->subject( 'Lost Document Found' );
+                    $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
                 });
                 $check_mailable = true;
             }

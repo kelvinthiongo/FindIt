@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Gien',
             'slug' => str_slug('Gien'),
             'email_verified_at' => now(),
-            'email' => 'gien@24seven.co.ke',
+            'email' => 'giennjoro@24seven.co.ke',
             'is_verified' => true,
             'phone' => '+254 799315478 ',
             'type' => 'supper',

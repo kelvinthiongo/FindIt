@@ -40,7 +40,7 @@ $factory->define(App\Item::class, function (Faker $faker) {
             'Birth certificate',
             'Education certificate',
             'Passport',
-            'ATM Card',
+            // 'ATM Card',
             'Log book',
             'Driving Licence',
             'Others',

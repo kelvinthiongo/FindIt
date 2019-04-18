@@ -101,7 +101,9 @@
                             <th>Category</th>
                             <th>Name</th>
                             <th>Number</th>
-                            <th>Approved By</th>
+                            @if (Auth::user()->type == 'supper')
+                              <th>Approved By</th>
+                            @endif
                             <th>Action</th>
                         </tr>
                         </tfoot>

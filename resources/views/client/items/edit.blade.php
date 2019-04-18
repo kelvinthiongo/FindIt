@@ -20,9 +20,10 @@
                         <p><img src="{{ asset('client/images/divider-half.png') }}" alt="image" /></p><br>
                         <div class="form-block">
                             <label>Document Type*</label>
-                            <select name="category" class="border" required>
+                            <select name="category" class="border">
+                                <option value="">Select Category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $item->category }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->name }}" {{ $category->name == $item->category? 'selected' : '' }} >{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>

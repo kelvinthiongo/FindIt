@@ -311,7 +311,6 @@ class ItemsController extends Controller
         if(Auth::user()->is_verified){
             $this->validate($request, [
                 'number' => 'required',
-                'category' => 'required',
 
             ]);
             if(!$request->has('place_to_get'))
@@ -325,7 +324,6 @@ class ItemsController extends Controller
                 'f_name' => 'required',
                 'l_name' => 'required',
                 'number' => 'required',
-                'category' => 'required',
                 'place_to_get' => 'required',
 
             ]);
@@ -334,9 +332,9 @@ class ItemsController extends Controller
             $place_to_get = ucwords(strtolower($request->place_to_get));
     
         }
-
         $item->number = $request->number;
-        $item->category = $request->category;
+        if($request->category != null)
+            $item->category = $request->category;
         if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper')
             $item->approved = Auth::user()->id;
 

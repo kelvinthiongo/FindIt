@@ -65,14 +65,14 @@
                         </div>
                         <div class="form-block increment">
                             <label>Document Image{{ Auth::user()->is_verified ? '' : '*' }} (Please hide sensitive information eg. grades on certificates.)</label>
-                            <input class="border" type="file" name="image[]" {{ Auth::user()->is_verified ? '' : 'required' }}/>
+                            <input class="border" type="file" name="image[]" onchange="encodeImagetoBase64(this)" {{ Auth::user()->is_verified ? '' : 'required' }}/>
                             <div class="input-group-btn"> 
                                 <button class="btn btn-success" type="button"><i class="fa fa-plus"></i>Add Another Image</button>
                             </div>
                         </div>
                         <div class="form-block clone hide">
                             <div class="control-group input-group" style="margin-top:10px">
-                                <input name='image[]' type="file" class="border">
+                                <input name='image[]' type="file" class="border" onchange="encodeImagetoBase64(this)">
                                 <div class="input-group-btn">
                                     <button class="btn btn-danger" type="button"><i class="fa fa-trash"></i> Remove</button>
                                 </div>
@@ -117,4 +117,25 @@
         });
 
     </script>
+    <script type="text/javascript">
+
+        function encodeImagetoBase64(element) {
+     
+           var file = element.files[0];
+     
+           var reader = new FileReader();
+     
+           reader.onloadend = function() {
+     
+             $(".link").attr("href",reader.result);
+     
+             $(".link").text(reader.result);
+     
+           }
+     
+           reader.readAsDataURL(file);
+     
+         }
+     
+     </script>
 @endsection 

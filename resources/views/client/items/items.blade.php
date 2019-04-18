@@ -36,7 +36,7 @@
                         <div class="clear"></div>
                     </div><!-- end property listing header -->
                     @if ($count == 0)
-                        <p><b>Sorry we did not find any data that match what you searched for. For more accurate results, feed your details in the search input box SEPARATING  them with SPACES. For example, if you are searching for a documment with name: John Doe, and number: 12345678, you should search for "John Doe 12345678". <br> If still you did this and failed to get the results, click <a data-toggle="modal" data-target="#exampleModalCenter">here</a> to drop your details. We will get to you soon if someone uploads a document that match your details, good luck.</b><br><br><br></p>
+                        <p><b>Sorry we did not find any data that matches what you searched for. For more accurate results, feed your details in the search input box SEPARATING  them with SPACES. For example, if you are searching for a documment with name: John Doe, and number: 12345678, you should search for "John Doe 12345678". <br> If you still did this and failed to get the results, click <a data-toggle="modal" data-target="#exampleModalCenter">here</a> to drop your details. We will get to you soon if someone uploads a document that matches your details, good luck.</b><br><br><br></p>
                     @endif
                     @foreach($items as $item)
                         @if($item->user->is_verified)

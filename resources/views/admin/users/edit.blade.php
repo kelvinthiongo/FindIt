@@ -55,7 +55,7 @@
                                     <label>Make supper admin</label>
                                 </div>
                             @endif
-                            @if(Auth::user()->type != 'user' && $user->type == 'user')
+                            @if(Auth::user()->type != 'user')
                                 <div class="form-group ">
                                     <input type="checkbox" name='is_verified' @if($user->is_verified) checked @endif>
                                     <label>Mark as verified</label>

@@ -23,9 +23,9 @@ class LostController extends Controller
             'email' => 'required | email'
         ]);
         $check = Lost::where('number',$request->number)->count();
-
+        $existing_email = Lost::where('number',$request->number)->first()->email;
         if($check > 0){
-            return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via email when we find your item.');
+            return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via ' . $email . ' when we find your item.');
         }
           
         //add lost item

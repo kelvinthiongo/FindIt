@@ -243,7 +243,7 @@
                                                     <!-- main section button -->
 
                                                     <div style="line-height: 22px;">
-                                                        <a target="_blank" href="https://findit.24seven.co.ke" style="color: #ffffff; text-decoration: none;">Visit</a>
+                                                    <a target="_blank" href="https://findit.24seven.co.ke/search/items?content={{ $data->number }}" style="color: #ffffff; text-decoration: none;">Visit</a>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -289,11 +289,11 @@ class UsersController extends Controller
             $result = $user->save();
 
             if($result){
-                Session::flash('success', 'You successifully updated the admin profile.');
+                Session::flash('success', 'You successifully updated the users profile.');
                 return redirect()->route('users.show', ['slug' => $slug]);
             }
 
-            Session::flash('error', 'You could not update the admin profile.');
+            Session::flash('error', 'You could not update the users profile.');
             return redirect()->route('users.index');
         }
 
@@ -302,7 +302,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage.     Temporally removal
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -366,6 +366,7 @@ class UsersController extends Controller
 
     }
 
+    // destroy permanently
     public function p_destroy($slug)
     {
         //

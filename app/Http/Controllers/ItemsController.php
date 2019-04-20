@@ -191,7 +191,7 @@ class ItemsController extends Controller
             if($check > 0){
                 $lost = Lost::where('number',$item->number)->first();
 
-                $data = ['name' => $item->f_name, 'email' => $lost->email];
+                $data = ['name' => $item->f_name, 'email' => $lost->email, 'number' => $item->number];
 
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
@@ -385,7 +385,7 @@ class ItemsController extends Controller
                 if($check > 0){
                     $lost = Lost::where('number',$item->number)->first();
 
-                    $data = ['name' => $item->f_name, 'email' => $lost->email];
+                    $data = ['name' => $item->f_name, 'email' => $lost->email, 'number' => $item->number];
 
                     Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                     {
@@ -400,7 +400,7 @@ class ItemsController extends Controller
             if($check > 0){
                 $lost = Lost::where('number',$item->number)->first();
 
-                $data = ['name' => $item->f_name, 'email' => $lost->email];
+                $data = ['name' => $item->f_name, 'email' => $lost->email, 'number' => $item->number];
 
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
@@ -452,7 +452,7 @@ class ItemsController extends Controller
         if($check > 0){
             $lost = Lost::where('number',$item->number)->first();
 
-            $data = ['name' => $item->f_name, 'email' => $lost->email];
+            $data = ['name' => $item->f_name, 'email' => $lost->email, 'number' => $item->number];
 
             Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
             {
@@ -480,7 +480,7 @@ class ItemsController extends Controller
             if($check > 0){
                 $lost = Lost::where('number',$item->number)->first();
     
-                $data = ['name' => $item->f_name, 'email' => $lost->email];
+                $data = ['name' => $item->f_name, 'email' => $lost->email, 'number' => $item->number];
     
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {

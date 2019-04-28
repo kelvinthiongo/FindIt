@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class LostController extends Controller
 {
+    public function index(){
+        $submissions = Lost::all()->get();
+        return view('admin.lost.index')->with('submissions', $submissions);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -23,9 +27,9 @@ class LostController extends Controller
             'email' => 'required | email'
         ]);
         $check = Lost::where('number',$request->number)->count();
-        $existing_email = Lost::where('number',$request->number)->first()->email;
         if($check > 0){
-            return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via ' . $email . ' when we find your item.');
+            $existing_email = Lost::where('number',$request->number)->first()->email;
+            return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via ' . $existing_email . ' when we find your item.');
         }
           
         //add lost item

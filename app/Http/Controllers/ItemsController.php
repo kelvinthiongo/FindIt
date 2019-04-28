@@ -529,7 +529,7 @@ class ItemsController extends Controller
     public function destroy(Item $item)
     {
         if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user'){
-            return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
+            return redirect('')->with('error', 'Sorry, you lack the privileges to edit this item.');
         }
         $images = json_decode($item->image);
 
@@ -547,7 +547,7 @@ class ItemsController extends Controller
         if($result){
             Session::flash('success', 'Item deleted successfully');
             if(Auth::user()->type == 'user')
-                return redirect()->route('uploads');
+                return redirect('/')->route('uploads');
             else
                 return redirect()->back();
         }
@@ -569,10 +569,10 @@ class ItemsController extends Controller
             if(Auth::user()->type == 'user')
                 return redirect()->route('uploads');
             else
-                return redirect()->back();
+                return redirect('/admin/trashed-items/');
         }
         Session::flash('error', 'Item could not be deleted.');
-        return redirect()->back();
+        return redirect('/admin/trashed-items/');
     }
 
 }

@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class LostController extends Controller
 {
+    public function index(){
+        $submissions = Lost::all()->get();
+        return view('admin.lost.index')->with('submissions', $submissions);
+    }
     /**
      * Store a newly created resource in storage.
      *

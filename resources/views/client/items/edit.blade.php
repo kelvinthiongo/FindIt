@@ -20,9 +20,10 @@
                         <p><img src="{{ asset('client/images/divider-half.png') }}" alt="image" /></p><br>
                         <div class="form-block">
                             <label>Document Type*</label>
-                            <select name="category" class="border" required>
+                            <select name="category" class="border">
+                                <option value="">Select Category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $item->category }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->name }}" {{ $category->name == $item->category? 'selected' : '' }} >{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -55,8 +56,8 @@
                         </div>
                         </div>
                         <div class="form-block">
-                            <label>Where Found</label>
-                            <input class="border" type="text" name="place_found" value="{{ $item->place_found }}" />
+                            <label>Where Found{{ Auth::user()->is_verified ? '' : '*' }}</label>
+                            <input class="border" type="text" name="place_found" {{ Auth::user()->is_verified ? '' : 'required' }} value="{{ $item->place_found }}" />
                         </div>
                         <div class="form-block">
                             <label>Where Owner can Find Item{{ Auth::user()->is_verified ? '' : '*' }}</label>
@@ -103,20 +104,20 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-        var n = {{ $count }};
-        $(".btn-success").click(function(){ 
-            if(n > 2)
-                return false;
-            var html = $(".clone").html();
-            $(".increment").after(html);
-            n++;
-        });
+            var n = {{ $count }};
+            $(".btn-success").click(function(){ 
+                if(n > 2)
+                    return false;
+                var html = $(".clone").html();
+                $(".increment").after(html);
+                n++;
+            });
 
-        $("body").on("click",".btn-danger",function(){
-            if(n>0)
-                n--; 
-            $(this).parents(".control-group").remove();
-        });
+            $("body").on("click",".btn-danger",function(){
+                if(n>0)
+                    n--; 
+                $(this).parents(".control-group").remove();
+            });
 
         });
 

@@ -3,6 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="description" content="FindIt - Upload and Search for Lost Documents">
+  <meta name="keywords" content="FindIt, Upload and Search for Lost Documents, lost documents, found documents">
   <meta name="author" content="24seven Developers">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

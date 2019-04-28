@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::where('type', 'user')->where('email_verified_at', '!=', null)->get();
+        $users = User::where('type', 'user')->get();  //->where('email_verified_at', '!=', null) #removed
         return view('admin.users.index')->with('users', $users)->with('user_type', 'User');
     }
 
@@ -254,8 +254,12 @@ class UsersController extends Controller
             if(User::where('email', $request->email)->where('email','!=',$user->email)->count() > 0){
                 return redirect()->back()->with('error','Sorry The record already exists'); 
             }  
-            if($user->email != $request->email)
+
+            // Require verification of new email and send EmailVerificationNotification.
+            if($user->email != $request->email){
                 $user->email_verified_at = null;
+                $user->sendEmailVerificationNotification();
+            }
             $user->name = $request->name;
             $user->email = $request->email;
             if($user->type != 'user'){
@@ -285,11 +289,11 @@ class UsersController extends Controller
             $result = $user->save();
 
             if($result){
-                Session::flash('success', 'You successifully updated the admin profile.');
+                Session::flash('success', 'You successifully updated the users profile.');
                 return redirect()->route('users.show', ['slug' => $slug]);
             }
 
-            Session::flash('error', 'You could not update the admin profile.');
+            Session::flash('error', 'You could not update the users profile.');
             return redirect()->route('users.index');
         }
 
@@ -298,7 +302,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage.     Temporally removal
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -362,6 +366,7 @@ class UsersController extends Controller
 
     }
 
+    // destroy permanently
     public function p_destroy($slug)
     {
         //

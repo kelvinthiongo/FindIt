@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Faq;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Notify;
+use Response;
 
 
 
@@ -49,8 +49,11 @@ class FaqController extends Controller
         //create faq
         $faq = Faq::create($request->all());
         $faq->save();
-        
-        return redirect('/admin/faqs')->with('success','Faq created successfully');
+        $success = true;
+        if($success){
+            $arr = ['message' => 'Faq created successfully', 'title' => 'Success', 'status' => 'true'];
+        }
+        return response()->json($arr);
 
     }
 

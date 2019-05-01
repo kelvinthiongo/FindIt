@@ -32,23 +32,79 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    {!! Form::open(['action' => 'FaqController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    <form method="POST" action="javascript:void(0)" enctype="multipart/form-data" id="faq">
+                        @csrf
                         <div class="box-body">
                             <div class="form-group">
                                 {{ Form::label('Queston') }}
 
                                 {{Form::text('question' ,'', ['class' => 'form-control','id' => 'exampleInputEmail1', 'placeholder' => 'Enter the faq']) }}
+                               
                             </div>
                             <div class="form-group">
                                     {{ Form::label('Answer') }}
     
                                     {{Form::textarea('answer' ,'', ['class' => 'form-control','id' => 'exampleInputEmail1', 'placeholder' => 'Enter the answer to the faq above']) }}
                             </div>
+                            <style>
+                                .d-none{
+                                    display: none;
+                                }
+                                .error{
+                                    color:red;
+                                }
+                            </style>
+                            
+                            <div class="alert alert-success d-none" id="msg_div">
+                                <span id="res_message"></span>
+                            </div>
                         </div>
                         <div class="box-footer">
-                            {{ Form::button('Add faq',['class'=>'fa fa-plus btn btn-primary', 'type'=>'submit']) }}
+                            <button class="fa fa-plus btn btn-primary" id="send_form" type="submit"> Add Faq</button>
+                            
                         </div>
                     {!! Form::close() !!}
+                    <script>
+                        if ($("#faq").length > 0) {
+                         $("#faq").validate({
+                         rules: {
+                           question: {
+                             required: true,
+                           },
+                       
+                            answer: {
+                                 required: true,
+                            },
+                         },
+                         messages: {
+                           question: {
+                             required: "Please enter a faq",
+                           },
+                           answer: {
+                             required: "Please provide an answer to the faq",
+                           },
+                         },
+                         submitHandler: function(form) {
+                          $.ajaxSetup({
+                               headers: {
+                                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                               }
+                           });
+                           $('#send_form').html('Adding Faq..');
+                           $.ajax({
+                             url: '/admin/faqs' ,
+                             type: "POST",
+                             data: $('#faq').serialize(),
+                             success: function( response ) {
+                                $('#send_form').html('Add Faq');
+                                toastr.success(response.message, response.title);
+                                document.getElementById("faq").reset(); 
+                             }
+                           });
+                         }
+                       })
+                     }
+                    </script>
                 </div>
              
                 

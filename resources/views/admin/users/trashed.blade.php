@@ -46,17 +46,17 @@
                     
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->name }} @if($user->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
+                            <td>{{ $user->name }} @if($user->type == 'super') (<span style="color: blue">super</span>) @endif</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 {!! Form::open(['action' => ['UsersController@restore', $user->slug], 'method' => 'POST']) !!}
                                     @csrf
-                                    <button class="btn btn-success @if(Auth::user()->type == 'supper' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif"><i class = "fa fa-undo"></i> Restore</button>
+                                    <button class="btn btn-success @if(Auth::user()->type == 'super' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif"><i class = "fa fa-undo"></i> Restore</button>
                                 {!! Form::close() !!}
                             </td>
                             <td>
                                 {!! Form::open(['action' => ['UsersController@p_destroy', $user->slug], 'method' => 'DELETE']) !!}
-                                        <button onClick= "javascript: return confirm ('Are you sure you want to remove {{ $user->name }}?');" class="btn btn-danger @if(Auth::user()->type == 'supper' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif" type="submit"><i class="fa fa-trash"></i>Delete</button>
+                                        <button onClick= "javascript: return confirm ('Are you sure you want to remove {{ $user->name }}?');" class="btn btn-danger @if(Auth::user()->type == 'super' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif" type="submit"><i class="fa fa-trash"></i>Delete</button>
                                 {!! Form::close() !!}
                             </td>
                             

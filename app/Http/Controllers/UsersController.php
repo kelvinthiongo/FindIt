@@ -17,13 +17,6 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        $users = User::where('type', 'user')->get();  //->where('email_verified_at', '!=', null) #removed
-        return view('admin.users.index')->with('users', $users)->with('user_type', 'User');
-    }
-
     public function admin_index()
     {
         $admins = User::where('type', '!=', 'user')->get();
@@ -35,19 +28,14 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin.users.create');
-    }
-
     public function add_admin()
     {
         //
-        if(Auth::user()->type == 'supper'){
+        if(Auth::user()->type == 'super'){
             return view('admin.users.add_admin');
         }
         
-        return redirect()->back()->with('error', 'You cannot create a new admin since you are not a Supper admin.');
+        return redirect()->back()->with('error', 'You cannot create a new admin since you are not a Super admin.');
     }
 
     /**
@@ -57,44 +45,6 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
-    {
-        //
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-        ]);
-        $check_email = User::where('email', $request->email)->count();
-        if($check_email > 0){
-            Session::flash('error', 'The email is already registered with us!');
-            return redirect()->back();
-        }
-        $slug = str_slug($request->name);
-        $slug = str_replace('/', '-', $slug);
-        $check = User::withTrashed()->where('slug', $slug)->count();
-        if($request->is_verified == 'on'){
-            $is_verified = true;
-        }
-        else{
-            $type = false;
-        }
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'is_verified' => $request->is_verified,
-            'slug' => $slug,
-        ]);
-        if($check > 0){
-            $user->slug = $slug . $user->id;
-            $user->slug = str_replace('/', '-', $user->slug);
-            $user->save();
-        }
-        return redirect()->route('users.index')->with('success', 'You successfully added the user.');
-         
-    }
-
     public function admin_store(Request $request)
     {
         //
@@ -103,15 +53,15 @@ class UsersController extends Controller
             'email' => 'required',
         ]);
 
-        if(Auth::user()->type == 'supper'){
+        if(Auth::user()->type == 'super'){
 
             $check_email = User::where('email', $request->email)->count();
             if($check_email > 0){
                 Session::flash('error', 'The email is already registered!');
                 return redirect()->back();
             }
-            if($request->supper == true){
-                $type = 'supper';
+            if($request->super == true){
+                $type = 'super';
             }
             else{
                 $type = 'ordinary';
@@ -126,15 +76,15 @@ class UsersController extends Controller
                 'is_verified' => true,
             ]);
             if($check > 0){
-                $user->slug = str_replace('/', '-', $slug . $user->id);
-                $user->save();
+                $admin->slug = str_replace('/', '-', $slug . $admin->id);
+                $admin->save();
             }
     
             Session::flash('success', 'You successfully added an admin.');
             return redirect()->route('admin_index');
         }
 
-        Session::flash('error', 'You cannot add an admin since you are not a Supper Admin!');
+        Session::flash('error', 'You cannot add an admin since you are not a Super Admin!');
         return redirect()->back();
          
     }
@@ -189,11 +139,11 @@ class UsersController extends Controller
     {
         //
         $user = User::where('slug', $slug)->first();
-        if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
+        if(Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
             return view('admin.users.edit')->with('user', $user);
         }
         if(Auth::user()->type == 'ordinary')
-            Session::flash('error', 'You are not allowed to edit other admins\' info unless you are a Supper Admin!');
+            Session::flash('error', 'You are not allowed to edit other admins\' info unless you are a Super Admin!');
         if(Auth::user()->type == 'user')
             Session::flash('error', 'You are not allowed to edit other users\' info unless you are an Admin!');
         return redirect()->back();
@@ -214,16 +164,13 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
+            'old_password' => 'required',
         ]);
         $user = User::where('slug', $slug)->first();
-        if(Auth::user()->type != 'user'){
-            if($request->is_verified == 'on'){
-                $user->is_verified = true;
-            }
-            else
-                $user->is_verified = false;
+        if(!\Hash::check($request->old_password, Auth::user()->password)){
+            return redirect()->back()->with('error', 'Your current password is wrong.');
         }
-        if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
+        if(Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
             if($request->password != ''){
                 if($request->password == $request->confirm_password){
                     $user->password = bcrypt($request->password);
@@ -263,16 +210,16 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             if($user->type != 'user'){
-                if($request->supper == true){
-                    $type = 'supper';
+                if($request->super == true){
+                    $type = 'super';
                 }
                 else{
                     $type = 'ordinary';
                 }
-                if(Auth::user()->type == 'supper'){
+                if(Auth::user()->type == 'super'){
     
-                    if($request->supper == false && User::where('type', 'supper')->count() == 1 && $user->type == 'supper'){
-                        Session::flash('error', 'Sorry, you are the ONLY REMAINING supper admin!');
+                    if($request->super == false && User::where('type', 'super')->count() == 1 && $user->type == 'super'){
+                        Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin!');
                         return redirect()->back();
                     }
         
@@ -280,7 +227,7 @@ class UsersController extends Controller
                     
                 }
                 elseif($user->type != $type){
-                    Session::flash('error', 'You cannot change your supper-admin status since you are not a supper admin!');
+                    Session::flash('error', 'You cannot change your super-admin status since you are not a super admin!');
                     return redirect()->back();
                 }
             }
@@ -297,7 +244,7 @@ class UsersController extends Controller
             return redirect()->route('users.index');
         }
 
-        Session::flash('error', 'You are not allowed to edit other users\' info unless you are a Supper Admin!');
+        Session::flash('error', 'You are not allowed to edit other users\' info unless you are a Super Admin!');
         return redirect()->back();
     }
 
@@ -318,9 +265,9 @@ class UsersController extends Controller
             return redirect()->back();
         }
         
-        if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
-            if(User::where('type', 'supper')->count() == 1 && Auth::user()->type == 'supper'){
-                Session::flash('error', 'Sorry, you are the ONLY REMAINING supper admin! Make someone else a supper admin then exit.');
+        if(Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
+            if(User::where('type', 'super')->count() == 1 && Auth::user()->type == 'super'){
+                Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin! Make someone else a super admin then exit.');
                 return redirect()->back();
             }
             $avatar = $user->avatar;
@@ -334,7 +281,7 @@ class UsersController extends Controller
                 return redirect()->route('users.index');
             return redirect()->route('admin_index');
         }
-        Session::flash('error', 'Admin/User could not be removed! Task only allowed to Supper Admin!');
+        Session::flash('error', 'Admin/User could not be removed! Task only allowed to Super Admin!');
         return redirect()->back();
     }
 
@@ -354,14 +301,14 @@ class UsersController extends Controller
             Session::flash('error', 'Admin/User could not be found in the trash!');
             return redirect()->back();
         }
-        if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
+        if(Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
             $user->restore();
             Session::flash('success', $user->name . ' restored successfully');
             if($user->type == 'user')
                 return redirect()->route('users.index');
             return redirect()->route('admin_index');
         }
-        Session::flash('error', 'Admin could not be restored! Task only allowed to Supper Admin!');
+        Session::flash('error', 'Admin could not be restored! Task only allowed to Super Admin!');
         return redirect()->back();
 
     }
@@ -377,9 +324,9 @@ class UsersController extends Controller
             Session::flash('error', 'Admin/User could not be found!');
             return redirect()->back();
         }
-        if(Auth::user()->type == 'supper' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
-            if(User::where('type', 'supper')->count() == 1 && Auth::user()->type == 'supper'){
-                Session::flash('error', 'Sorry, you are the ONLY REMAINING supper admin! Make someone else a supper admin then exit.');
+        if(Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')){
+            if(User::where('type', 'super')->count() == 1 && Auth::user()->type == 'super'){
+                Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin! Make someone else a super admin then exit.');
                 return redirect()->back();
             }
             $avatar = $user->avatar;
@@ -393,7 +340,7 @@ class UsersController extends Controller
                 return redirect()->route('users.index');
             return redirect()->route('admin_index');
         }
-        Session::flash('error', 'Admin/User could not be permanently removed! Task only allowed to Supper Admin!');
+        Session::flash('error', 'Admin/User could not be permanently removed! Task only allowed to Super Admin!');
         return redirect()->back();
     }
 }

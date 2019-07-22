@@ -54,7 +54,7 @@ class ItemsController extends Controller
     public function create()
     {   
         $categories = Category::all();
-        return view('client.items.upload_item')->with('categories', $categories);
+        return view('admin.items.create')->with('categories', $categories);
     }
 
     /**

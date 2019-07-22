@@ -34,33 +34,40 @@
                     <!-- form start -->
                    {!! Form::open(['action' => ['UsersController@update', $user->slug], 'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
                         <div class="form-group">
-                            {{ Form::label('name', 'Enter Name') }} <span style = "color: red">*</span>
-                            {{ Form::text('name', $user->name, ['class' => 'form-control', 'id' => 'name']) }} <br>
+                            <div class="col-sm-6">
+                                {{ Form::label('name', 'Enter Name') }} <span style = "color: red">*</span>
+                                {{ Form::text('name', $user->name, ['class' => 'form-control', 'id' => 'name']) }} <br>
                             
-                            {{ Form::label('email', 'Enter Email') }} <span style = "color: red">*</span>
-                            {{ Form::text('email', $user->email, ['class' => 'form-control', 'id' => 'email']) }} <br>
+                                {{ Form::label('email', 'Enter Email') }} <span style = "color: red">*</span>
+                                {{ Form::text('email', $user->email, ['class' => 'form-control', 'id' => 'email']) }} <br>
+
+                                {{ Form::label('old_password', 'Type your current Password!') }}
+                                <input type="old_password" class="form-control" id="old_password" placeholder="Type the current password here"> <br>
+                            </div>
                             
-                            {{ Form::label('password', 'Type Password ONLY IF You Need To Change!') }}
-                            {{ Form::text('password','', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Type the new password here']) }} <br>
-                            
-                            {{ Form::label('confirm_password', 'Confirm Password ONLY IF You Need To Change!') }}
-                            {{ Form::text('confirm_password','', ['class' => 'form-control', 'id' => 'confirm_password', 'placeholder' => 'Confirm password']) }} <br>
-                            
-                            {{ Form::label('phone', 'Enter Phone Number') }} 
-                            {{ Form::text('phone', $user->phone, ['class' => 'form-control', 'id' => 'phone',]) }} <br>
-                            
-                            @if(Auth::user()->type == 'supper' && $user->type != 'user')
-                                <div class="form-group ">
-                                    <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
-                                    <label>Make supper admin</label>
-                                </div>
-                            @endif
-                            @if(Auth::user()->type != 'user')
+                            <div class="col-sm-6">
+                                {{ Form::label('password', 'Type Password ONLY IF You Need To Change!') }}
+                                <input type="password" class="form-control" id="password" placeholder="Type the new password here"> <br>
+
+                                {{ Form::label('confirm_password', 'Confirm Password ONLY IF You Need To Change!') }}
+                                <input type="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm password"> <br>
+                                
+                                {{ Form::label('phone', 'Enter Phone Number') }} 
+                                {{ Form::text('phone', $user->phone, ['class' => 'form-control', 'id' => 'phone',]) }} <br>
+                                
+                                @if(Auth::user()->type == 'super' && $user->type != 'user')
+                                    <div class="form-group ">
+                                        <input type="checkbox" name='super' @if($user->type == 'super') checked @endif>
+                                        <label>Make super admin</label>
+                                    </div>
+                                @endif
+                            </div>
+                            {{-- @if(Auth::user()->type != 'user')
                                 <div class="form-group ">
                                     <input type="checkbox" name='is_verified' @if($user->is_verified) checked @endif>
                                     <label>Mark as verified</label>
                                 </div>
-                            @endif
+                            @endif --}}
 
                             {{ Form::label('avatar', 'Upload an avatar') }}
                             {{ Form::file('avatar', ['class' => 'form-control']) }} <br>

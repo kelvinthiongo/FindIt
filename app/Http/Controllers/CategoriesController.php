@@ -39,6 +39,9 @@ class CategoriesController extends Controller
         $this->validate($request, [
             'name' => 'required'
         ]);
+        if(Category::where('name', $request->name)->count() > 0){
+            return redirect()->route('categories.index')->with('info', "$request->name already exists.");
+        }
         $category = Category::create([
             'name' => $request->name,
         ]);

@@ -14,30 +14,13 @@
         </span>
       </a>
       <ul class="treeview-menu">
-        @if(Auth::user()->type == 'supper')
+        @if(Auth::user()->type == 'super')
           <li><a href="{{ route('add_admin') }}"><i class="fa fa-user-plus"></i> Add Admin</a></li>
         @endif
           <li><a href="{{ route('admin_index') }}"><i class="fa fa-eye"></i>View Admins</a></li>
-        @if(Auth::user()->type == 'supper')
+        @if(Auth::user()->type == 'super')
           <li><a href="{{ route('trashed_admins') }}"><i class="fa fa-trash"></i>Trashed Admins</a></li>
         @endif
-      </ul>
-    </li>
-    <!-- List End -->
-
-    <!-- List Start -->
-    <li class=" {{ areActiveRoutes(['users.create','users.edit','trashed_users','users.index']) }} treeview">
-      <a href="#">
-        <i class="fa fa-users"></i>
-        <span>Users</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('users.create') }}"><i class="fa fa-user-plus"></i> Add User</a></li>
-        <li><a href="/admin/users"><i class="fa fa-eye"></i>View Users</a></li>
-        <li><a href="{{ route('trashed_users') }}"><i class="fa fa-trash"></i>Trashed Users</a></li>
       </ul>
     </li>
     <!-- List End -->
@@ -61,15 +44,13 @@
     <li class="{{ areActiveRoutes(['items.create','items.edit','items.index', 'pending', 'trashed_items', 'approved-items']) }} treeview">
       <a href="#">
         <i class="fa fa-id-card"></i>
-        <span>Items</span>
+        <span>Documents</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="/admin/pending-items"><i class="fa fa-refresh"></i> Pending Items</a></li>
-        <li><a href="{{ route('approved-items') }}"><i class="fa fa-check"></i> Approved Items</a></li>
-        <li><a href="{{ route('trashed-items') }}"><i class="fa fa-trash"></i>Trashed Items</a></li>
+        <li><a href="{{ route('items.create') }}"><i class="fa fa-plus"></i> Upload document</a></li>
       </ul>
     </li>
     <!-- List End -->

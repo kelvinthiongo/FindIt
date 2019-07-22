@@ -2,9 +2,9 @@
         <!-- Logo -->
         <a href="/" target="_blank" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b><img src="{{ asset('favicon-white.png')}}" alt="FindIt" /></span>
+          <span class="logo-mini"><b><img src="{{ asset('favicon-white.png')}}" alt="JKUAT Lost" /></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><img src="{{ asset('logo-white.png')}}" alt="FindIt" /></span>
+          <span class="logo-lg"><img src="{{ asset('logo-white.png')}}" alt="JKUAT Lost" /></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -226,7 +226,7 @@
                     <img src="{{ asset(Auth::User()->avatar) }}" class="img-circle" alt="User Image">
     
                     <p>
-                     {{ Auth::User()-> name }} - Admin at FindIt
+                     {{ Auth::User()-> name }} - Admin at JKUAT Lost
                       <small>Member since {{ date('F d, Y', strtotime(Auth::User()->created_at)) }}</small>
                     </p>
                   </li>

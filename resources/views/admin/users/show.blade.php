@@ -16,7 +16,7 @@
                       @if($user->deleted_at != null) <small style="color:red">trashed! 
                         {!! Form::open(['action' => ['UsersController@restore', $user->slug], 'method' => 'POST']) !!}
                           @csrf
-                          <button class="btn btn-success @if(Auth::user()->type == 'supper' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif"><i class = "fa fa-undo"></i> Restore</button>
+                          <button class="btn btn-success @if(Auth::user()->type == 'super' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif"><i class = "fa fa-undo"></i> Restore</button>
                         {!! Form::close() !!}
                       @endif  </small>
                     </div>
@@ -24,8 +24,7 @@
                   </h1>
                   <ol class="breadcrumb">
                   <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> Users</a></li>
-                    <li><a href="{{ route('users.index') }}">Admins</a></li>
+                    <li><a href="{{ route('admin_index') }}"><i class="fa fa-users"></i> Admins</a></li>
                     <li class="active">User profile</li>
                   </ol>
                 </section>
@@ -34,7 +33,7 @@
                 <section class="content">
             
                   <div class="row">
-                    <div class="col-md-6 {{ $user->type == 'user' || Auth::user()->type == 'supper' || Auth::user()->id == $user->id? ' ': 'col-md-offset-3' }}">
+                    <div class="col-md-6 {{ $user->type == 'user' || Auth::user()->type == 'super' || Auth::user()->id == $user->id? ' ': 'col-md-offset-3' }}">
                       <!-- Profile Image -->
                         <div class="box box-primary" style="height:410px;">
                             <div class="box-body box-profile">
@@ -54,10 +53,10 @@
                                   <b>Phone</b> <a class="pull-right">{{ $user->phone }}</a>
                               </li>
                               <li class="list-group-item">
-                                  <b>User Status</b> <a class="pull-right"> @if($user->type == 'supper') Supper Admin @elseif($user->type == 'ordinary') Ordinary Admin @else User @endif</a>
+                                  <b>User Status</b> <a class="pull-right"> @if($user->type == 'super')  Admin @elseif($user->type == 'ordinary') Ordinary Admin @else User @endif</a>
                               </li>
                             </ul>
-                            @if ($user->type == 'user' || Auth::user()->type == 'supper' || Auth::user()->id == $user->id)
+                            @if ($user->type == 'user' || Auth::user()->type == 'super' || Auth::user()->id == $user->id)
                               {!! Form::open(['action' => ['UsersController@destroy', $user->slug], 'method' => 'DELETE']) !!}
                                         @if(Auth::user() == $user)
                                             <button onClick= "javascript: return confirm ('Are you sure you want to exit?');" class="btn btn-danger" type="submit">Delete Account</button>
@@ -73,7 +72,7 @@
                       <!-- /.box -->
                     </div>
                     <!-- /.col -->
-                    @if ($user->type == 'user' || Auth::user()->type == 'supper' || Auth::user()->id == $user->id)
+                    @if ($user->type == 'user' || Auth::user()->type == 'super' || Auth::user()->id == $user->id)
                       <div class="col-md-6">
                         <!--edit profile details-->
                         <div class="box box-primary"   style="height:410px;">
@@ -104,7 +103,7 @@
                               </div>
                               <!-- Not to be diplayed -->
                               <div class="form-group" style="display: none">
-                                  <input type="checkbox" name='supper' @if($user->type == 'supper') checked @endif>
+                                  <input type="checkbox" name='super' @if($user->type == 'super') checked @endif>
                               </div>
                             </div>
                             <!-- /.box-body -->

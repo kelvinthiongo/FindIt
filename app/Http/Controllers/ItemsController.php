@@ -41,28 +41,9 @@ class ItemsController extends Controller
         return view('admin.items.index')->with('items', $items)->with('status', 'Found');
     }
      
-    public function lost_index() //for lost items
-    {   
-        $items = Item::where('status', 'lost')->get();
-        return view('admin.items.index')->with('items', $items)->with('status', 'Lost');
-    }
 
     public function search_item(Request $request){
-        $this->validate($request, [
-            'content' => 'required | max:50'
-        ]);
-        $categories = Category::all();
-        $query = $request->all();
-        $items = Item::where('approved', '!=', null)->orderBy('created_at', 'DESC')->search($query['content'], null, true); // $items = Item::search('Nairobi, null, true, true);
-        $count = $items->count();
-        $items = $items->paginate(10);
-        $pagination = $items->appends($query);
-        return view('client.items.items')->with('items', $items)
-                                        ->with('status', 'Found')
-                                        ->with('count', $count)
-                                        ->with('categories', $categories)
-                                        ->withQuery($query)
-                                        ;
+        
     }
 
     /**
@@ -162,7 +143,7 @@ class ItemsController extends Controller
                 $image_name = time() . $image->getClientOriginalName();
                 $image_new_name = 'uploads/items/' . $image_name;
                 $new_image = Image::make($image->getRealPath())->resize(500, 328);
-                // if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper' || Auth::user()->is_verified ) //
+                // if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'super' || Auth::user()->is_verified ) //
                     $new_image->insert('watermark.png', 'center');
                 $new_image->save(public_path($image_new_name));
 
@@ -185,7 +166,7 @@ class ItemsController extends Controller
         $item->save();
         
         //Mark item as approved if user is either an admin or verified by FindIt. Sending Mail to attached users, then save changes
-        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper' || Auth::user()->is_verified ){
+        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'super' || Auth::user()->is_verified ){
             $item->approved = Auth::user()->id;
             $check = Lost::where('number',$item->number)->count();
             if($check > 0){
@@ -335,7 +316,7 @@ class ItemsController extends Controller
         $item->number = $request->number;
         if($request->category != null)
             $item->category = $request->category;
-        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper')
+        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'super')
             $item->approved = Auth::user()->id;
 
         if($request->f_name != '')
@@ -433,7 +414,7 @@ class ItemsController extends Controller
     }
     //get all approved items
     public function approved(){
-        $admins = User::where('type', 'ordinary')->orWhere('type', 'supper')->select('id', 'name')->get();
+        $admins = User::where('type', 'ordinary')->orWhere('type', 'super')->select('id', 'name')->get();
         $names = array();
         foreach($admins as $admin){
             $names[$admin->id] = $admin->name;

@@ -19,12 +19,6 @@ Route::get('/welcone', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/terms-and-policy', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');
-Route::group(['middleware' => ['verified','auth']], function(){
-    Route::get('/profile','PagesController@profile')->name('profile');
-    Route::get('/uploaded-items','PagesController@my_uploads')->name('uploads');
-    Route::post('/users/update-profile','PagesController@update_profile')->name('update_profile');
-    Route::delete('/items/delete-image/{item}/{image}', 'ItemsController@delete_image')->name('delete_image');
-});
 
 Route::post('/send-query', 'ContactUsController@query')->name('query');
 
@@ -45,7 +39,7 @@ Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
 Route::post('/items/report/{item}', 'ItemsController@report')->name('report');
 
 //Auth Routes
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true, 'register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']], function(){
@@ -67,15 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
 
     Route::resource('faqs', 'FaqController');
 
-    Route::get('/pending-items', 'ItemsController@pending')->name('pending');
-    Route::get('/pending_ui-items', 'ItemsController@pending_ui')->name('pending_ui');
-    Route::get('/approved-items', 'ItemsController@approved')->name('approved-items');
-    Route::get('/pending-items/{id}/approve', 'ItemsController@approve')->name('approve');
-    Route::get('/approved-items/{id}/disapprove', 'ItemsController@disapprove')->name('disapprove');
-    Route::post('/pending-items/approve-multiple', 'ItemsController@approve_multiple')->name('approve_multiple');
-    Route::get('/trashed-items', 'ItemsController@trashed')->name('trashed-items');
-    Route::delete('/trashed-items', 'ItemsController@soft_delete')->name('soft_delete');
-    Route::put('/restore-item/{slug}', 'ItemsController@restore')->name('restore_item');
+    Route::resource('items', 'ItemsController');
 
     Route::resource('todo','HomeController');
 

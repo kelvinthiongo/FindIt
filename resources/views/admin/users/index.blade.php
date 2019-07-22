@@ -45,13 +45,13 @@
                     
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user->name }} @if($user->type == 'supper') (<span style="color: blue">supper</span>) @endif</td>
+                            <td>{{ $user->name }} @if($user->type == 'super') (<span style="color: blue">super</span>) @endif</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a href="{{ route('users.show', ['slug' => $user->slug]) }}" class="btn btn-xs btn-primary">View</a>
                             </td>
                             <td>
-                                <a href="{{ route('users.edit', ['slug' => $user->slug]) }}" class="btn btn-xs  btn-success @if(Auth::user()->type == 'supper' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif">
+                                <a href="{{ route('users.edit', ['slug' => $user->slug]) }}" class="btn btn-xs  btn-success @if(Auth::user()->type == 'super' || Auth::user()->id == $user->id || $user->type == 'user') @else disabled @endif">
                                     <i class = "fa fa-pencil"></i> 
                                     Edit
                                 </a>

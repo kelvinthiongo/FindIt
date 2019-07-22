@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'ItemsController@find');
 //client page Routes
 Route::get('/welcone', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');

@@ -22,7 +22,7 @@ class ItemsController extends Controller
     {
         // Middleware only applied to these methods
         $this->middleware('auth', ['only' => [
-            'create', 'store', 'edit', 'destroy', 'update' 
+            'create', 'store', 'edit', 'destroy', 'update'
         ]]);
 
         $this->middleware('admin', ['only' => [
@@ -35,14 +35,14 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //for found items
+    public function find()
     {
-        $items = Item::where('status', 'found')->get();
-        return view('admin.items.index')->with('items', $items)->with('status', 'Found');
+        return view('client.submit');
+
     }
-     
+
     public function lost_index() //for lost items
-    {   
+    {
         $items = Item::where('status', 'lost')->get();
         return view('admin.items.index')->with('items', $items)->with('status', 'Lost');
     }
@@ -71,7 +71,7 @@ class ItemsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $categories = Category::all();
         return view('client.items.upload_item')->with('categories', $categories);
     }
@@ -83,7 +83,7 @@ class ItemsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         if(!$request->hasFile('image') && $request->has('image')){
             return redirect()->back()->with('error','Image not supported');
         }
@@ -116,7 +116,7 @@ class ItemsController extends Controller
             'place_to_get'=> $place_to_get,
         ]);
 
-        
+
         //Get the country of the client
 
         $client  = @$_SERVER['HTTP_CLIENT_IP'];
@@ -131,13 +131,13 @@ class ItemsController extends Controller
             $ip = $remote;
         }
 
-        // $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
+        // $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));
         // if($ip_data && $ip_data->geoplugin_countryName != null){
         //     $result['country'] = $ip_data->geoplugin_countryName;
         //     $result['country_code'] = $ip_data->geoplugin_countryCode;
         //     $result['city'] = $ip_data->geoplugin_city;
         // }
-        
+
         $item->ip = $ip;
 
         if($request->f_name != '')
@@ -183,7 +183,7 @@ class ItemsController extends Controller
         }
         $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
         $item->save();
-        
+
         //Mark item as approved if user is either an admin or verified by FindIt. Sending Mail to attached users, then save changes
         if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'supper' || Auth::user()->is_verified ){
             $item->approved = Auth::user()->id;
@@ -200,7 +200,7 @@ class ItemsController extends Controller
             }
             $item->save();
         }
-            
+
 
         if(Auth::user()->is_verified){
 
@@ -219,8 +219,8 @@ class ItemsController extends Controller
     {
         return view('client.items.show_item')->with('item', $item);
     }
-    
-    
+
+
     public function report(Request $request, Item $item)
     {
         $client  = @$_SERVER['HTTP_CLIENT_IP'];
@@ -266,7 +266,7 @@ class ItemsController extends Controller
     }
 
     public function delete_image(Item $item, $image)
-    {   
+    {
         if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user'){
             return redirect()->back()->with('error', 'Sorry, you lack the privileges to edit this item.');
         }
@@ -306,7 +306,7 @@ class ItemsController extends Controller
         if(Auth::user()->id != $item->user->id && Auth::user()->type == 'user')
         {
             return redirect()->back()->with('error', 'You don\'t have the privileges to edit this item');
-        }        
+        }
 
         if(Auth::user()->is_verified){
             $this->validate($request, [
@@ -317,7 +317,7 @@ class ItemsController extends Controller
                 $place_to_get = Auth::user()->name;
             else
                 $place_to_get = ucwords(strtolower($request->place_to_get));
-        
+
         }
         else{
             $this->validate($request, [
@@ -328,9 +328,9 @@ class ItemsController extends Controller
 
             ]);
 
-            
+
             $place_to_get = ucwords(strtolower($request->place_to_get));
-    
+
         }
         $item->number = $request->number;
         if($request->category != null)
@@ -352,7 +352,7 @@ class ItemsController extends Controller
             $item->place_found = ucwords(strtolower($request->place_found));
         if($request->lf_date != '')
             $item->lf_date = $request->lf_date;
-        
+
         if($request->image != null){
             $image_data = json_decode($item->image);
             if($image_data == [0 => "uploads/items/image.png"])
@@ -363,10 +363,10 @@ class ItemsController extends Controller
                 $new_image = Image::make($image->getRealPath())->resize(500, 328);
                 $new_image->insert('watermark.png', 'center', 10, 10);
                 $new_image->save($image_new_name);
-        
+
                 $image_data[] = $image_new_name; //Storing the public path for the image for record in the database
             }
-            
+
             if(strlen(json_encode($image_data))>1200){
                 foreach ($request->file('image') as $image) {
                     File::delete($image);
@@ -378,7 +378,7 @@ class ItemsController extends Controller
         // $new_image->insert('watermark.png', 'center');
         $image = File::get('watermark.png');
         $item->slug = str_slug($item->id . '-' . $item->f_name . '-' . $item->s_name . '-' . $item->l_name . '-' . $item->number);
- 
+
         if(Auth::user()->type != "user"){
             if($item->approved == null){
                 $check = Lost::where('number',$item->number)->count();
@@ -395,7 +395,7 @@ class ItemsController extends Controller
             }
             $item->approved = Auth::user()->id;
             $item->save();
-            
+
             $check = Lost::where('number',$item->number)->count();
             if($check > 0){
                 $lost = Lost::where('number',$item->number)->first();
@@ -407,13 +407,13 @@ class ItemsController extends Controller
                     $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
                 });
                 $item->save();
-                return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
+                return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');
             }
-            
+
             return redirect()->route('items.show', ['slug' => $item->slug])->with('success', 'You successfully updated and APPROVED the item!');
         }
         $item->approved = null;
-        
+
         $item->save(); //saving any pending changes
 
         return redirect()->route('items.show', ['slug' => $item->slug])->with('item' ,$item)->with('success', 'You successfully updated the item!');
@@ -423,13 +423,13 @@ class ItemsController extends Controller
     public function pending(){
         $pendings = Item::where('approved', null)->get();
         return view('admin.items.pending')->with('pendings', $pendings);
-        
+
     }
     //get all items pending_ui approval
     public function pending_ui(){
         $pendings = Item::where('approved', null)->paginate(20);
         return view('admin.items.pending_ui')->with('items', $pendings);
-        
+
     }
     //get all approved items
     public function approved(){
@@ -443,7 +443,7 @@ class ItemsController extends Controller
     }
     //approve a pending item
     public function approve($id){
-        
+
         $item = Item::find($id);
         $item->approved = Auth::user()->id;
         $item->save();
@@ -458,15 +458,15 @@ class ItemsController extends Controller
             {
                 $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
             });
-            
 
-        return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');  
-        } 
-     
+
+        return redirect()->back()->with('success','Item Approved Successfully. Additionally the item has been found on the lost items collection, and an email sent to the uploader.');
+        }
+
         return redirect()->back()->with('success','Item Approved Successfully');
     }
 
-    
+
     //approve a multiple pending item
     public function approve_multiple(Request $request){
         $ids = json_decode($request->ids);
@@ -479,9 +479,9 @@ class ItemsController extends Controller
             $check = Lost::where('number',$item->number)->count();
             if($check > 0){
                 $lost = Lost::where('number',$item->number)->first();
-    
+
                 $data = ['name' => $item->f_name, 'email' => $lost->email, 'number' => $item->number];
-    
+
                 Mail::send( 'mailings.item_found', $data, function( $message ) use ($data)
                 {
                     $message->to( $data['email'] )->from( 'no-reply@24seven.co.ke')->subject( 'Lost Document Found' );
@@ -491,10 +491,10 @@ class ItemsController extends Controller
         }
         if($check_mailable){
             return redirect()->back()->with('success','Items Approved Successfully. Additionally some items have been found on the lost items collection, and an email sent to each of the uploaders.');
-        } 
-    
+        }
+
         return redirect()->back()->with('success','Items Approved Successfully');
-        
+
     }
     //disapprove an approved item
     public function disapprove($id){
@@ -505,15 +505,15 @@ class ItemsController extends Controller
         return redirect()->back()->with('success','Item dispproved! It has been marked as pending');
     }
 
-    
+
 
     public function trashed(){
         $trashed_items = Item::onlyTrashed()->get();
         return view('admin.items.trashed')->with('trashed_items', $trashed_items);
-        
+
     }
 
-    
+
 
     public function restore($slug){
         $item = Item::onlyTrashed()->where('slug', $slug)->first();

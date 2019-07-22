@@ -39,8 +39,8 @@
                             {{ Form::label('email', 'Enter Email') }} <span style = "color: red">*</span>
                             {{ Form::text('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Enter Email of the Admin Here']) }} <br>
                             <div class="form-group ">
-                                <input type="checkbox" name='supper'>
-                                <label>Make supper admin</label>
+                                <input type="checkbox" name='super'>
+                                <label>Make super admin</label>
                             </div>
                         </div>
                       <div class="box-footer">

@@ -12,7 +12,7 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $items = [ 
-            'School ID',  'National ID',  'NHIF', 'name' => 'NSSF', 'Passport', 'ATM Card', 'Log book', 'Driving Licence', 'Birth certificate', 'Education certificate', 'Others',
+            'School ID',  'National ID', 'Others',
         ];
 
         foreach($items as $item){

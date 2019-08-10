@@ -36,13 +36,6 @@ class Item extends Model
         // ],
     ];
 
-    public function getRouteKeyname(){
-        return 'slug';
-    }
-
-    // public function category(){
-    //     return $this->belongsTo('App\Category');
-    // }
 
     public function user(){
         return $this->belongsTo('App\User');
@@ -50,5 +43,8 @@ class Item extends Model
 
     public function reports(){
         return $this->hasMany('App\Report');
+    }
+    public function category(){
+        return $this->belongsTo('App\Category');
     }
 }

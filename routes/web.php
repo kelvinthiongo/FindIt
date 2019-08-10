@@ -29,16 +29,13 @@ Route::get('/register-page', function () {
     return view('client.register');
 });
 
-Route::resource('items', 'ItemsController');
-Route::resource('lost', 'LostController');
 
 Route::any('/search/items', 'ItemsController@search_item')->name('search_item');
 
 
-Route::post('/items/report/{item}', 'ItemsController@report')->name('report');
 
 //Auth Routes
-Auth::routes(['verify' => true, 'register' => false]);
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']], function(){
@@ -55,6 +52,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
     Route::get('/trash/admins', 'UsersController@trashed_admins')->name('trashed_admins');
     Route::post('/trash/users/{slug}/restore', 'UsersController@restore')->name('users.restore');
     Route::delete('/trash/users/{slug}/p_destroy', 'UsersController@p_destroy')->name('users.p_destroy');
+
+    Route::resource('items', 'ItemsController');
+    Route::post('/item/delete/{item}', 'ItemsController@destroy');
 
     Route::resource('categories', 'CategoriesController');
 

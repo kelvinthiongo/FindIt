@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>24 seven</b> Developers
+        <b>Developed and designed by: </b><a href="https:24seven.co.ke">24 seven Developers </a>
     </div>
-    <strong>Copyright &copy; 2018 <a href="#"> 24 Seven Developers</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; {{ date('Y') }} <a href="https://jkuat.ac.ke"> JKUAT</a>.</strong> All rights
+    reserved. <span class="hidden-sm hidden-lg hidden-md"> | <b>Developed and designed by: </b><a href="https:24seven.co.ke">24 seven Developers </a></span>
 </footer>

@@ -50,6 +50,7 @@
         </span>
       </a>
       <ul class="treeview-menu">
+        <li><a href="{{ route('items.index') }}"><i class="fa fa-id-card"></i> View all documents</a></li>
         <li><a href="{{ route('items.create') }}"><i class="fa fa-plus"></i> Upload document</a></li>
       </ul>
     </li>

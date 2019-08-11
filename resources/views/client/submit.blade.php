@@ -14,6 +14,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
+                            @if(Auth::check())
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="{{ asset(Auth::User()->avatar) }}" class="user-image" alt="User Image">
                                 <span class="hidden-xs"> {{ Auth::User()->name }}</span>
@@ -50,6 +51,12 @@
                                     </div>
                                 </li>
                             </ul>
+                            @else
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="" class="user-image" alt="User Image">
+                                <span class="hidden-xs"> Admin Login</span>
+                            </a>
+                            @endif
                         </li>
                         <!-- Control Sidebar Toggle Button -->
                         <li>

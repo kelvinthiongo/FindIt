@@ -21,7 +21,6 @@ class CreateItemsTable extends Migration
             $table->string('name')->nullable();
             $table->string('number')->nullable();
             $table->text('image')->nullable(); 
-            $table->integer('user_id');
             $table->softDeletes();
             
             $table->timestamps();

@@ -10,13 +10,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            trashed Items
-            <small>Items already trashed</small>
+            Documents
           </h1>
           <ol class="breadcrumb">
             <li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/admin/pending-items"><i class="fa fa-check"></i>Pending Items</a></li>
-            <li class="active">trashed Items</li>
+            <li class="active">Documents</li>
           </ol>
         </section>
     
@@ -27,9 +25,9 @@
               <!-- /.box -->
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">trashed Items</h3>
+                  <h3 class="box-title">Uploaded Documents</h3>
                 </div>
-                @if($trashed_items->count() > 0)
+                @if($items->count() > 0)
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table id="example1" class="table table-bordered table-striped">
@@ -45,13 +43,12 @@
                         </thead>
                         <tbody>
                             <ol>
-                                @foreach($trashed_items as $trashed)
+                                @foreach($items as $item)
                                     <tr>
                                         <td>{{$n = $n + 1}}</td>
-                                        <td>{{$trashed->category == null? 'No Category': $trashed->category}}</td>
-                                        <td>{{$trashed->f_name . ' ' . $trashed->s_name . ' ' . $trashed->l_name }}</td>
-                                        <td>{{$trashed->number}}</td>
-                                        {{--  <td>{{$trashed->trashed}}</td>  --}}
+                                        <td>{{$item->category}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->number}}</td>
                                         <td>
                                             <style>
                                                 .trans{
@@ -65,14 +62,10 @@
                                             </style>
                                             <ul id="action" style="list-style-type:none;">
                                                 <li class="links">
-                                                    {!! Form::open(['action' => ['ItemsController@restore',$trashed->slug], 'method' => 'PUT']) !!}
-                                                        {{ Form::button('',['class'=>'trans btn btn-success fa fa-reply', 'style' => 'color:green;', 'type'=>'submit']) }}
-                                                    
-                                                    {!! Form::close() !!}
+                                                    <a target="_blank" href='/items/{{$item->slug}}/edit' ><button style="color:green;" class="trans btn btn-success fa fa-edit"> </button></a>
                                                 </li>
                                                 <li class="links">
-                                                    {!! Form::open(['action' => ['ItemsController@destroy',$trashed->slug], 'method' => 'POST','onsubmit' => 'return ConfirmDelete()']) !!}
-                                                        {{ Form::hidden('_method','DELETE')}}
+                                                    {!! Form::open(['action' => ['ItemsController@destroy',$item->id], 'method' => 'POST','onsubmit' => 'return ConfirmDelete()']) !!}
                                                         
                                                         {{ Form::button('',['class'=>'trans fa fa-trash btn btn-danger', 'type'=>'submit']) }}
                                                     
@@ -98,9 +91,10 @@
                         </tfoot>
                     </table>
                 </div>
+                {{ $items->links() }}
                 @else
                 <div class="container">
-                    <p>There are currently no trashed items</p>
+                    <p>There are currently no documents</p>
                 </div>
                 @endif
                 <!-- /.box-body -->

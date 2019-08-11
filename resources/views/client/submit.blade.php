@@ -122,52 +122,72 @@
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" action="/" method="POST">
+                            <form role="form" action="javascript:void(0)" method="POST">
                                 @csrf
                                 <div class="box-body">
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#my_check').change(
+                                                function(){
+                                                    if (this.checked) {
+                                                        $("#number_field").attr("name", "name");
+                                                        $("#number_field").attr("placeholder", "eg Jane Doe");
+                                                        $("#no_label").text('Document Name');
+                                                    }
+                                                    else{
+                                                        $("#number_field").attr("name", "number");
+                                                        $("#number_field").attr("placeholder", "eg scm211-000/2013");
+                                                        $("#no_label").text('Document Number');
+                                                    }
+
+                                                }
+                                            );
+                                            $("#submit_btn").click(function() {
+
+                                            });
+                                        });
+                                    </script>
                                     <div class="form-group">
                                         <label for="category">Document Category</label>
-                                        <select id="category" class="form-control">
+                                        <select id="category" class="form-control" name="category">
                                             <option>-- Select Category --</option>
-                                            <option>option 2</option>
-                                            <option>option 3</option>
-                                            <option>option 4</option>
-                                            <option>option 5</option>
+                                            <option value="test">test</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="number">Document Number</label>
-                                        <input type="text" class="form-control" id="number"
+                                        <label id="no_label" for="number_field">Document Number</label>
+                                        <input id="number_field" name="number" type="text" class="form-control"
                                             placeholder="eg scm211-000/2013">
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="number">Document Name</label>
-                                        <input type="text" class="form-control" id="number" placeholder="eg John Doe">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id='my_check' type="checkbox"> <b>Number not visible</b>
+                                        </label>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
 
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="sumit" id="submit_btn" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
-                            <div class="overlay">
+                            {{-- <div class="overlay">
                                 <i class="fa fa-spin"><img src="{{asset('JKUAT.png')}}"><br></i>
-                            </div>
-                        </div>
-                        <!-- /.box -->
+                        </div> --}}
                     </div>
-                    <!-- /.row -->
+                    <!-- /.box -->
+                </div>
+                <!-- /.row -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
         <footer class="no-margin-footer">
             <div class="pull-right hidden-xs">
-                <b>24 seven</b> Developers
+                Developed by <a href="https://24seven.co.ke" target="_blank">24seven Developers</a>
             </div>
-            <strong>Copyright &copy; 2018 <a href="#"> 24 Seven Developers</a>.</strong> All rights
+            <strong>Copyright &copy; {{date('Y')}} <a href="#"> JKUAT</a>.</strong> All rights
             reserved.
         </footer>
 

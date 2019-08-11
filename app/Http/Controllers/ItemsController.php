@@ -35,14 +35,19 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function find()
+    public function landing()
     {
         return view('client.submit');
 
     }
 
+    public function checkDoc(Request $request){
+
+        dd($request->number);
+    }
+
     public function search_item(Request $request){
-        
+
     }
 
     /**

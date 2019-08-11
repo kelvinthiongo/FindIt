@@ -12,7 +12,8 @@
 */
 
 
-Route::get('/', 'ItemsController@find');
+Route::get('/', 'ItemsController@landing');
+Route::post('/submit','ItemsController@checkDoc');
 //client page Routes
 Route::get('/welcone', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');

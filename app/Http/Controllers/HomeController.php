@@ -41,16 +41,10 @@ class HomeController extends Controller
         if(Auth::check()){
             $users = User::where('type', 'user')->where('email_verified_at', '!=', null)->count();
             $admins = User::where('type', '!=', 'user')->where('email_verified_at', '!=', null)->count();
-            $approved_items = Item::where('approved', '!=', null)->count();
-            $pending_items = Item::where('approved', null)->count();
-            $reported_items = Item::where('reports', '!=', null)->count();
-            $trashed_items = Item::onlyTrashed()->count();
+            $items = Item::all()->count();
             return view('admin.dashboard')->with('users',$users)
                                             ->with('admins',$admins)
-                                            ->with('approved_items',$approved_items)
-                                            ->with('pending_items',$pending_items)
-                                            ->with('reported_items',$reported_items)
-                                            ->with('trashed_items',$trashed_items)
+                                            ->with('items',$items)
                                             ;
         }
         else

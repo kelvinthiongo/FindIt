@@ -10,11 +10,8 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
-
-    public function landing()
-    {
+    public function find(){
         return view('client.submit');
-
     }
 
     public function index(){

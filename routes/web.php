@@ -14,7 +14,7 @@
 
 Route::get('/', 'ItemsController@find');
 //client page Routes
-Route::get('/welcone', 'PagesController@index')->name('landing');
+Route::get('/welcome', 'PagesController@index')->name('landing');
 Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/terms-and-policy', 'PagesController@terms')->name('terms');
 Route::get('/submit-query','PagesController@contact')->name('contact');

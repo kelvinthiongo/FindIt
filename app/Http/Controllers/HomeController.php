@@ -38,7 +38,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        if(Auth::user()->type == 'ordinary' || Auth::user()->type == 'super'){
+        if(Auth::check()){
             $users = User::where('type', 'user')->where('email_verified_at', '!=', null)->count();
             $admins = User::where('type', '!=', 'user')->where('email_verified_at', '!=', null)->count();
             $approved_items = Item::where('approved', '!=', null)->count();

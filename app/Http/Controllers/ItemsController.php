@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
+    public function find(){
+        return view('client.submit');
+    }
+    
     public function index(){
         $items = Item::paginate(200);
         return view('admin.items.index')->with('items', $items);

@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'ItemsController@find')->name('landing');
+Route::post('/check', 'ItemsController@check')->name('check');
 
 
 //Auth Routes
@@ -38,8 +39,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
     Route::post('/item/delete/{item}', 'ItemsController@destroy');
 
     Route::resource('categories', 'CategoriesController');
-
-    Route::resource('faqs', 'FaqController');
 
     Route::resource('items', 'ItemsController');
 

@@ -10,8 +10,35 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
+    public function check(Request $request){
+
+        if($request->has('number')){
+            $this->validate($request, [
+                'category' => 'required',
+                'number' => 'required'
+            ]);
+            $match = Item::where('category_id',$request->category)->where('number', $request->number)->count();
+            $item = $request->number;
+        }
+        else if($request->has('name')){
+            $this->validate($request, [
+                'category' => 'required',
+                'name' => 'required'
+            ]);
+            $match = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->count();
+            $item = $request->name;
+        }
+        $arr = [
+            'match' => $match,
+            'item'  => $item,
+        ];
+
+        return response()->json($arr);
+    }
+
     public function find(){
-        return view('client.submit');
+        $categories = Category::all();
+        return view('client.submit')->with('categories', $categories);
     }
 
     public function index(){

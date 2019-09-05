@@ -9,7 +9,7 @@
         <!-- Logo -->
         <a href="/" target="_blank" class="logo">
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><img src="{{ asset('logo-white.png')}}" alt="JKUAT Logo" /></span>
+            <span class="logo-lg"><h3>JKUAT</h3></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -165,8 +165,6 @@
                                                     });
 
                                                     $("#submit_btn").click(function(e) {
-
-                                                        console.log('text');
                                                         if(($('#category').val() == '') || ($('#number').val() == '')){
                                                         $('#err').text('All Fields are mandatory. Please confirm you have filled all fields');
                                                         }
@@ -191,6 +189,7 @@
                                                                         $('#res').text(response.item);
                                                                         $('.callout').text('Sorry No Such Record Exists!');
                                                                         $('.callout').attr('class','callout callout-danger');
+                                                                        $('#content').text('');
                                                                     }
                                                                     $('#spinner').remove();
                                                                     jQuery.noConflict();

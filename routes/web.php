@@ -40,8 +40,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
 
     Route::resource('categories', 'CategoriesController');
 
-    Route::resource('items', 'ItemsController');
-
     Route::resource('todo','HomeController');
 
 });

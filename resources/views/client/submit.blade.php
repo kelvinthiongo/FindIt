@@ -27,7 +27,7 @@
                                 <img src="{{ asset(Auth::User()->avatar) }}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    {{ Auth::User()-> name }} - Admin at FindIt
+                                    {{ Auth::User()-> name }} - Admin
                                     <small>Member since
                                         {{ date('F d, Y', strtotime(Auth::User()->created_at)) }}</small>
                                 </p>
@@ -54,9 +54,8 @@
                             </li>
                         </ul>
                         @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="" class="user-image" alt="User Image">
-                            <span class="hidden-xs"> Admin Login</span>
+                        <a href="/admin">
+                            <span class="hidden-xs"> Admin</span>
                         </a>
                         @endif
                     </li>

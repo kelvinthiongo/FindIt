@@ -62,7 +62,7 @@
                                             </style>
                                             <ul id="action" style="list-style-type:none;">
                                                 <li class="links">
-                                                    <a target="_blank" href='/items/{{$item->slug}}/edit' ><button style="color:green;" class="trans btn btn-success fa fa-edit"> </button></a>
+                                                    <a href='/items/{{$item->slug}}/edit' ><button style="color:green;" class="trans btn btn-success fa fa-edit"> </button></a>
                                                 </li>
                                                 <li class="links">
                                                     {!! Form::open(['action' => ['ItemsController@destroy',$item->id], 'method' => 'POST','onsubmit' => 'return ConfirmDelete()']) !!}

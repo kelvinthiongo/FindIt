@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
 
     Route::resource('items', 'ItemsController');
     Route::post('/item/delete/{item}', 'ItemsController@destroy');
+    Route::post('/item/edit_item/{item}', 'ItemsController@update')->name('item.update');
 
     Route::resource('categories', 'CategoriesController');
 

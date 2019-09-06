@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\User;
 use App\Item;
@@ -39,10 +40,10 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::check()){
-            $users = User::where('type', 'user')->where('email_verified_at', '!=', null)->count();
+            $categories = Category::all()->count();
             $admins = User::where('type', '!=', 'user')->where('email_verified_at', '!=', null)->count();
             $items = Item::all()->count();
-            return view('admin.dashboard')->with('users',$users)
+            return view('admin.dashboard')->with('categories',$categories)
                                             ->with('admins',$admins)
                                             ->with('items',$items)
                                             ;

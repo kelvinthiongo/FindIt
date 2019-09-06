@@ -79,7 +79,7 @@ class ItemsController extends Controller
 
     public function edit(Item $item)
     {
-        return view('client.items.edit')->with('item', $item)->with('categories', Category::all());
+        return view('admin.items.edit')->with('item', $item)->with('categories', Category::all());
     }
 
     public function update(Request $request, Item $item)

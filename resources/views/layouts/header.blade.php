@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="/" target="_blank" class="logo">
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="{{ asset('logo-white.png')}}" alt="JKUAT Logo" /></span>
+        <span class="logo-lg">JKUAT LOST</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

@@ -9,7 +9,7 @@
         <!-- Logo -->
         <a href="/" target="_blank" class="logo">
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><h3>JKUAT</h3></span>
+            <span class="logo-lg"><h3>JKUAT LOST</h3></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -109,12 +109,11 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <ul>
-                                <li>The Name Field is not <b>Mandatory</b> if your lost document has its number</li>
-                                <li>Enter the details <b>EXACTLY</b> as they appear on the lost document </li>
+                                <li>check the <b>"number not visible"</b> box if your lost document's number is not visible or is not there at all.</li>
+                                <li>Enter the details <b>EXACTLY</b> as they appear on the lost document. </li>
                                 <li> Priority is given to the <b>Document Number.</b> Use the name only if the
-                                    number is not visible on your lost Document</li>
-                                <li>Incase no detail (name and number) is <b>VISIBLE</b> on your document, <a href="">
-                                        <b>Click Here</b></a> to view a list of all unmatched documents
+                                    number is not visible on your lost Document.</li>
+                                <li>All recovered documents will be collected at <b>VENUE HERE</b>.
                                 </li>
                             </ul>
                         </div>

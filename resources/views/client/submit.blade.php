@@ -94,7 +94,9 @@
 
                     .box-special {
                         height: 260px;
+                        overflow: auto;
                     }
+
                 }
             </style>
             <div class="row">

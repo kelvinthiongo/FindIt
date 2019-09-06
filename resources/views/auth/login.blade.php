@@ -11,16 +11,18 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group has-feedback">
-                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required >
+                        <label for="">Email</label>
+                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Enter login Email" required >
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 
                 </div>
 
                 <div class="form-group has-feedback">
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                        <label for="">Password</label>
+                        <input id="password" type="password" placeholder="Enter account password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-xs-12">
                         <div>
@@ -40,5 +42,5 @@
             <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a><br>
       </div>
                 <!-- /.login-box-body -->
-             
+
 @endsection

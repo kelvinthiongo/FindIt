@@ -12,7 +12,7 @@
             <section class="content-header">
             <h1>
                Add a new Admin
-                <small>Add a New Admin Here</small>
+                <small>Note: password defaults to '@jkuat_lost'</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>

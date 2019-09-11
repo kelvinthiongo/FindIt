@@ -93,8 +93,10 @@
                 @media (max-width:767px) {
 
                     .box-special {
-                        height: 220px;
+                        height: 260px;
+                        overflow: auto;
                     }
+
                 }
             </style>
             <div class="row">

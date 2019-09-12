@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('type')->default('user');
             $table->boolean('is_verified')->default(false);
             $table->boolean('view')->default(true);
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->default(now());
             $table->string('avatar')->default('uploads/users/avatar.png');
             $table->string('password')->default(bcrypt('@jkuat_lost'));
             $table->string('api_token', 60)->unique()->nullable();

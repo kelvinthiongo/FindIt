@@ -14,6 +14,9 @@ class ApiController extends Controller
      */
     public function index()
     {
+        if (rand(1, 10) < 3) {
+            abort(500, 'We could not retrieve the categories');
+        }
         return Category::all();
     }
 

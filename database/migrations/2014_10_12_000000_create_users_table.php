@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->default(now());
             $table->string('avatar')->default('uploads/users/avatar.png');
             $table->string('password')->default(bcrypt('@jkuat_lost'));
+            $table->string('api_token', 60)->unique()->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

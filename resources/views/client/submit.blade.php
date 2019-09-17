@@ -10,9 +10,10 @@
         <a href="/" target="_blank" class="logo">
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><h3>JKUAT LOST</h3></span>
+            
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top">
+        <nav class="navbar navbar-static-top hidden-xs">
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
@@ -55,7 +56,7 @@
                         </ul>
                         @else
                         <a href="/admin">
-                            <span class="hidden-xs"> Admin</span>
+                            <span> Admin</span>
                         </a>
                         @endif
                     </li>
@@ -177,10 +178,10 @@
                                                                 success: function( response ) {
                                                                     if(response.match > 0){
                                                                         $('#exampleModalCenterTitle').text('Success Here');
-                                                                        $('#res').text(response.item);
+                                                                        $('#res').html('<ul style = "list-style: none"><li>' + response.item + '</li><li>' + response.category + '</li></ul>');
                                                                         $('.callout').text('Record Exists!');
                                                                         $('.callout').attr('class','callout callout-success');
-                                                                        $('#content').text('An item exists based on the details, you provided. Kindly visit the relevant place to pick it.');
+                                                                        $('#content').text('An item exists based on the details, you provided. Kindly visit ' + response.collection_point + ' to pick it.');
 
                                                                     }else{
                                                                         $('#exampleModalCenterTitle').text('No result Found')

@@ -51,7 +51,9 @@
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endif
                                         @endforeach
-                                    </select>
+                                    </select><br>
+                                    {{ Form::label('collection_point', 'Collection Point') }} <span style = "color: red">*</span>
+                                    {{ Form::text('collection_point', $item->collection_point, ['class' => 'form-control', 'id' => 'collection_point', 'placeholder' => 'Enter Collection Point']) }} <br>
                                     <br>
                                 </div>
                                 <div class="box-footer">

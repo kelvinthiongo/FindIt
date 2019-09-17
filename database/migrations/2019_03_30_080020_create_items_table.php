@@ -21,6 +21,8 @@ class CreateItemsTable extends Migration
             $table->string('name')->nullable();
             $table->string('number')->nullable();
             $table->text('image')->nullable(); 
+            $table->boolean('collected')->default(false); 
+            $table->string('collection_point'); 
             $table->softDeletes();
             
             $table->timestamps();

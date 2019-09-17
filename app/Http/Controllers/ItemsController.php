@@ -46,6 +46,9 @@ class ItemsController extends Controller
         $categories = Category::all();
         return view('client.submit')->with('categories', $categories);
     }
+    public function app(){
+        return view('client.app');
+    }
 
     public function index(){
         $items = Item::paginate(200);

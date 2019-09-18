@@ -43,7 +43,9 @@
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
-                            </select>
+                            </select><br>
+                            {{ Form::label('collection_point', 'Collection Point') }} <span style = "color: red">*</span>
+                            {{ Form::text('collection_point', '', ['class' => 'form-control', 'id' => 'collection_point', 'placeholder' => 'Enter Collection Point']) }} <br>
                             <br>
                         </div>
                       <div class="box-footer">

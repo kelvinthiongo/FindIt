@@ -25,7 +25,7 @@
                             <img src="{{ asset(Auth::User()->avatar) }}" class="img-circle" alt="User Image">
 
                             <p>
-                                {{ Auth::User()-> name }} - Admin at FindIt
+                                {{ Auth::User()-> name }} - Admin at JKUAT-Lost
                                 <small>Member since {{ date('F d, Y', strtotime(Auth::User()->created_at)) }}</small>
                             </p>
                         </li>

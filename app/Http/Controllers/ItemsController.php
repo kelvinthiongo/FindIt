@@ -17,6 +17,8 @@ class ItemsController extends Controller
                 'category' => 'required',
                 'number' => 'required'
             ]);
+            $category = Item::where('category_id',$request->category)->where('number', $request->number)->first()->category;
+            $collection_point = Item::where('category_id',$request->category)->where('number', $request->number)->first()->collection_point;
             $match = Item::where('category_id',$request->category)->where('number', $request->number)->count();
             $item = $request->number;
         }
@@ -25,12 +27,16 @@ class ItemsController extends Controller
                 'category' => 'required',
                 'name' => 'required'
             ]);
+            $category = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->first()->category;
+            $collection_point = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->first()->collection_point;
             $match = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->count();
             $item = $request->name;
         }
         $arr = [
             'match' => $match,
             'item'  => $item,
+            'category' => $category,
+            'collection_point' => $collection_point,
         ];
 
         return response()->json($arr);
@@ -54,6 +60,10 @@ class ItemsController extends Controller
         return view('admin.items.create')->with('categories', $categories);
     }
 
+    public function collected(){
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -64,6 +74,7 @@ class ItemsController extends Controller
     {
         $this->validate($request, [
             'category_id' => 'required',
+            'collection_point' => 'required',
         ]);
         if($request->name == '' && $request->number == ''){
             return redirect()->back()->with('error', 'Number and name fields cannot be both empty.');
@@ -75,6 +86,7 @@ class ItemsController extends Controller
             'category'=> $category,
             'category_id'=> $request->category_id,
             'name'=> $request->name,
+            'collection_point'=> $request->collection_point,
         ]);
 
         return redirect()->back()->with('success', 'You successfully uploaded the document.');
@@ -89,6 +101,7 @@ class ItemsController extends Controller
     {
         $this->validate($request, [
             'category_id' => 'required',
+            'collection_point' => 'required',
         ]);
         if($request->name == '' && $request->number == ''){
             return redirect()->back()->with('error', 'Number and name fields cannot be both empty.');
@@ -96,6 +109,7 @@ class ItemsController extends Controller
         $category = Category::find($request->category_id)->name;
 
         $item->number = $request->number;
+        $item->collection_point = $request->collection_point;
         $item->category = $category;
         $item->category_id = $request->category_id;
         $item->name = $request->name;

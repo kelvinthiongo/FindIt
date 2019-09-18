@@ -38,6 +38,7 @@
                         <th>Category</th>
                         <th>Name</th>
                         <th>Number</th>
+                        <th>Collection Point</th>
                         <th>Action</th>
                         </tr>
                         </thead>
@@ -49,6 +50,7 @@
                                         <td>{{$item->category}}</td>
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->number}}</td>
+                                        <td>{{$item->collection_point}}</td>
                                         <td>
                                             <style>
                                                 .trans{
@@ -62,14 +64,10 @@
                                             </style>
                                             <ul id="action" style="list-style-type:none;">
                                                 <li class="links">
-                                                    <a href='{{ route('items.edit', $item->id) }}' ><button style="color:green;" class="trans btn btn-success fa fa-edit"> </button></a>
+                                                    <a href='{{ route('items.edit', $item->id) }}' ><button style="color:green;" class="trans btn btn-success fa fa-edit">Edit</button></a>
                                                 </li>
                                                 <li class="links">
-                                                    {!! Form::open(['action' => ['ItemsController@destroy',$item->id], 'method' => 'POST','onsubmit' => 'return ConfirmDelete()']) !!}
-                                                        
-                                                        {{ Form::button('',['class'=>'trans fa fa-trash btn btn-danger', 'type'=>'submit']) }}
-                                                    
-                                                    {!! Form::close() !!}
+                                                  <a href='javascript:void(0)' ><button style="color:blue;" class="trans btn btn-success fa fa-check" data-toggle="modal" data-target="{{ '#modal-danger' . $item->id }} ">Mark as collected</button></a>
                                                 </li>
                                             </ul>
                                                 
@@ -86,6 +84,7 @@
                             <th>Category</th>
                             <th>Name</th>
                             <th>Number</th>
+                            <th>Collection Point</th>
                             <th>Action</th>
                         </tr>
                         </tfoot>
@@ -110,6 +109,38 @@
     <!-- /.content-wrapper -->
     @include('layouts.admin_footer')
     @include('layouts.aside_right')
+
+    {{-- Modals --}}
+    @foreach ($items as $item)
+    <div class="modal fade" id="{{ 'modal-danger' . $item->id }}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{ $item->name . ' ' . $item->number }}</h4>
+          </div>
+          <div class="modal-body">
+            <p>Note that if you mark this document as collected it will be deleted from the database. <br>Are you sure you want to mark it as collected?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            {!! Form::open(['action' => ['ItemsController@destroy',$item->id], 'method' => 'POST', 'id' => 'mark_form']) !!}
+                
+                <button type="submit" class="trans fa fa-check btn btn-danger">Mark as collected</button>
+            
+            {!! Form::close() !!}
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    @endforeach
+    <!-- /.modal -->
+
+
   </div>
+  
 </body>
 @endsection

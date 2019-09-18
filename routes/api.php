@@ -14,8 +14,13 @@ use Illuminate\Http\Resources\Json\Resource;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'ApiController@login');
+Route::middleware('auth:api')->group(function () {
+    Route::resource('category', 'ApiController');
+    Route::post('logout', 'ApiController@logout');
+    Route::post('add-admin', 'UsersController@admin_store');
+    Route::get('user', 'ApiController@details');
+    Route::get('all-admins', 'UsersController@admin_index');
+    Route::get('/show-admin/{slug}', 'UsersController@admin_show');
+    Route::put('/update-admin/{slug}', 'UsersController@update');
 });
-Route::resource('category', 'ApiController');
-Auth::routes();

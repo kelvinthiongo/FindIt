@@ -6,24 +6,19 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use SoftDeletes;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    public function generateToken()
-    {
-        $this->api_token = str_random(60);
-        $this->save();
-
-        return $this->api_token;
-    }
 
     public function items(){
         return $this->hasMany('App\Item');

@@ -11,11 +11,11 @@
     </div>
 
     <ul v-if="categories">
-      <li v-for="{ id, name } in categories">
-        <strong>Id:</strong>
-        {{ id }},
-        <strong>Name:</strong>
-        {{ name }}
+      <li v-for="category in categories">
+        <strong>code:</strong>
+        {{ category.code }},
+        <strong>Rate:</strong>
+        {{ category.rate }}
       </li>
     </ul>
   </div>
@@ -38,10 +38,10 @@ export default {
       this.error = this.categories = null;
       this.loading = true;
       axios
-        .get("/api/category")
+        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
         .then(response => {
           this.loading = false;
-          this.categories = response.data;
+          this.categories = response.data.bpi;
         })
         .catch(error => {
           this.loading = false;

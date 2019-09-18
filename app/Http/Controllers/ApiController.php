@@ -4,9 +4,84 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
+    // public function register(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'name' => 'required|min:3',
+    //         'email' => 'required|email|unique:users',
+    //         'password' => 'required|min:6',
+    //     ]);
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password)
+    //     ]);
+
+    //     $token = $user->createToken('TutsForWeb')->accessToken;
+
+    //     return response()->json(['token' => $token], 200);
+    // }
+
+    /**
+     * Handles Login Request
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request)
+    {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+
+        if (auth()->attempt($credentials)) {
+            $token = auth()->user()->createToken('personal-token')->accessToken;
+            $access = true;
+            $auth_user = auth()->user();
+            return response()->json([
+                'user' => $auth_user,
+                'access' => $access,
+                'token' => $token,
+            ], 200);
+        } else {
+            $access = false;
+            return response()->json(['error' => 'UnAuthorised'], 401);
+        }
+    }
+
+    public function details()
+    {
+        return response()->json(['user' => auth()->user()], 200);
+    }
+    public function logout(Request $request)
+    {
+        $auth_user_id = Auth::user()->id;
+        if($auth_user_id == $request->user_id){
+            $token = Auth::user()->token();
+            $token->revoke();
+            return response()->json(['logged_out' => true], 200);
+        }
+        else{
+            return response()->json(['logged_out' => false], 404);
+        }
+    }
+    public function getToken()
+    {
+        $user = Auth::user();
+
+        //$token = $user->email;
+
+        return response()->json($user, 200);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +127,6 @@ class ApiController extends Controller
     public function show($id)
     {
         return Category::find($id);
-
     }
 
     /**

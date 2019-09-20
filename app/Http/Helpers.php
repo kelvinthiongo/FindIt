@@ -10,13 +10,13 @@
 |
 */
 function isActiveRoute($route)
-{ 
+{
     $output = "current-menu-item";
     if (Route::currentRouteName() == $route) return $output;
 }
 
 function isUserActiveRoute($route)
-{ 
+{
     $output = "active";
     if (Route::currentRouteName() == $route) return $output;
 }

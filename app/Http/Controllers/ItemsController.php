@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Lost;
+use Mail;
 use App\Category;
 
 
@@ -10,26 +12,26 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
-    public function check(Request $request){
+    public function check(Request $request)
+    {
 
-        if($request->has('number')){
+        if ($request->has('number')) {
             $this->validate($request, [
                 'category' => 'required',
                 'number' => 'required'
             ]);
-            $category = Item::where('category_id',$request->category)->where('number', $request->number)->first()->category;
-            $collection_point = Item::where('category_id',$request->category)->where('number', $request->number)->first()->collection_point;
-            $match = Item::where('category_id',$request->category)->where('number', $request->number)->count();
+            $category = Item::where('category_id', $request->category)->where('number', $request->number)->first()->category;
+            $collection_point = Item::where('category_id', $request->category)->where('number', $request->number)->first()->collection_point;
+            $match = Item::where('category_id', $request->category)->where('number', $request->number)->count();
             $item = $request->number;
-        }
-        else if($request->has('name')){
+        } else if ($request->has('name')) {
             $this->validate($request, [
                 'category' => 'required',
                 'name' => 'required'
             ]);
-            $category = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->first()->category;
-            $collection_point = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->first()->collection_point;
-            $match = Item::where('category_id',$request->category)->where('name', 'like', $request->name)->count();
+            $category = Item::where('category_id', $request->category)->where('name', 'like', $request->name)->first()->category;
+            $collection_point = Item::where('category_id', $request->category)->where('name', 'like', $request->name)->first()->collection_point;
+            $match = Item::where('category_id', $request->category)->where('name', 'like', $request->name)->count();
             $item = $request->name;
         }
         $arr = [
@@ -42,15 +44,18 @@ class ItemsController extends Controller
         return response()->json($arr);
     }
 
-    public function find(){
+    public function find()
+    {
         $categories = Category::all();
         return view('client.submit')->with('categories', $categories);
     }
-    public function app(){
+    public function app()
+    {
         return view('client.app');
     }
 
-    public function index(){
+    public function index()
+    {
         $items = Item::paginate(200);
         return view('admin.items.index')->with('items', $items);
     }
@@ -60,9 +65,8 @@ class ItemsController extends Controller
         return view('admin.items.create')->with('categories', $categories);
     }
 
-    public function collected(){
-        
-    }
+    public function collected()
+    { }
 
     /**
      * Store a newly created resource in storage.
@@ -76,18 +80,34 @@ class ItemsController extends Controller
             'category_id' => 'required',
             'collection_point' => 'required',
         ]);
-        if($request->name == '' && $request->number == ''){
+        if ($request->name == '' && $request->number == '') {
             return redirect()->back()->with('error', 'Number and name fields cannot be both empty.');
         }
         $category = Category::find($request->category_id)->name;
 
-        Item::create([
-            'number'=> $request->number,
-            'category'=> $category,
-            'category_id'=> $request->category_id,
-            'name'=> $request->name,
-            'collection_point'=> $request->collection_point,
+        $item = Item::create([
+            'number' => $request->number,
+            'category' => $category,
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'collection_point' => $request->collection_point,
         ]);
+
+        try {
+            $check = Lost::where('number', $item->number)->count();
+            if ($check > 0) {
+                $losts = Lost::where('number', $item->number)->get();
+                foreach ($losts as $lost) {
+                    $data = ['name' => $item->name, 'email' => $lost->email, 'number' => $item->number];
+
+                    Mail::send('mailings.item_found', $data, function ($message) use ($data) {
+                        $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Lost Document Found');
+                    });
+                }
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         return redirect()->back()->with('success', 'You successfully uploaded the document.');
     }
@@ -103,7 +123,7 @@ class ItemsController extends Controller
             'category_id' => 'required',
             'collection_point' => 'required',
         ]);
-        if($request->name == '' && $request->number == ''){
+        if ($request->name == '' && $request->number == '') {
             return redirect()->back()->with('error', 'Number and name fields cannot be both empty.');
         }
         $category = Category::find($request->category_id)->name;
@@ -127,5 +147,4 @@ class ItemsController extends Controller
         $item->forceDelete();
         return redirect()->back()->with('success', 'Delete successful');
     }
-
 }

@@ -10,7 +10,7 @@
         <a href="/" target="_blank" class="logo">
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><h3>JKUAT LOST</h3></span>
-            
+
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top hidden-xs">
@@ -178,7 +178,7 @@
                                                                 type: "POST",
                                                                 data: $('#check-doc').serialize(),
                                                                 success: function( response ) {
-                                                                    if(response.match > 0){
+                                                                    if(response.status == true){
                                                                         $('#exampleModalCenterTitle').text('Success Here');
                                                                         $('#res').html('<ul style = "list-style: none"><li>' + response.item + '</li><li>' + response.category + '</li></ul>');
                                                                         $('.callout').text('Record Exists!');

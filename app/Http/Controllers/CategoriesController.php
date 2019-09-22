@@ -12,10 +12,16 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::all();
-        return view('admin.categories.index')->with('categories', $categories);
+        if($request->wantsJson()){
+            return response()->json($categories, 200);
+        }
+        else {
+            return view('admin.categories.index')->with('categories', $categories);
+        }
+
     }
 
     /**
@@ -40,7 +46,16 @@ class CategoriesController extends Controller
             'name' => 'required'
         ]);
         if(Category::where('name', $request->name)->count() > 0){
-            return redirect()->route('categories.index')->with('info', "$request->name already exists.");
+            if($request->wantsJson()){
+                return response()->json([
+                    'status' => false,
+                    'error' => $request->name . 'already exists.'
+                ]);
+            }
+            else {
+                return redirect()->route('categories.index')->with('info', "$request->name already exists.");
+            }
+
         }
         $category = Category::create([
             'name' => $request->name,
@@ -51,7 +66,17 @@ class CategoriesController extends Controller
         }
         $category->slug = $slug;
         $category->save();
-        return redirect()->route('categories.index')->with('success', 'You successfully added a category.');
+        if($request->wantsJson()){
+            return response()->json([
+                'status' => true,
+                'success' => 'You successfully added a category.'
+            ]);
+        }
+        else {
+            return redirect()->route('categories.index')->with('success', 'You successfully added a category.');
+        }
+
+
     }
 
     /**
@@ -60,9 +85,12 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($slug, Request $request)
     {
-        //
+        $category = Category::where('slug', $slug)->first();
+        if($request->wantsJson()){
+            return response()->json($category, 200);
+        }
     }
 
     /**
@@ -101,7 +129,15 @@ class CategoriesController extends Controller
             $category->slug = $slug;
         }
         $category->save();
-        return redirect()->route('categories.index')->with('success', 'You successfully edited the category.');
+        if($request->wantsJson()){
+            return response()->json([
+                'status' => true,
+                'success'=> 'You successfully edited the category.'
+            ]);
+        }
+        else{
+            return redirect()->route('categories.index')->with('success', 'You successfully edited the category.');
+        }
     }
 
     /**
@@ -110,9 +146,17 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'You successfully deleted the category.');
+        if($request->wantsJson()){
+            return response()->json([
+                'status' => true,
+                'success' => 'You successfully deleted the category.'
+            ],204);
+        }
+        else {
+            return redirect()->route('categories.index')->with('success', 'You successfully deleted the category.');
+        }
     }
 }

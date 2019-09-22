@@ -145,23 +145,10 @@
                                                     @csrf
                                                     <div class="form-group">
                                                         {{ Form::label('number ', 'Document Number* (Id No, Reg N0, Passport No, etc)') }}
-                                                        {{ Form::text('number', '', ['class' => 'form-control', 'id' => 'number', 'placeholder' => 'Document Number']) }}
-                                                        <br>
-                                                        {{ Form::label('name ', 'Name (as it appears on the document)') }}
-                                                        {{ Form::text('name', '', ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Document Name']) }}
-                                                        <br>
-                                                        <label for="category">Document Category</label>
-                                                        <select id="category" class="form-control" name="category">
-                                                            <option value="">-- Select Category --</option>
-                                                            @foreach ($categories as $category)
-                                                            <option value="{{ $category->id }}">{{ $category->name }}
-                                                            </option>
-                                                            @endforeach
-
-                                                        </select>
+                                                        {{ Form::text('number', '', ['class' => 'form-control', 'id' => 'number2', 'placeholder' => 'Document Number']) }}
                                                         <br>
                                                         {{ Form::label('email', 'Email* (we will contact you via this email if we find your item)') }}
-                                                        {{ Form::text('email', '', ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Enter Your Email']) }}
+                                                        {{ Form::text('email', '', ['class' => 'form-control', 'id' => 'email2', 'placeholder' => 'Enter Your Email']) }}
                                                         <br>
                                                         <br>
                                                     </div>
@@ -189,7 +176,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="check-doc" role="form" action="javascript:void(0)" method="POST">
+                        <form id="check-doc" role="form" action="/check" method="POST">
                             @csrf
                             <div class="box-body">
                                 <script>

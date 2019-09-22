@@ -21,7 +21,7 @@ class UsersController extends Controller
     public function admin_index(Request $request)
     {
         $admins = User::where('type', '!=', 'user')->get();
-        if($request->wantsJson()){
+        if ($request->wantsJson()) {
             return response()->json($admins, 200);
         }
         return view('admin.users.index')->with('users', $admins)->with('user_type', 'Admin');
@@ -117,7 +117,7 @@ class UsersController extends Controller
             Session::flash('error', 'Couldn\'t find user! Please try again.');
             return redirect()->back();
         }
-        if($request->wantsJson()){
+        if ($request->wantsJson()) {
             return response()->json($user, 200);
         }
 
@@ -179,37 +179,58 @@ class UsersController extends Controller
         ]);
         $user = User::where('slug', $slug)->first();
         if (!\Hash::check($request->old_password, Auth::user()->password)) {
-            return redirect()->back()->with('error', 'Your current password is wrong.');
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'error' => 'Your current password is wrong.'
+                ]);
+            } else {
+                return redirect()->back()->with('error', 'Your current password is wrong.');
+            }
         }
         if (Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')) {
             if ($request->password != '') {
                 if ($request->password == $request->confirm_password) {
                     $user->password = bcrypt($request->password);
                 } else {
-                    Session::flash('error', 'Confirmation password and the password do not match.');
-                    return redirect()->back();
+                    if ($request->wantsJson()) {
+                        return response()->json([
+                            'status' => false,
+                            'error' => 'Confirmation password and the password do not match.'
+                        ]);
+                    } else {
+                        Session::flash('error', 'Confirmation password and the password do not match.');
+                        return redirect()->back();
+                    }
                 }
             }
-            if ($request->has('avatar')) {
-                $old_avatar = $user->avatar;
-                $avatar = $request->avatar;
-                if ($old_avatar != 'uploads/users/avatar.png') {
-                    File::delete($old_avatar);
-                }
-                $avatar_name = time() . $avatar->getClientOriginalName();
-                $avatar_new_name = 'uploads/users/' . $avatar_name;
-                $new_avatar = Image::make($avatar->getRealPath())->resize(500, 500);
-                $new_avatar->save($avatar_new_name);
-                $avatar = $avatar_new_name;
-                $user->avatar = $avatar;
-            }
+            // if ($request->has('avatar')) {
+            //     $old_avatar = $user->avatar;
+            //     $avatar = $request->avatar;
+            //     if ($old_avatar != 'uploads/users/avatar.png') {
+            //         File::delete($old_avatar);
+            //     }
+            //     $avatar_name = time() . $avatar->getClientOriginalName();
+            //     $avatar_new_name = 'uploads/users/' . $avatar_name;
+            //     $new_avatar = Image::make($avatar->getRealPath())->resize(500, 500);
+            //     $new_avatar->save($avatar_new_name);
+            //     $avatar = $avatar_new_name;
+            //     $user->avatar = $avatar;
+            // }
 
             if ($request->phone != '') {
                 $user->phone = $request->phone;
             }
 
             if (User::where('email', $request->email)->where('email', '!=', $user->email)->count() > 0) {
-                return redirect()->back()->with('error', 'Sorry The record already exists');
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'status' => false,
+                        'error' => 'Sorry The record already exists'
+                    ]);
+                } else {
+                    return redirect()->back()->with('error', 'Sorry The record already exists');
+                }
             }
 
             // Require verification of new email and send EmailVerificationNotification.
@@ -228,14 +249,28 @@ class UsersController extends Controller
                 if (Auth::user()->type == 'super') {
 
                     if ($request->super == false && User::where('type', 'super')->count() == 1 && $user->type == 'super') {
-                        Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin!');
-                        return redirect()->back();
+                        if ($request->wantsJson()) {
+                            return response()->json([
+                                'status' => false,
+                                'error' => 'Sorry, you are the ONLY REMAINING super admin!'
+                            ]);
+                        } else {
+                            Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin!');
+                            return redirect()->back();
+                        }
                     }
 
                     $user->type = $type;
                 } elseif ($user->type != $type) {
-                    Session::flash('error', 'You cannot change your super-admin status since you are not a super admin!');
-                    return redirect()->back();
+                    if ($request->wantsJson()) {
+                        return response()->json([
+                            'status' => false,
+                            'error' => 'You cannot change your super-admin status since you are not a super admin!'
+                        ]);
+                    } else {
+                        Session::flash('error', 'You cannot change your super-admin status since you are not a super admin!');
+                        return redirect()->back();
+                    }
                 }
             }
 
@@ -243,16 +278,36 @@ class UsersController extends Controller
             $result = $user->save();
 
             if ($result) {
-                Session::flash('success', 'You successifully updated the users profile.');
-                return redirect()->route('users.show', ['slug' => $slug]);
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'status' => true,
+                        'success' => 'You successfully updated the users profile.'
+                    ], 200);
+                } else {
+                    Session::flash('success', 'You successfully updated the users profile.');
+                    return redirect()->route('users.show', ['slug' => $slug]);
+                }
             }
-
-            Session::flash('error', 'You could not update the users profile.');
-            return redirect()->route('users.index');
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'error' => 'You could not update the users profile.'
+                ]);
+            } else {
+                Session::flash('error', 'You could not update the users profile.');
+                return redirect()->route('users.index');
+            }
         }
 
-        Session::flash('error', 'You are not allowed to edit other users\' info unless you are a Super Admin!');
-        return redirect()->back();
+        if ($request->wantsJson()) {
+            return response()->json([
+                'status' => false,
+                'error' => 'You are not allowed to edit other users\' info unless you are a Super Admin! '
+            ]);
+        } else {
+            Session::flash('error', 'You are not allowed to edit other users\' info unless you are a Super Admin!');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -261,34 +316,63 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy($slug, Request $request)
     {
-        //
         try {
             $user = User::where('slug', $slug)->first();
         } catch (QueryException $ex) {
-            Session::flash('error', 'Admin/User could not be found!');
-            return redirect()->back();
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'error' => 'Admin could not be found!'
+                ]);
+            } else {
+                Session::flash('error', 'Admin/User could not be found!');
+                return redirect()->back();
+            }
         }
 
         if (Auth::user()->type == 'super' || Auth::user()->slug == $slug || (Auth::user()->type == 'ordinary' && $user->type == 'user')) {
             if (User::where('type', 'super')->count() == 1 && Auth::user()->type == 'super') {
-                Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin! Make someone else a super admin then exit.');
-                return redirect()->back();
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'status' => false,
+                        'error' => 'Sorry, you are the ONLY REMAINING super admin! Make someone else a super admin then exit.'
+                    ]);
+                } else {
+                    Session::flash('error', 'Sorry, you are the ONLY REMAINING super admin! Make someone else a super admin then exit.');
+                    return redirect()->back();
+                }
             }
-            $avatar = $user->avatar;
+            // $avatar = $user->avatar;
             // if($avatar != 'uploads/users/avatar.png'){
             //     File::delete($avatar);
             // }
             $type = $user->type;
             $user->delete();
-            Session::flash('success', 'Admin/User removed successfully');
-            if ($type == 'user')
-                return redirect()->route('users.index');
-            return redirect()->route('admin_index');
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status' => true,
+                    'success' => 'Admin removed successfully'
+                ]);
+            } else {
+                Session::flash('success', 'Admin/User removed successfully');
+                if ($type == 'user')
+                    return redirect()->route('users.index');
+
+                return redirect()->route('admin_index');
+            }
         }
-        Session::flash('error', 'Admin/User could not be removed! Task only allowed to Super Admin!');
-        return redirect()->back();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'status' => false,
+                'error' => 'Admin could not be removed! Task only allowed to Super Admin!'
+            ]);
+        } else {
+            Session::flash('error', 'Admin/User could not be removed! Task only allowed to Super Admin!');
+            return redirect()->back();
+        }
     }
 
     public function trashed_users()

@@ -42,9 +42,11 @@ class ApiController extends Controller
         ];
 
         if (auth()->attempt($credentials)) {
-            $token = auth()->user()->createToken('personal-token')->accessToken;
+            $token_obj = auth()->user()->createToken('personal-token');
+            $token = $token_obj->accessToken;
             $access = true;
-            $auth_user = auth()->user();
+            $auth_user = Auth::user();
+            //return response()->json($token_obj->token, 200);
             return response()->json([
                 'user' => $auth_user,
                 'access' => $access,
@@ -52,7 +54,10 @@ class ApiController extends Controller
             ], 200);
         } else {
             $access = false;
-            return response()->json(['error' => 'UnAuthorised'], 401);
+            return response()->json([
+                'error' => 'UnAuthorised',
+                'access' => $access
+            ]);
         }
     }
 
@@ -63,12 +68,11 @@ class ApiController extends Controller
     public function logout(Request $request)
     {
         $auth_user_id = Auth::user()->id;
-        if($auth_user_id == $request->user_id){
+        if ($auth_user_id == $request->user_id) {
             $token = Auth::user()->token();
             $token->revoke();
             return response()->json(['logged_out' => true], 200);
-        }
-        else{
+        } else {
             return response()->json(['logged_out' => false], 404);
         }
     }

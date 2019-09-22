@@ -9,9 +9,7 @@
         <!-- Logo -->
         <a href="/" target="_blank" class="logo">
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">
-                <h3>JKUAT LOST</h3>
-            </span>
+            <span class="logo-lg"><h3>JKUAT LOST</h3></span>
 
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -176,7 +174,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="check-doc" role="form" action="/check" method="POST">
+                        <form id="check-doc" role="form" action="javascript:void()" method="POST">
                             @csrf
                             <div class="box-body">
                                 <script>
@@ -222,7 +220,7 @@
                                                                 type: "POST",
                                                                 data: $('#check-doc').serialize(),
                                                                 success: function( response ) {
-                                                                    if(response.match > 0){
+                                                                    if(response.status == true){
                                                                         $('#exampleModalCenterTitle').text('Success Here');
                                                                         $('#res').html('<ul style = "list-style: none"><li>' + response.item + '</li><li>' + response.category + '</li></ul>');
                                                                         $('.callout').text('Record Exists!');

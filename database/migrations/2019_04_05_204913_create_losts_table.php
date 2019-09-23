@@ -16,9 +16,7 @@ class CreateLostsTable extends Migration
         Schema::create('losts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('category');
             $table->string('status')->default('lost');
-            $table->string('name');
             $table->string('number');
             $table->string('email');
         });

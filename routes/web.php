@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', 'ItemsController@find')->name('landing');
 Route::get('/app', 'ItemsController@app')->name('app');
 Route::post('/check', 'ItemsController@check')->name('check');
@@ -40,6 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
     Route::resource('items', 'ItemsController');
     Route::post('/item/delete/{item}', 'ItemsController@destroy');
     Route::post('/item/edit_item/{item}', 'ItemsController@update')->name('item.update');
+    Route::post('/item/mark-as-collected/{item}', 'ItemsController@mark_collected')->name('item.mark');
 
     Route::resource('categories', 'CategoriesController');
 

@@ -89,8 +89,11 @@ class ItemsController extends Controller
         return view('admin.items.create')->with('categories', $categories);
     }
 
-    public function collected()
-    { }
+    public function mark_collected(Item $item)
+    {
+        $item->collected = true;
+        return redirect()->back()->with('success', 'Item successfully marked as collected.');
+    }
 
     /**
      * Store a newly created resource in storage.

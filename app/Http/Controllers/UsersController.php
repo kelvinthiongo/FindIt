@@ -10,6 +10,7 @@ use Session;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Mail;
 
 class UsersController extends Controller
 {
@@ -71,21 +72,28 @@ class UsersController extends Controller
             }
             $slug = str_replace('/', '-', str_slug($request->name));
             $check = User::withTrashed()->where('slug', $slug)->count();
+            $password = str_random(8);
             $admin = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'type' => $type,
                 'slug' => $slug,
                 'is_verified' => true,
+                'password' => bcrypt($password),
             ]);
             if ($check > 0) {
                 $admin->slug = str_replace('/', '-', $slug . $admin->id);
                 $admin->save();
             }
+            $data = ['name' => $request->name, 'email' => $request->email, 'password' => $password];
+
+            Mail::send('mailings.password', $data, function ($message) use ($data) {
+                $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Lost Document Found');
+            });
             if ($request->wantsJson()) {
                 return response()->json(['admin_added' => true], 201);
             } else {
-                Session::flash('success', 'You successfully added an admin.');
+                Session::flash('success', 'You successfully added an admin. Inform the admin to check their email for login credentials.');
                 return redirect()->route('admin_index');
             }
         }

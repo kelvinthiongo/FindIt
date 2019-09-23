@@ -154,7 +154,7 @@
     <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff">
             <tr>
                     <td align="center" height="70" style="height:70px;">
-                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="{{asset('jkuat.png')}}" alt="JKUAT Lost" /></a>
+                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="{{asset('JKUAT.png')}}" alt="JKUAT Lost" /></a>
                     </td>
                 </tr>
         <tr>

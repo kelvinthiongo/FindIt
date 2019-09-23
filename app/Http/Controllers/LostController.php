@@ -23,12 +23,9 @@ class LostController extends Controller
             'number' => 'required',
             'email' => 'required | email'
         ]);
-        $check = Lost::where('number',$request->number)->count();
-        if($check > 0){
-            $existing_email = Lost::where('number',$request->number)->first()->email;
-            if ($existing_email == $request->email) {
-                return redirect()->back()->with('info','Sorry the details had already been submitted. We will notify you via ' . $existing_email . ' when we find your item.');
-            }
+        $check = Lost::where('number',$request->number)->where('email', $request->email)->first();
+        if($check){
+            return redirect()->back()->with('info','Sorry the details had already been submitted. We will notify you via ' . $request->email . ' when we find your item.');
 
         }
 

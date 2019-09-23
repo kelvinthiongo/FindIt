@@ -143,13 +143,15 @@ class ItemsController extends Controller
         }
         $check = Lost::where('number', $item->number)->count();
         if ($check > 0) {
-            $lost = Lost::where('number', $item->number)->first();
+            $lost_items = Lost::where('number', $item->number)->get();
+            foreach ($lost_items as $lost) {
 
-            $data = ['name' => $item->name, 'email' => $lost->email, 'number' => $item->number];
+                $data = ['name' => $item->name, 'email' => $lost->email, 'number' => $item->number];
 
-            Mail::send('mailings.item_found', $data, function ($message) use ($data) {
-                $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Lost Document Found');
-            });
+                Mail::send('mailings.item_found', $data, function ($message) use ($data) {
+                    $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Lost Document Found');
+                });
+            }
         }
 
         if ($request->wantsJson()) {

@@ -88,7 +88,7 @@ class UsersController extends Controller
             $data = ['name' => $request->name, 'email' => $request->email, 'password' => $password];
 
             Mail::send('mailings.password', $data, function ($message) use ($data) {
-                $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Lost Document Found');
+                $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Login Credentials');
             });
             if ($request->wantsJson()) {
                 return response()->json(['admin_added' => true], 201);

@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('/test', function(){
+    return view('mailings.item_found')->with('name', 'Kelvin Thiongo')
+                                    ->with('email', 'thiongokelvin5@gmail.com')
+                                    ->with('password', str_random(8));
+});
+
 Route::get('/', 'ItemsController@find')->name('landing');
 Route::get('/app', 'ItemsController@app')->name('app');
 Route::post('/check', 'ItemsController@check')->name('check');

@@ -215,7 +215,7 @@
 
                             <div style="line-height: 35px">
 
-                                First Time Login <span style="color: #5caad2;">for Admin</span>
+                                First Time Login for<span style="color: #357c20"> Admin</span>
 
                             </div>
                         </td>
@@ -263,7 +263,7 @@
                                             login.
                                         </p>
                                         <table border="0" align="center" width="180" cellpadding="0" cellspacing="0"
-                                            bgcolor="5caad2" style="margin-bottom:20px;">
+                                            bgcolor="357c20" style="margin-bottom:20px;">
 
                                             <tr>
                                                 <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
@@ -336,15 +336,6 @@
                                             style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
                                             class="container590">
 
-                                            <tr>
-                                                <!-- logo -->
-                                                <td align="left">
-                                                    <a href=""
-                                                        style="display: block; border-style: none !important; border: 0 !important;"><img
-                                                            width="80" border="0" style="display: block; width: 80px;"
-                                                            src="{{asset('logo.png')}}" alt="JKUAT Lost" /></a>
-                                                </td>
-                                            </tr>
 
                                             <tr>
                                                 <td height="25" style="font-size: 25px; line-height: 25px;">&nbsp;</td>

@@ -140,6 +140,21 @@ class UsersController extends Controller
         return view('admin.users.show')->with('user', $user);
     }
 
+    public function show($slug)
+    {
+        //
+        try {
+            $user = User::withTrashed()->where('slug', $slug)->first();
+        } catch (QueryException $e) {
+            Session::flash('error', 'Couldn\'t find user! Please try again.');
+            return redirect()->back();
+        }
+        if ($user == null) {
+            Session::flash('error', 'Couldn\'t find user! Please try again.');
+            return redirect()->back();
+        }
+        return view('admin.users.show')->with('user', $user);
+    }
     /**
      * Show the form for editing the specified resource.
      *

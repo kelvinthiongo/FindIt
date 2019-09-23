@@ -279,10 +279,20 @@ class UsersController extends Controller
 
             if ($result) {
                 if ($request->wantsJson()) {
-                    return response()->json([
-                        'status' => true,
-                        'success' => 'You successfully updated the users profile.'
-                    ], 200);
+                    if(Auth::user()->slug == $slug){
+                        return response()->json([
+                            'user' => $user,
+                            'status' => true,
+                            'success' => 'You successfully updated the users profile.'
+                        ], 200);
+                    }
+                    else {
+                        return response()->json([
+                            'status' => true,
+                            'success' => 'You successfully updated the users profile.'
+                        ], 200);
+                    }
+
                 } else {
                     Session::flash('success', 'You successfully updated the users profile.');
                     return redirect()->route('users.show', ['slug' => $slug]);

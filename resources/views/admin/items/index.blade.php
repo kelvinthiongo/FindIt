@@ -17,7 +17,7 @@
             <li class="active">Documents</li>
           </ol>
         </section>
-    
+
         <!-- Main content -->
         <section class="content">
           <div class="row">
@@ -67,16 +67,19 @@
                                                     <a href='{{ route('items.edit', $item->id) }}' ><button style="color:green;" class="trans btn btn-success fa fa-edit">Edit</button></a>
                                                 </li>
                                                 <li class="links">
+                                                  <a href='javascript:void(0)' ><button class="trans btn btn-danger fa fa-check" data-toggle="modal" data-target="{{ '#modal-danger' . $item->id }} ">Delete</button></a>
+                                                </li>
+                                                <li class="links">
                                                   <a href='javascript:void(0)' ><button style="color:blue;" class="trans btn btn-success fa fa-check" data-toggle="modal" data-target="{{ '#modal-danger' . $item->id }} ">Mark as collected</button></a>
                                                 </li>
                                             </ul>
-                                                
+
                                         </td>
-                        
-                                    </tr> 
+
+                                    </tr>
                                 @endforeach
                             </ol>
-                            
+
                         </tbody>
                         <tfoot>
                         <tr>
@@ -126,9 +129,9 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
             {!! Form::open(['action' => ['ItemsController@destroy',$item->id], 'method' => 'POST', 'id' => 'mark_form']) !!}
-                
+
                 <button type="submit" class="trans fa fa-check btn btn-danger">Mark as collected</button>
-            
+
             {!! Form::close() !!}
           </div>
         </div>
@@ -141,6 +144,6 @@
 
 
   </div>
-  
+
 </body>
 @endsection

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Lost;
+use Mail;
 use App\Category;
 
 
@@ -19,40 +21,36 @@ class ItemsController extends Controller
                 'number' => 'required'
             ]);
             $item = $request->number;
-            $match= Item::where('category_id', $request->category)->where('number', $request->number)->first();
-            if($match != null){
+            $match = Item::where('category_id', $request->category)->where('number', $request->number)->first();
+            if ($match != null) {
                 $status = true;
                 $category = $match->category;
                 $collection_point = $match->collection_point;
                 $match_no = Item::where('category_id', $request->category)->where('number', $request->number)->count();
-            }
-            else{
+            } else {
                 $status = false;
                 $match_no = 0;
                 $category = null;
                 $collection_point = null;
             }
-
         } else if ($request->has('name')) {
             $this->validate($request, [
                 'category' => 'required',
                 'name' => 'required'
             ]);
             $item = $request->name;
-            $match= Item::where('category_id', $request->category)->where('number', $request->number)->first();
-            if($match != null){
+            $match = Item::where('category_id', $request->category)->where('number', $request->number)->first();
+            if ($match != null) {
                 $status = true;
                 $category = $match->category;
                 $collection_point = $match->collection_point;
                 $match_no = Item::where('category_id', $request->category)->where('number', $request->number)->count();
-            }
-            else{
+            } else {
                 $status = false;
                 $match_no = 0;
                 $category = null;
                 $collection_point = null;
             }
-
         }
         $arr = [
             'status' => $status,
@@ -91,8 +89,11 @@ class ItemsController extends Controller
         return view('admin.items.create')->with('categories', $categories);
     }
 
-    public function collected()
-    { }
+    public function mark_collected(Item $item)
+    {
+        $item->collected = true;
+        return redirect()->back()->with('success', 'Item successfully marked as collected.');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -118,13 +119,43 @@ class ItemsController extends Controller
         }
         $category = Category::find($request->category_id)->name;
 
-        Item::create([
-            'number' => $request->number,
-            'category' => $category,
-            'category_id' => $request->category_id,
-            'name' => $request->name,
-            'collection_point' => $request->collection_point,
-        ]);
+        $check_duplicate = Item::where('number', $request->number)->where('number', '!=', '')->count();
+        if ($check_duplicate > 0) {
+            $item = Item::where('number', $request->number)->where('number', '!=', '')->first();
+            if ($item->collected == true) {
+                $item->collected = false;
+                $item->save();
+            } else {
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'status' => false,
+                        'error' => 'The document already exist.'
+                    ]);
+                } else {
+                    return redirect()->back()->with('info', 'The document already exist.');
+                }
+            }
+        } else {
+            $item = Item::create([
+                'number' => $request->number,
+                'category' => $category,
+                'category_id' => $request->category_id,
+                'name' => $request->name,
+                'collection_point' => $request->collection_point,
+            ]);
+        }
+        $check = Lost::where('number', $item->number)->count();
+        if ($check > 0) {
+            $lost_items = Lost::where('number', $item->number)->get();
+            foreach ($lost_items as $lost) {
+
+                $data = ['name' => $item->name, 'email' => $lost->email, 'number' => $item->number];
+
+                Mail::send('mailings.item_found', $data, function ($message) use ($data) {
+                    $message->to($data['email'])->from('no-reply@24seven.co.ke')->subject('Lost Document Found');
+                });
+            }
+        }
 
         if ($request->wantsJson()) {
             return response()->json([

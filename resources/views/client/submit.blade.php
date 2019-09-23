@@ -112,12 +112,54 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <ul>
-                                <li>check the <b>"number not visible"</b> box if your lost document's number is not visible or is not there at all.</li>
+                                <li>check the <b>"number not visible"</b> box if your lost document's number is not
+                                    visible or is not there at all.</li>
                                 <li>Enter the details <b>EXACTLY</b> as they appear on the lost document. </li>
                                 <li> Priority is given to the <b>Document Number.</b> Use the name only if the
                                     number is not visible on your lost Document.</li>
-                                <li>All recovered documents will be collected at <b>VENUE HERE</b>.
+                                <li>If you don't find your document, click
+                                    <b><a href="javascript:void(0)" data-toggle="modal"
+                                            data-target=".bs-example-modal-sm">HERE</a></b>
+                                    to drop your details. You will be notified in the the event your document is
+                                    recovered.
                                 </li>
+
+                                {{-- Details modal --}}
+                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel2">Submit Lost Document Details
+                                                </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ route('losts.store')}}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        {{ Form::label('number ', 'Document Number* (Id No, Reg N0, Passport No, etc)') }}
+                                                        {{ Form::text('number', '', ['class' => 'form-control', 'id' => 'number2', 'placeholder' => 'Document Number']) }}
+                                                        <br>
+                                                        {{ Form::label('email', 'Email* (we will contact you via this email if we find your item)') }}
+                                                        {{ Form::text('email', '', ['class' => 'form-control', 'id' => 'email2', 'placeholder' => 'Enter Your Email']) }}
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                    <div class="box-footer">
+                                                        <button type="submit" class="btn btn-primary"><i
+                                                                class="fa fa-upload"></i>Submit</button>
+                                                    </div>
+                                                    {!! Form::close() !!}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </ul>
                         </div>
                         <!-- /.box-body -->
@@ -132,7 +174,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="check-doc" role="form" action="javascript:void(0)" method="POST">
+                        <form id="check-doc" role="form" action="javascript:void()" method="POST">
                             @csrf
                             <div class="box-body">
                                 <script>
@@ -261,7 +303,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4 >Search results for: <span id="res"></span></h4>
+                                        <h4>Search results for: <span id="res"></span></h4>
                                         <div style="font-size:28px; font-weight:bolder;" class='callout'></div>
                                         <div style="font-size:18px; font-weight:bolder;" id="content"></div>
                                     </div>

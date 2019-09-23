@@ -16,7 +16,7 @@ Route::get('/', 'ItemsController@find')->name('landing');
 Route::get('/app', 'ItemsController@app')->name('app');
 Route::post('/check', 'ItemsController@check')->name('check');
 
-Route::resource('lost', 'LostController');
+Route::resource('losts', 'LostController');
 
 //Auth Routes
 Auth::routes(['register' => false]);

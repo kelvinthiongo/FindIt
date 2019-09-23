@@ -20,8 +20,6 @@ class LostController extends Controller
     public function store(Request $request){
         //validate
         $this->validate($request, [
-            'category' => 'required',
-            'name' => 'required',
             'number' => 'required',
             'email' => 'required | email'
         ]);
@@ -29,7 +27,7 @@ class LostController extends Controller
         if($check > 0){
             $existing_email = Lost::where('number',$request->number)->first()->email;
             if ($existing_email == $request->email) {
-                return redirect()->back()->with('error','Sorry the details had already been submitted. We will notify you via ' . $existing_email . ' when we find your item.');
+                return redirect()->back()->with('info','Sorry the details had already been submitted. We will notify you via ' . $existing_email . ' when we find your item.');
             }
 
         }

@@ -138,7 +138,7 @@
                                                 </h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ route('lost.store')}}" method="post"
+                                                <form action="{{ route('losts.store')}}" method="post"
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group">

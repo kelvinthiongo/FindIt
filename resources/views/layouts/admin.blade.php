@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>JKUAT Lost | Dashboard</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -88,11 +89,24 @@
 
   function ConfirmDelete()
   {
-  var x = confirm("Are you sure you want permanently remove the record?");
-  if (x  == true)
-    return true;
-  else
-    return false;
+    var x = confirm("Are you sure you want permanently remove the record?");
+    if (x  == true)
+        return true;
+    else
+        return false;
+  }
+  function ConfirmMark(checked)
+  {
+    if(!checked){
+        var x = confirm("Are you sure you want remove this document from collected documents?");
+    }
+    else{
+        var x = confirm("Are you sure you want mark this document as collected?");
+    }
+    if (x  == true)
+        return true;
+    else
+        return false;
   }
 
 </script>

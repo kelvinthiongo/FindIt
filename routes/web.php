@@ -46,6 +46,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
     Route::post('/item/delete/{item}', 'ItemsController@destroy');
     Route::post('/item/edit_item/{item}', 'ItemsController@update')->name('item.update');
     Route::post('/item/mark-as-collected/{item}', 'ItemsController@mark_collected')->name('item.mark');
+    Route::get('/item/collected-items', 'ItemsController@collected_index')->name('items.collected');
+    Route::get('/item/collected-items-not-collected', 'ItemsController@uncollected_index')->name('items.uncollected');
+    Route::get('/item/search', 'ItemsController@search_item')->name('items.search');
 
     Route::resource('categories', 'CategoriesController');
 

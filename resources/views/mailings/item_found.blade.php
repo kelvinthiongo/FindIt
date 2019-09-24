@@ -154,7 +154,7 @@
     <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff">
             <tr>
                     <td align="center" height="70" style="height:70px;">
-                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="{{asset('jkuat.png')}}" alt="JKUAT Lost" /></a>
+                        <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="100" border="0" style="display: block; width: 100px;" src="{{asset('JKUAT.png')}}" alt="JKUAT Lost" /></a>
                     </td>
                 </tr>
         <tr>
@@ -190,7 +190,7 @@
 
                             <div style="line-height: 35px">
 
-                                Great News From <span style="color: #5caad2;">JKUAT Lost!</span>
+                                Great News From <span style="color: #357c20">JKUAT Lost!</span>
 
                             </div>
                         </td>
@@ -230,9 +230,9 @@
                                             Great News! This is to notify you that the lost item you reported on JKUAT Lost has been found.
                                         </p>
                                         <p style="line-height: 24px; margin-bottom:20px;">
-                                            click on the link below to visit JKUAT Lost and search for your document.
+                                            Click on the link below to visit JKUAT Lost and search for your document.
                                         </p>
-                                        <table border="0" align="center" width="180" cellpadding="0" cellspacing="0" bgcolor="5caad2" style="margin-bottom:20px;">
+                                        <table border="0" align="center" width="180" cellpadding="0" cellspacing="0" bgcolor="357c20" style="margin-bottom:20px;">
 
                                             <tr>
                                                 <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
@@ -299,13 +299,6 @@
                                     <td>
                                         <table border="0" width="300" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
                                             class="container590">
-
-                                            <tr>
-                                                <!-- logo -->
-                                                <td align="left">
-                                                    <a href="" style="display: block; border-style: none !important; border: 0 !important;"><img width="80" border="0" style="display: block; width: 80px;" src="{{asset('logo.png')}}" alt="JKUAT Lost"/></a>
-                                                </td>
-                                            </tr>
 
                                             <tr>
                                                 <td height="25" style="font-size: 25px; line-height: 25px;">&nbsp;</td>

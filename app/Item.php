@@ -24,12 +24,9 @@ class Item extends Model
          * @var array
          */
         'columns' => [
-            'items.number' => 15,
-            'items.f_name' => 7,
-            'items.s_name' => 7,
-            'items.l_name' => 7,
-            'items.category' => 5,
-            'items.place_found' => 1,
+            'items.number' => 3,
+            'items.name' => 2,
+            'items.collection_point' => 1,
         ],
         // 'joins' => [
         //     'categories' => ['items.category_id','categories.id'],

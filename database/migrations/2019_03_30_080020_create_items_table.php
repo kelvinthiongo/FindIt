@@ -15,16 +15,16 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->string('category');
             $table->integer('category_id');
             $table->string('name')->nullable();
             $table->string('number')->nullable();
-            $table->text('image')->nullable(); 
-            $table->boolean('collected')->default(false); 
-            $table->string('collection_point'); 
+            $table->text('image')->nullable();
+            $table->timestamp('collected')->nullable();
+            $table->string('collection_point');
             $table->softDeletes();
-            
+
             $table->timestamps();
         });
     }

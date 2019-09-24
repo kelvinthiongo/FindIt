@@ -79,27 +79,27 @@ class ItemsController extends Controller
             $items = Item::orderBy('created_at', 'DESC')->get();
             return response()->json($items, 200)->with('item_status', 'All');
         } else {
-            $items = Item::paginate(200);
+            $items = Item::orderBy('created_at', 'DESC')->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All');
         }
     }
     public function collected_index(Request $request)
     {
         if ($request->wantsJson()) {
-            $items = Item::orderBy('created_at', 'DESC')->where('collected', true)->get();
+            $items = Item::orderBy('created_at', 'DESC')->where('collected', '!=', null)->get();
             return response()->json($items, 200)->with('item_status', 'Collected');
         } else {
-            $items = Item::where('collected', true)->paginate(200);
+            $items = Item::orderBy('created_at', 'DESC')->where('collected', '!=', null)->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'Collected');
         }
     }
     public function uncollected_index(Request $request)
     {
         if ($request->wantsJson()) {
-            $items = Item::orderBy('created_at', 'DESC')->where('collected', false)->get();
+            $items = Item::orderBy('created_at', 'DESC')->where('collected', null)->get();
             return response()->json($items, 200)->with('item_status', 'Uncollected');
         } else {
-            $items = Item::where('collected', false)->paginate(200);
+            $items = Item::orderBy('created_at', 'DESC')->where('collected', null)->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'Uncollected');
         }
     }
@@ -109,11 +109,11 @@ class ItemsController extends Controller
         ]);
         $query = $request->all();
         if ($request->wantsJson()) {
-            $items = Item::orderBy('created_at', 'DESC')->search($query['content'], null, true)->get();
+            $items = Item::search($query['content'], null, true)->get();
             return response()->json($items, 200)->with('item_status', 'Search results(' .  $request->content . ') ')
                                                 ->withQuery($query);
         } else {
-            $items = Item::orderBy('created_at', 'DESC')->search($query['content'], null, true)->paginate(20); // $items = Item::search('Nairobi, null, true, true);
+            $items = Item::search($query['content'], null, true)->paginate(20); // $items = Item::search('Nairobi, null, true, true);
             $pagination = $items->appends($query);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All')
                                                                     ->with('item_status', 'Search results(' .  $request->content . ') ')
@@ -129,10 +129,10 @@ class ItemsController extends Controller
     public function mark_collected(Item $item, Request $request)
     {
         if($request->checked == 'true'){
-            $item->collected = true;
+            $item->collected = now()->format('Y-m-d H:i:s');
         }
         else {
-            $item->collected = false;
+            $item->collected = null;
         }
         $item->save();
         $result = ['message' => 'Success'];

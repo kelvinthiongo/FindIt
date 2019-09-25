@@ -77,7 +77,10 @@ class ItemsController extends Controller
     {
         if ($request->wantsJson()) {
             $items = Item::orderBy('created_at', 'DESC')->get();
-            return response()->json($items, 200)->with('item_status', 'All');
+            return response()->json([
+                'items' => $items,
+                'item_status' => 'All'
+            ], 200);
         } else {
             $items = Item::orderBy('created_at', 'DESC')->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All');
@@ -87,7 +90,10 @@ class ItemsController extends Controller
     {
         if ($request->wantsJson()) {
             $items = Item::orderBy('created_at', 'DESC')->where('collected', '!=', null)->get();
-            return response()->json($items, 200)->with('item_status', 'Collected');
+            return response()->json([
+                'items' => $items,
+                'item_status' => 'Collected'
+            ], 200);
         } else {
             $items = Item::orderBy('created_at', 'DESC')->where('collected', '!=', null)->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'Collected');
@@ -97,7 +103,10 @@ class ItemsController extends Controller
     {
         if ($request->wantsJson()) {
             $items = Item::orderBy('created_at', 'DESC')->where('collected', null)->get();
-            return response()->json($items, 200)->with('item_status', 'Uncollected');
+            return response()->json([
+                'items' => $items,
+                'item_status' => 'Uncollected'
+            ], 200);
         } else {
             $items = Item::orderBy('created_at', 'DESC')->where('collected', null)->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'Uncollected');
@@ -210,7 +219,6 @@ class ItemsController extends Controller
             return redirect()->back()->with('success', 'You successfully uploaded the document.');
         }
     }
-
     public function edit(Item $item)
     {
         return view('admin.items.edit')->with('item', $item)->with('categories', Category::all());
@@ -223,7 +231,6 @@ class ItemsController extends Controller
             return view('admin.items.edit')->with('item', $item)->with('categories', Category::all());
         }
     }
-
     public function update(Request $request, Item $item)
     {
         $this->validate($request, [
@@ -258,13 +265,15 @@ class ItemsController extends Controller
             return redirect()->back()->with('success', 'You successfully updated the document.');
         }
     }
-
-
-
-
-    public function destroy(Item $item)
+    public function destroy(Request $request, Item $item)
     {
         $item->forceDelete();
+        if($request->wantsJson()){
+            return response()->json([
+                'status' => true,
+                'success' => 'You successfully deleted the ' . $item->category
+            ]);
+        }
         return redirect()->back()->with('success', 'Delete successful');
     }
 }

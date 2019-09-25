@@ -14,7 +14,7 @@
       <!-- search form -->
         <form action="{{ route('items.search') }}" method="get" class="sidebar-form">
         <div class="input-group">
-          <input type="text" name="content" class="form-control" placeholder="Deep Search...">
+          <input type="text" name="content" class="form-control" placeholder="Deep Search..." required>
           <span class="input-group-btn">
                 <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>

@@ -181,6 +181,7 @@ class ItemsController extends Controller
             $item = Item::where('number', $request->number)->where('number', '!=', '')->first();
             if ($item->collected == true) {
                 $item->collected = false;
+                $item->created_at = now()->format('Y-m-d H:i:s');
                 $item->save();
             } else {
                 if ($request->wantsJson()) {

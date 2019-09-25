@@ -11,25 +11,10 @@
 |
 */
 
+
 use Illuminate\Http\Request;
 
 Route::get('/test', function (Request $request) {
-    $collection = App\Item::get()->toArray();
-    $c = collect(new App\Item);
-    $itemsTransformedAndPaginated = new \Illuminate\Pagination\LengthAwarePaginator(
-        $c->make($collection),//Eloquent collection
-        20,//total number of paginated items
-        5,//items per page
-        4,//current page
-        [
-            'path' => '/test',
-            'query' => [
-                'page' => 3 //current page
-            ]
-        ]
-    );
-    dd($itemsTransformedAndPaginated->links());
-
     return view('mailings.item_found')->with('name', 'Kelvin Thiongo')
         ->with('email', 'thiongokelvin5@gmail.com')
         ->with('password', str_random(8));

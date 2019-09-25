@@ -6,6 +6,7 @@ use App\Item;
 use App\Lost;
 use Mail;
 use App\Category;
+use Illuminate\Pagination\Paginator;
 
 
 use Illuminate\Http\Request;
@@ -75,6 +76,10 @@ class ItemsController extends Controller
 
     public function index(Request $request)
     {
+        $currentPage = $request->page;
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
         if ($request->wantsJson()) {
             $items = Item::orderBy('created_at', 'DESC')->paginate(200);
             return response()->json([
@@ -82,7 +87,7 @@ class ItemsController extends Controller
                 'item_status' => 'All'
             ], 200);
         } else {
-            $items = Item::orderBy('created_at', 'DESC')->paginate(200);
+            $items = Item::orderBy('created_at', 'DESC')->paginate(1);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All');
         }
     }
@@ -126,8 +131,8 @@ class ItemsController extends Controller
                 'query' => $query
             ], 200);
         } else {
-            $items = Item::search($query['content'], null, true)->paginate(20); // $items = Item::search('Nairobi, null, true, true);
-            $pagination = $items->appends($query);
+            $items = Item::search($query['content'], null, true)->paginate(1); // $items = Item::search('Nairobi, null, true, true);
+            $items->appends($query);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All')
                                                                     ->with('item_status', 'Search results(' .  $request->content . ') ')
                                                                     ->withQuery($query);

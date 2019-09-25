@@ -322,12 +322,12 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="no-margin-footer">
+    <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            Developed by <a href="https://24seven.co.ke" target="_blank">24seven Developers</a>
+            <b>Developed by </b><a href="https:24seven.co.ke">24 seven Developers </a>
         </div>
-        <strong>Copyright &copy; {{date('Y')}} <a href="#"> JKUAT</a>.</strong> All rights
-        reserved.
+        <strong>Copyright &copy; {{ date('Y') }} <a href="https://jkuat.ac.ke"> JKUAT</a>.</strong> All rights
+        reserved. <span class="hidden-sm hidden-lg hidden-md"> | <b>Developed by </b><a href="https:24seven.co.ke">24 seven Developers </a></span>
     </footer>
 
     </div>

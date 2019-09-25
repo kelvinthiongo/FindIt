@@ -74,6 +74,7 @@ class ItemsController extends Controller
 
     public function index(Request $request)
     {
+        dd('kjh');
         $currentPage = $request->page;
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;

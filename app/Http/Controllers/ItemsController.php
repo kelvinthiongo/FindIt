@@ -9,6 +9,7 @@ use App\Category;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class ItemsController extends Controller
 {
@@ -118,8 +119,11 @@ class ItemsController extends Controller
         ]);
         $query = $request->all();
         if ($request->wantsJson()) {
-            $items = Item::search($query['content'], null, true)->paginate(1);
-            $items->appends($query);
+            $currentpage = $request->page;
+            Paginator::currentPageResolver(function () use ($currentpage){
+                return $currentpage;
+            });
+            $items = Item::search($query['content'], null, true)->paginate(200);
             return response()->json([
                 'items' => $items,
                 'item_status' => 'Search results(' .  $request->content . ') ',

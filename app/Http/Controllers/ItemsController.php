@@ -76,7 +76,7 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $items = Item::orderBy('created_at', 'DESC')->get();
+            $items = Item::orderBy('created_at', 'DESC')->paginate(200);
             return response()->json([
                 'items' => $items,
                 'item_status' => 'All'
@@ -89,7 +89,7 @@ class ItemsController extends Controller
     public function collected_index(Request $request)
     {
         if ($request->wantsJson()) {
-            $items = Item::orderBy('created_at', 'DESC')->where('collected', '!=', null)->get();
+            $items = Item::orderBy('created_at', 'DESC')->where('collected', '!=', null)->paginate(200);
             return response()->json([
                 'items' => $items,
                 'item_status' => 'Collected'
@@ -102,7 +102,7 @@ class ItemsController extends Controller
     public function uncollected_index(Request $request)
     {
         if ($request->wantsJson()) {
-            $items = Item::orderBy('created_at', 'DESC')->where('collected', null)->get();
+            $items = Item::orderBy('created_at', 'DESC')->where('collected', null)->paginate(200);
             return response()->json([
                 'items' => $items,
                 'item_status' => 'Uncollected'
@@ -118,9 +118,13 @@ class ItemsController extends Controller
         ]);
         $query = $request->all();
         if ($request->wantsJson()) {
-            $items = Item::search($query['content'], null, true)->get();
-            return response()->json($items, 200)->with('item_status', 'Search results(' .  $request->content . ') ')
-                                                ->withQuery($query);
+            $items = Item::search($query['content'], null, true)->paginate(1);
+            $items->appends($query);
+            return response()->json([
+                'items' => $items,
+                'item_status' => 'Search results(' .  $request->content . ') ',
+                'query' => $query
+            ], 200);
         } else {
             $items = Item::search($query['content'], null, true)->paginate(20); // $items = Item::search('Nairobi, null, true, true);
             $pagination = $items->appends($query);

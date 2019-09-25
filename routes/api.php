@@ -18,6 +18,7 @@ Route::post('login', 'ApiController@login');
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', 'ApiController@logout');
     Route::post('/mark-doc/{item}', 'ItemsController@mark_collected');
+    Route::any('/search-doc', 'ItemsController@search_item');
     Route::get('/uncollected-docs', 'ItemsController@uncollected_index');
     Route::get('/collected-docs', 'ItemsController@collected_index');
     Route::post('add-admin', 'UsersController@admin_store');

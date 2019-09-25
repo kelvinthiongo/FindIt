@@ -3,6 +3,17 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Item::class, function (Faker $faker) {
+    $category = $faker->randomElement([
+        'National ID',
+        'School ID',
+        'Others',
+    ]);
+    if($category == 'School ID')
+        $category_id = 1;
+    if($category == 'National ID')
+        $category_id = 2;
+    else
+        $category_id = 3;
     return [
         'name' => $faker->randomElement([
             $faker->firstName . 'Thiongo',
@@ -60,12 +71,8 @@ $factory->define(App\Item::class, function (Faker $faker) {
             $faker->firstName . $faker->lastName,
             $faker->firstName . $faker->lastName,
         ]),
-        'category' => $faker->randomElement([
-            'National ID',
-            'School ID',
-            'Others',
-        ]),
-        'category_id' => $faker->randomElement([1, 2]),
+        'category' => $category,
+        'category_id' => $category_id,
         'number' => $faker->ean8,
         'collection_point' => $faker->randomElement([
             'JKUAT Main Campus: Customer Care',

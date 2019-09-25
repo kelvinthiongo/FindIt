@@ -7,10 +7,7 @@ use App\Lost;
 use Mail;
 use App\Category;
 use Illuminate\Pagination\Paginator;
-
-
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 
 class ItemsController extends Controller
 {
@@ -88,7 +85,7 @@ class ItemsController extends Controller
                 'item_status' => 'All'
             ], 200);
         } else {
-            $items = Item::orderBy('created_at', 'DESC')->paginate(1);
+            $items = Item::orderBy('created_at', 'DESC')->paginate(200);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All');
         }
     }
@@ -135,7 +132,7 @@ class ItemsController extends Controller
                 'query' => $query
             ], 200);
         } else {
-            $items = Item::search($query['content'], null, true)->paginate(1); // $items = Item::search('Nairobi, null, true, true);
+            $items = Item::search($query['content'], null, true)->paginate(200); // $items = Item::search('Nairobi, null, true, true);
             $items->appends($query);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All')
                                                                     ->with('item_status', 'Search results(' .  $request->content . ') ')

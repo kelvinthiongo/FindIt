@@ -60,7 +60,6 @@ $factory->define(App\Item::class, function (Faker $faker) {
             $faker->firstName . $faker->lastName,
             $faker->firstName . $faker->lastName,
         ]),
-        'slug' => str_slug($faker->name . $faker->ean8),
         'category' => $faker->randomElement([
             'National ID',
             'School ID',

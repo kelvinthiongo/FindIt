@@ -17,6 +17,10 @@ use Illuminate\Http\Resources\Json\Resource;
 Route::post('login', 'ApiController@login');
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', 'ApiController@logout');
+    Route::post('/mark-doc/{item}', 'ItemsController@mark_collected');
+    Route::any('/search-doc', 'ItemsController@search_item');
+    Route::get('/uncollected-docs', 'ItemsController@uncollected_index');
+    Route::get('/collected-docs', 'ItemsController@collected_index');
     Route::post('add-admin', 'UsersController@admin_store');
     Route::post('add-category', 'CategoriesController@store');
     Route::post('add-doc', 'ItemsController@store');
@@ -32,4 +36,5 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/update-doc/{item}', 'ItemsController@update');
     Route::delete('/delete-admin/{slug}', 'UsersController@destroy');
     Route::delete('/delete-category/{category}', 'CategoriesController@destroy');
+    Route::delete('/delete-doc/{item}', 'ItemsController@destroy');
 });

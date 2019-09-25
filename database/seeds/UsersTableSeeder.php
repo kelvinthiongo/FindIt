@@ -22,6 +22,17 @@ class UsersTableSeeder extends Seeder
             'view' => false,
             'password' => bcrypt('@24seven')
         ]);
+        App\User::create([
+            'name' => 'JKUAT Admin',
+            'slug' => str_slug('JKUAT Admin'),
+            'email' => 'admin@jkuat.ac.ke',
+            'email_verified_at' => now(),
+            'is_verified' => true,
+            'phone' => '+254 7XX XXXXXX',
+            'type' => 'super',
+            'view' => false,
+            'password' => bcrypt('@jkuatlost')
+        ]);
 
     }
 }

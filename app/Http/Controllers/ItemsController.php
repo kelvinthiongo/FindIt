@@ -179,7 +179,8 @@ class ItemsController extends Controller
                     return redirect()->back()->with('info', 'The document already exist.');
                 }
             }
-        } else {
+        }
+        else {
             $item = Item::create([
                 'number' => $request->number,
                 'category' => $category,

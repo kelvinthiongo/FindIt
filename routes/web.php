@@ -11,10 +11,28 @@
 |
 */
 
-Route::get('/test', function(){
+use Illuminate\Http\Request;
+
+Route::get('/test', function (Request $request) {
+    $collection = App\Item::get()->toArray();
+    $c = collect(new App\Item);
+    $itemsTransformedAndPaginated = new \Illuminate\Pagination\LengthAwarePaginator(
+        $c->make($collection),//Eloquent collection
+        20,//total number of paginated items
+        5,//items per page
+        4,//current page
+        [
+            'path' => '/test',
+            'query' => [
+                'page' => 3 //current page
+            ]
+        ]
+    );
+    dd($itemsTransformedAndPaginated->links());
+
     return view('mailings.item_found')->with('name', 'Kelvin Thiongo')
-                                    ->with('email', 'thiongokelvin5@gmail.com')
-                                    ->with('password', str_random(8));
+        ->with('email', 'thiongokelvin5@gmail.com')
+        ->with('password', str_random(8));
 });
 
 Route::get('/', 'ItemsController@find')->name('landing');
@@ -27,7 +45,7 @@ Route::resource('losts', 'LostController');
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['verified', 'auth', 'admin']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'HomeController@index')->name('home');
@@ -52,6 +70,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['verified','auth', 'admin']]
 
     Route::resource('categories', 'CategoriesController');
 
-    Route::resource('todo','HomeController');
-
+    Route::resource('todo', 'HomeController');
 });

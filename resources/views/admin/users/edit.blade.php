@@ -15,9 +15,9 @@
                 <small>Fields with asterik(<span style = "color: red">*</span>) are mandatory</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="#">Admins</a></li>
-                <li class="active">New Admin</li>
+                <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="{{ route('admin_index') }}">Admins</a></li>
+                <li class="active">Edit Admin</li>
             </ol>
             </section>
             <!-- Main content -->

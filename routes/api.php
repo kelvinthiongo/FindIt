@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('all-admins', 'UsersController@admin_index');
     Route::get('all-categories', 'CategoriesController@index');
     Route::get('all-docs', 'ItemsController@index');
+    Route::get('total-docs', 'ItemsController@total_items');
     Route::get('/show-admin/{slug}', 'UsersController@admin_show');
     Route::get('/show-category/{slug}', 'CategoriesController@show');
     Route::get('/show-doc/{item}', 'ItemsController@show');

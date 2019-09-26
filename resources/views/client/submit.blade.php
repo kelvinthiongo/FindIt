@@ -9,7 +9,9 @@
         <!-- Logo -->
         <a href="/" target="_blank" class="logo">
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><h3>JKUAT LOST</h3></span>
+            <span class="logo-lg">
+                <h3>JKUAT LOST</h3>
+            </span>
 
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -325,14 +327,8 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Developed by </b><a href="https://24seven.co.ke">24seven Developers </a>
-        </div>
-        <strong>Copyright &copy; {{ date('Y') }} <a href="https://jkuat.ac.ke"> JKUAT</a>.</strong> All rights
-        reserved. <span class="hidden-sm hidden-lg hidden-md"> | <b>Developed by </b><a href="https://24seven.co.ke">24seven Developers </a></span>
-    </footer>
-
+    <div>
+            @include('layouts.admin_footer')
     </div>
 </body>
 <!-- ./wrapper -->

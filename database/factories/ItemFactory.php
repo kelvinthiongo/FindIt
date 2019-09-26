@@ -10,7 +10,7 @@ $factory->define(App\Item::class, function (Faker $faker) {
     ]);
     if($category == 'School ID')
         $category_id = 1;
-    if($category == 'National ID')
+    else if($category == 'National ID')
         $category_id = 2;
     else
         $category_id = 3;

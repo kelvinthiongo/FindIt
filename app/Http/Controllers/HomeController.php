@@ -43,9 +43,13 @@ class HomeController extends Controller
             $categories = Category::all()->count();
             $admins = User::where('type', '!=', 'user')->where('email_verified_at', '!=', null)->count();
             $items = Item::all()->count();
+            $uncollected_items = Item::where('collected', null)->count();
+            $collected_items = Item::where('collected','!=', null)->count();
             return view('admin.dashboard')->with('categories',$categories)
                                             ->with('admins',$admins)
                                             ->with('items',$items)
+                                            ->with('collected_items',$collected_items)
+                                            ->with('uncollected_items',$uncollected_items)
                                             ;
         }
         else

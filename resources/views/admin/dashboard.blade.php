@@ -54,6 +54,34 @@
                                     class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h3>{{ number_format($uncollected_items) }}</h3>
+                                <p>Uncollected Documents</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-id-card"></i>
+                            </div>
+                            <a href="{{ route('items.uncollected') }}" class="small-box-footer">More info <i
+                                    class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h3>{{ number_format($collected_items) }}</h3>
+                                <p>Collected Documents</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-id-card"></i>
+                            </div>
+                            <a href="{{ route('items.collected') }}" class="small-box-footer">More info <i
+                                    class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
                     <div class="col-lg-12 col-xs-12">
                         <!-- small box -->
                         <div class="small-box bg-aqua">

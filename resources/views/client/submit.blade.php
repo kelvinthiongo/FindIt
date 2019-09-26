@@ -245,17 +245,14 @@
                                                                     $('#exampleModalCenter').modal('show');
 
                                                                 },
+                                                                error: function( ) {
+                                                                    toastr.error('An error occured, try again.', 'Task failed');
+                                                                    location.reload();
+                                                                }
 
                                                             });
 
                                                         }
-
-
-
-
-
-
-
                                                     });
                                                 });
                                 </script>

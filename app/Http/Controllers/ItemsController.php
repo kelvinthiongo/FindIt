@@ -207,7 +207,7 @@ class ItemsController extends Controller
         if ($check_duplicate > 0) {
             $item = Item::where('number', $request->number)->where('category_id', $request->category_id)->where('number', '!=', '')->first();
             if ($item->collected == true) {
-                $item->collected = false;
+                $item->collected = null;
                 $item->name = $request->name;
                 $item->collection_point = $request->collection_point;
                 $item->created_at = now()->format('Y-m-d H:i:s');

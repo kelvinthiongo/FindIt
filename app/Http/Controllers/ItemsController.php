@@ -24,7 +24,12 @@ class ItemsController extends Controller
             if ($match != null) {
                 $status = true;
                 $category = $match->category;
-                $collected = date('jS M, Y', strtotime($match->collected));
+                if($match->collected == null){
+                    $collected = null;
+                }
+                else{
+                    $collected = date('jS, M Y', strtotime($match->collected));
+                }
                 $collection_point = $match->collection_point;
                 $match_no = Item::where('category_id', $request->category)->where('number', $request->number)->count();
             } else {
@@ -44,7 +49,12 @@ class ItemsController extends Controller
             if ($match != null) {
                 $status = true;
                 $category = $match->category;
-                $collected = date('jS, M Y', strtotime($match->collected));
+                if($match->collected == null){
+                    $collected = null;
+                }
+                else{
+                    $collected = date('jS, M Y', strtotime($match->collected));
+                }
                 $collection_point = $match->collection_point;
                 $match_no = Item::where('category_id', $request->category)->where('number', $request->number)->count();
             } else {

@@ -94,6 +94,12 @@ class ItemsController extends Controller
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All');
         }
     }
+    public function total_items()
+    {
+        $items = Item::all();
+        $items_no = $items->count();
+        return response()->json($items_no, 200);
+    }
     public function collected_index(Request $request)
     {
         if ($request->wantsJson()) {
@@ -120,14 +126,15 @@ class ItemsController extends Controller
             return view('admin.items.index')->with('items', $items)->with('item_status', 'Uncollected');
         }
     }
-    public function search_item(Request $request){
+    public function search_item(Request $request)
+    {
         $this->validate($request, [
             'content' => 'required | max:50'
         ]);
         $query = $request->all();
         if ($request->wantsJson()) {
             $currentpage = $request->page;
-            Paginator::currentPageResolver(function () use ($currentpage){
+            Paginator::currentPageResolver(function () use ($currentpage) {
                 return $currentpage;
             });
             $items = Item::search($query['content'], null, true)->paginate(200);
@@ -140,8 +147,8 @@ class ItemsController extends Controller
             $items = Item::search($query['content'], null, true)->paginate(200); // $items = Item::search('Nairobi, null, true, true);
             $items->appends($query);
             return view('admin.items.index')->with('items', $items)->with('item_status', 'All')
-                                                                    ->with('item_status', 'Search results(' .  $request->content . ') ')
-                                                                    ->withQuery($query);
+                ->with('item_status', 'Search results(' .  $request->content . ') ')
+                ->withQuery($query);
         }
     }
     public function create()
@@ -152,10 +159,9 @@ class ItemsController extends Controller
 
     public function mark_collected(Item $item, Request $request)
     {
-        if($request->checked == 'true'){
+        if ($request->checked == 'true') {
             $item->collected = now()->format('Y-m-d H:i:s');
-        }
-        else {
+        } else {
             $item->collected = null;
         }
         $item->save();
@@ -206,8 +212,7 @@ class ItemsController extends Controller
                     return redirect()->back()->with('info', 'The document already exist.');
                 }
             }
-        }
-        else {
+        } else {
             $item = Item::create([
                 'number' => $request->number,
                 'category' => $category,
@@ -287,7 +292,7 @@ class ItemsController extends Controller
     public function destroy(Request $request, Item $item)
     {
         $item->forceDelete();
-        if($request->wantsJson()){
+        if ($request->wantsJson()) {
             return response()->json([
                 'status' => true,
                 'success' => 'You successfully deleted the ' . $item->category

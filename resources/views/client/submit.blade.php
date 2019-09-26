@@ -13,7 +13,7 @@
 
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top hidden-xs">
+        <nav class="navbar navbar-static-top">
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
@@ -56,7 +56,7 @@
                         </ul>
                         @else
                         <a href="/admin">
-                            <span> Admin</span>
+                            <span class="fa fa-dashboard"> Admin</span>
                         </a>
                         @endif
                     </li>

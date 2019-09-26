@@ -44,8 +44,8 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>{{ $items }}</h3>
-                                <p>Items</p>
+                                <h3>{{ number_format($items) }}</h3>
+                                <p>Documents</p>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-id-card"></i>

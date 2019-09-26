@@ -59,7 +59,7 @@
                                         <b>Phone</b> <a class="pull-right">{{ $user->phone }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>User Status</b> <a class="pull-right"> @if($user->type == 'super') Admin
+                                        <b>User Status</b> <a class="pull-right"> @if($user->type == 'super') Super Admin
                                             @elseif($user->type == 'ordinary') Ordinary Admin @else User @endif</a>
                                     </li>
                                 </ul>

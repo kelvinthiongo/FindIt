@@ -42,8 +42,8 @@
                         <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> Add category</button>
                     </form>
                 </div>
-             
-                
+
+
                 <!-- /.box -->
             </div>
             <!-- /.row -->

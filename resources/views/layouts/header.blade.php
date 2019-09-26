@@ -1,11 +1,11 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="/" target="_blank" class="logo">
+    <a href="/" target="_blank" class="logo" style="position: fixed">
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">JKUAT LOST</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-fixed-top">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>

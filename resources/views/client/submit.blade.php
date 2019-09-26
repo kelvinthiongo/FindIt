@@ -174,7 +174,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="check-doc" role="form" action="javascript:void()" method="POST">
+                        <form id="check-doc" role="form" action="javascript:void(0)" method="POST">
                             @csrf
                             <div class="box-body">
                                 <script>
@@ -223,9 +223,15 @@
                                                                     if(response.status == true){
                                                                         $('#exampleModalCenterTitle').text('Success Here');
                                                                         $('#res').html('<ul style = "list-style: none"><li>' + response.item + '</li><li>' + response.category + '</li></ul>');
-                                                                        $('.callout').text('Record Exists!');
-                                                                        $('.callout').attr('class','callout callout-success');
-                                                                        $('#content').text('An item exists based on the details, you provided. Kindly visit ' + response.collection_point + ' to pick it.');
+                                                                        if (response.collected == null) {
+                                                                            $('.callout').text('Record Exists!');
+                                                                            $('.callout').attr('class','callout callout-success');
+                                                                            $('#content').text('An item exists based on the details, you provided. Kindly visit ' + response.collection_point + ' to pick it.');
+                                                                        } else {
+                                                                            $('.callout').text('The document was collected on '+response.collected);
+                                                                            $('.callout').attr('class','callout callout-warning');
+                                                                            $('#content').text('The item you searched for was collected from ' + response.collection_point + ' on the above mentioned date.');
+                                                                        }
 
                                                                     }else{
                                                                         $('#exampleModalCenterTitle').text('No result Found')

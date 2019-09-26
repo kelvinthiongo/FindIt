@@ -24,12 +24,14 @@ class ItemsController extends Controller
             if ($match != null) {
                 $status = true;
                 $category = $match->category;
+                $collected = date('jS M, Y', strtotime($match->collected));
                 $collection_point = $match->collection_point;
                 $match_no = Item::where('category_id', $request->category)->where('number', $request->number)->count();
             } else {
                 $status = false;
                 $match_no = 0;
                 $category = null;
+                $collected = null;
                 $collection_point = null;
             }
         } else if ($request->has('name')) {
@@ -42,12 +44,14 @@ class ItemsController extends Controller
             if ($match != null) {
                 $status = true;
                 $category = $match->category;
+                $collected = date('jS, M Y', strtotime($match->collected));
                 $collection_point = $match->collection_point;
                 $match_no = Item::where('category_id', $request->category)->where('number', $request->number)->count();
             } else {
                 $status = false;
                 $match_no = 0;
                 $category = null;
+                $collected = null;
                 $collection_point = null;
             }
         }
@@ -56,6 +60,7 @@ class ItemsController extends Controller
             'match' => $match_no,
             'item'  => $item,
             'category' => $category,
+            'collected' => $collected,
             'collection_point' => $collection_point,
         ];
 
@@ -74,7 +79,6 @@ class ItemsController extends Controller
 
     public function index(Request $request)
     {
-        dd('kjh');
         $currentPage = $request->page;
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
@@ -185,9 +189,11 @@ class ItemsController extends Controller
 
         $check_duplicate = Item::where('number', $request->number)->where('number', '!=', '')->count();
         if ($check_duplicate > 0) {
-            $item = Item::where('number', $request->number)->where('number', '!=', '')->first();
+            $item = Item::where('number', $request->number)->where('category_id', $request->category_id)->where('number', '!=', '')->first();
             if ($item->collected == true) {
                 $item->collected = false;
+                $item->name = $request->name;
+                $item->collection_point = $request->collection_point;
                 $item->created_at = now()->format('Y-m-d H:i:s');
                 $item->save();
             } else {

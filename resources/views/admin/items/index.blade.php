@@ -54,12 +54,12 @@
                                                 <td>{{$item->name}}</td>
                                                 <td>{{$item->number}}</td>
                                                 <td>{{$item->collection_point}}</td>
-                                                <td>{{date('jS, M Y', strtotime($item->created_at))}}</td>
+                                                <td>{{date('jS M, Y', strtotime($item->created_at))}}</td>
                                                 <td>
                                                     <input type="checkbox" id="mark{{$item->id}}"
                                                         onchange="mark({{ $item->id }})" {{ $item->collected? 'checked': '' }}>
                                                         @if ($item->collected)
-                                                            {{date('jS, M Y', strtotime($item->collected))}}
+                                                            {{date('jS M, Y', strtotime($item->collected))}}
                                                         @endif
                                                 </td>
                                                 <td>

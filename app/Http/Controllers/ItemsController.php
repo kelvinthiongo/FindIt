@@ -110,6 +110,18 @@ class ItemsController extends Controller
         $items_no = $items->count();
         return response()->json($items_no, 200);
     }
+    public function total_collected()
+    {
+        $collected_items = Item::where('collected', '!=', null)->get();
+        $collected_items_no = $collected_items->count();
+        return response()->json($collected_items_no, 200);
+    }
+    public function total_uncollected()
+    {
+        $uncollected_items = Item::where('collected', null)->get();
+        $uncollected_items_no = $uncollected_items->count();
+        return response()->json($uncollected_items_no, 200);
+    }
     public function collected_index(Request $request)
     {
         if ($request->wantsJson()) {
